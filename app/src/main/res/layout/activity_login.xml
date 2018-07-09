@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhites"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/sum_20"
+    android:paddingRight="@dimen/sum_20"
+    tools:context="com.linkhand.fenxiao.activity.login.LoginActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.linkhand.fenxiao.utils.RoundImageView
+            android:id="@+id/roundImageView"
+            android:layout_width="@dimen/sum_100"
+            android:layout_height="@dimen/sum_100"
+            android:layout_marginBottom="@dimen/sum_25"
+            android:layout_marginTop="@dimen/sum_70"
+            android:scaleType="fitXY"
+            android:src="@drawable/goods_img"
+            imagecontrol:border_inside_color="#fff"
+            imagecontrol:border_outside_color="#fff"
+            imagecontrol:border_thickness="1dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/fenxiao_login_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fenxiao_login_threadname"
+                android:layout_marginRight="@dimen/sum_20"
+                android:layout_marginTop="@dimen/sum_30"
+                android:background="@null"
+                android:drawableLeft="@drawable/cellphone"
+                android:drawablePadding="10dp"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:maxLength="11"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"
+                />
+
+            <View
+                android:id="@+id/fenxiao_login_threadname"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/fenxiao_login_name"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:layout_marginRight="@dimen/sum_10"
+                android:background="@color/colorgraynessd"/>
+
+            <EditText
+                android:id="@+id/login_denglu_psw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/login_denglu_threadpsw"
+                android:layout_below="@+id/fenxiao_login_threadname"
+                android:layout_marginRight="@dimen/sum_20"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@null"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"
+                />
+
+            <View
+                android:id="@+id/login_denglu_threadpsw"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/login_denglu_psw"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorgraynessd"/>
+
+
+            <TextView
+                android:id="@+id/fenxiao_login"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_40"
+                android:layout_below="@+id/login_denglu_threadpsw"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:layout_marginRight="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_20"
+                android:background="@drawable/btn_bg_rounded_two"
+                android:text="@string/login_denglu"/>
+
+            <TextView
+                android:id="@+id/fenxiao_registration"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_40"
+                android:layout_below="@+id/fenxiao_login"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:layout_marginRight="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@drawable/btn_bg_rounded_grey"
+                android:text="@string/login_zhuce"
+                android:textColor="@color/gray_translucent"/>
+
+
+            <TextView
+                android:id="@+id/fenxiao_forgetpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/login_denglu_psw"
+                android:layout_below="@+id/fenxiao_registration"
+                android:layout_marginTop="@dimen/sum_10"
+                android:text="@string/login_wangjimima"
+                android:textColor="@color/colorgraynessd"/>
+
+            <TextView
+                android:id="@+id/fenxiao_diushi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/login_denglu_psw"
+                android:layout_below="@+id/fenxiao_registration"
+                android:layout_marginTop="@dimen/sum_10"
+                android:text="账户丢失"
+                android:textColor="@color/colorgraynessd"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

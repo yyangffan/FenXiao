@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_dialog_vip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhites"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.dialog.MyDialogApproveFace">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_10"
+        android:src="@drawable/win"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_5"
+        android:text="@string/mialog_name18"
+        android:textColor="@color/colorgraynessd"/>
+
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorgraynessb"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/dialog_face_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/sum_10"
+            android:paddingTop="@dimen/sum_10"
+            android:text="@string/mialog_name4"
+            android:textColor="@color/colorred"/>
+    </LinearLayout>
+
+</LinearLayout>

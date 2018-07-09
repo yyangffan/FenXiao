@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.ApproveActivity">
+
+    <LinearLayout
+        android:id="@+id/activity_approve"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorgraynessb"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_35"
+            android:background="@color/colorred"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/fenxiao_return_id"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+
+                    android:layout_width="@dimen/sum_20"
+                    android:layout_height="@dimen/sum_20"
+                    android:layout_marginBottom="@dimen/sum_3"
+                    android:layout_marginLeft="@dimen/sum_15"
+                    android:layout_marginTop="@dimen/sum_3"
+                    android:src="@drawable/returnleft"/>
+
+                <TextView
+                    android:layout_width="@dimen/sum_15"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sum_5"
+                    android:textColor="@color/colorwhites"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/fenxiao_title_id"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/sum_50"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/HomePage_name83"
+                android:textColor="@color/colorwhites"
+                android:textSize="@dimen/sum_20"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_10"
+            android:background="@color/colorwhites"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/approve_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/HomePage_name80"
+                android:maxLength="8"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorgraynessb"/>
+
+            <EditText
+                android:id="@+id/approve_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+                android:hint="@string/HomePage_name81"
+                android:inputType="number"
+                android:maxLength="18"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_10"
+            android:background="@color/colorgraynessb"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/approve_rel_over"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/approve_tv_over"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/shen_over"
+                    android:text="@string/shenfenzheng_over"
+                    android:textColor="@color/colorgraynessd"/>
+
+                <ImageView
+                    android:id="@+id/apporve_imgv_over"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/position_img"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/approve_rel_bot"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/approve_tv_bot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/shen_bot"
+                    android:gravity="center"
+                    android:text="@string/shenfenzheng_back"
+                    android:textColor="@color/colorgraynessd"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"/>
+
+                <ImageView
+                    android:id="@+id/apporve_imgv_bot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/position_img"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_10"
+            android:background="@color/colorwhites">
+
+            <EditText
+                android:id="@+id/approve_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:enabled="false"
+                android:hint="@string/HomePage_name82"
+                android:inputType="number"
+                android:maxLength="11"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_1"
+            android:background="@color/colorwhites">
+
+            <EditText
+                android:id="@+id/approve_verify"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_zhuce_yanzhengma"
+                android:inputType="number"
+                android:maxLength="6"
+                android:padding="@dimen/sum_10"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/approve_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/sum_5"
+                android:text="@string/login_zhuce_takeyanzhengma"
+                android:textColor="@color/colorred"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/approve_confirm"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_40"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_10"
+            android:background="@drawable/btn_bg_rounded_two"
+            android:text="@string/HomePage_name71"/>
+    </LinearLayout>
+</ScrollView>

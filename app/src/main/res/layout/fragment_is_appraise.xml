@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/appraise_ll"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorgraynessb"
+              android:orientation="vertical"
+              tools:context="com.linkhand.fenxiao.fragment.mineorder.IsAppraiseFragment">
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_gone_id4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/mine_return_id5"
+            android:layout_width="@dimen/sum_20"
+            android:layout_height="@dimen/sum_20"
+            android:layout_marginBottom="@dimen/sum_3"
+            android:layout_marginLeft="@dimen/sum_15"
+            android:layout_marginTop="@dimen/sum_3"
+            android:src="@drawable/returnleft"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_35"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:text="@string/mine_name9"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <com.yydcdut.sdlv.SlideAndDragListView
+        android:id="@+id/isAppraise_listview_id"
+        android:layout_width="match_parent"
+        android:dividerHeight="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:layout_height="match_parent"
+        android:divider="@null"/>
+
+</LinearLayout>

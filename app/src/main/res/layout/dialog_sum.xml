@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_sum"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhites"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/sum_10"
+    android:paddingRight="@dimen/sum_10"
+    tools:context="com.linkhand.fenxiao.dialog.MyDialogLashSum">
+
+
+    <ImageView
+        android:id="@+id/swop_retuen_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingRight="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:src="@drawable/close"/>
+
+
+    <EditText
+        android:inputType="number"
+        android:maxLength="8"
+        android:id="@+id/swop_et_id"
+        android:background="@null"
+        android:textColorHint="@color/colorgraynessd"
+        android:textSize="@dimen/sum_14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:hint="@string/mialog_name21"
+        android:textColor="@color/colorgraynessd"/>
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:background="@color/colorgraynessb"/>
+
+    <TextView
+
+        android:id="@+id/swop_sum_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:text="@string/mialog_name22"
+        android:textColor="@color/colorred"/>
+
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorgraynessb"/>
+
+    <LinearLayout
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/swop_confirm_id"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_40"
+            android:background="@drawable/btn_bg_rounded_two"
+            android:text="@string/login_psw_confirm"/>
+
+    </LinearLayout>
+
+</LinearLayout>

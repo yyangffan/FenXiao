@@ -1,0 +1,37 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    tools:context="com.linkhand.fenxiao.fragment.home.GraphicDetailsFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorwhites"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/HomePage_name88"
+            android:textSize="@dimen/sum_16"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_1"
+            android:layout_marginBottom="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_10"
+            android:background="@color/colorgraynessb"></View>
+
+        <TextView
+            android:id="@+id/details_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_100"
+                android:padding="@dimen/sum_10"
+    >
+
+    <ImageView
+        android:id="@+id/currency_iv_id"
+        android:layout_width="@dimen/sum_80"
+        android:layout_height="@dimen/sum_80"
+        android:scaleType="fitXY"
+        android:src="@drawable/sum_img"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sum_80"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_toRightOf="@+id/currency_iv_id"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/currency_sell_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sum_5"
+            android:text="x子币/母币单价"
+            android:textColor="@color/colorblack"
+            android:textSize="@dimen/sum_16"/>
+
+        <TextView
+            android:id="@+id/currency_ismy_id"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="官方出售"
+            android:textColor="@color/colorgraynessd"
+            android:textSize="@dimen/sum_12"/>
+
+        <TextView
+            android:id="@+id/surplus_rmb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:text="剩余xx母币"
+            android:textColor="@color/colorgraynessd"
+            android:textSize="@dimen/sum_12"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sum_80"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/currency_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_bg_rounded_two"
+            android:gravity="center_vertical"
+            android:padding="@dimen/sum_10"
+            android:text="@string/home_item_name4"
+            android:textColor="@color/colorwhites"/>
+
+    </RelativeLayout>
+</RelativeLayout>

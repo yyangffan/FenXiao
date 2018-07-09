@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_in_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.InDetailsActivity">
+
+    <LinearLayout
+        android:id="@+id/detail_llayout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorwhites"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:id="@+id/details_liuyan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:src="@drawable/liuyan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="留言"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/details_share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:src="@drawable/share"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/HomePage_name89"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detail_collect_llayout_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/detail_collect_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:src="@drawable/collection"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/HomePage_name90"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detail_purchasing_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/colorred"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/HomePage_name69"
+            android:textColor="@color/colorwhites"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/detail_ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorred"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/home_return_id3"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/HomePage_name12"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/upgrade_smart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/detail_llayout_id"
+        android:layout_below="@+id/detail_ll_title"
+        >
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/details_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sum_200"
+                    app:indicator_drawable_selected="@drawable/indicator_select"
+                    app:indicator_drawable_unselected="@drawable/indicator_unselect"
+                    app:indicator_height="8dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorred"
+                    android:padding="@dimen/sum_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/HomePage_name5"
+                        android:textColor="@color/colorwhites"/>
+
+                    <TextView
+                        android:id="@+id/indetails_zi_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xx"
+                        android:textColor="@color/colorwhites"
+                        android:textSize="@dimen/sum_20"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mine_name2"
+                        android:textColor="@color/colorwhites"
+                        />
+
+                    <TextView
+                        android:id="@+id/indetails_mu_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/sum_10"
+                        android:text="xx"
+                        android:textColor="@color/colorwhites"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/mine_name3"
+                        android:textColor="@color/colorwhites"
+                        />
+
+                    <TextView
+                        android:id="@+id/think_sum_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/sum_10"
+                        android:text="@string/HomePage_name84"
+                        android:textColor="@color/colorwhites"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorwhites"
+                    android:padding="@dimen/sum_10">
+
+                    <TextView
+                        android:id="@+id/indetails_name_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xxxxxxxx"
+                        android:textColor="@color/colorblack"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sum_10"
+                    android:background="@color/colorgraynessb"/>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/detailPage_TabLayout_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:tabIndicatorColor="@color/colorred"
+                    app:tabSelectedTextColor="@color/colorred"
+                    app:tabTextColor="@color/colorblack"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorgraynessb"/>
+
+                <com.linkhand.fenxiao.utils.MyRecycleView
+                    android:id="@+id/details_recy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorwhites"
+                    />
+
+                <WebView
+                    android:id="@+id/wv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</RelativeLayout>

@@ -1,0 +1,191 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_all_vip_goods"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred">
+
+        <LinearLayout
+            android:id="@+id/myvip_back"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_5"
+            android:text="我的订单"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+        <TextView
+            android:id="@+id/myvip_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/sum_10"
+            android:text="搜索"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:visibility="gone"
+        android:id="@+id/myvip_cons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/myvip_imgv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/myvip_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@+id/myvip_imgv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myvip_imgv"/>
+
+        <TextView
+            android:id="@+id/myvip_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginLeft="0dp"
+            android:textColor="@color/colorred"
+            app:layout_constraintBottom_toBottomOf="@+id/myvip_imgv"
+            app:layout_constraintLeft_toLeftOf="@+id/myvip_title"/>
+
+        <TextView
+            android:id="@+id/myvip_guige"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:textColor="@color/colorgraynessd"
+            app:layout_constraintBottom_toTopOf="@+id/myvip_money"
+            app:layout_constraintLeft_toLeftOf="@+id/myvip_title"/>
+
+        <TextView
+            android:id="@+id/myvip_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorred"
+            app:layout_constraintBaseline_toBaselineOf="@+id/myvip_money"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/my_vip_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:visibility="gone"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/my_vip_sheng"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="省"/>
+
+        <TextView
+            android:id="@+id/my_vip_shi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="市"/>
+
+        <TextView
+            android:id="@+id/my_vip_qu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="13dp"
+            android:text="区"/>
+
+    </LinearLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlAccentColor="@android:color/white"
+        app:srlEnablePreviewInEditMode="true"
+        app:srlPrimaryColor="#444444">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_vip_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            />
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:background="@color/colorgraynessb"
+            android:layout_height="50dp"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>

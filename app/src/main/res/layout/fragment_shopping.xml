@@ -1,0 +1,161 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shopping"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    tools:context="com.linkhand.fenxiao.fragment.shopping.ShoppingFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/shopping_title_llayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        >
+
+        <TextView
+            android:id="@+id/shopping_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/mine_name40"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+        <TextView
+            android:id="@+id/title_right_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:text="批量删除"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/shopping_return_id3"
+        android:layout_below="@+id/shopping_title_llayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.linkhand.fenxiao.utils.MyListView
+                android:id="@+id/shopping_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <LinearLayout
+                android:id="@+id/shopping_cancel_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@+id/shopping_listview"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/white"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/shopping_shixiao_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="失效宝贝(2)"
+                        android:textColor="@color/colorgraynessd"/>
+
+                    <TextView
+                        android:id="@+id/shopping_tv_cancelAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="清空失效宝贝"
+                        android:textColor="@color/colorred"/>
+
+                </RelativeLayout>
+
+                <com.linkhand.fenxiao.utils.MyListView
+                    android:id="@+id/shopping_cancel_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+
+        android:id="@+id/shopping_return_id3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorwhites">
+
+        <LinearLayout
+            android:id="@+id/shopping_all_rbtn_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center">
+            <!--<RadioButton-->
+            <!--android:id="@+id/shopping_rbtn_id"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/sum_10"/>-->
+            <ImageView
+                android:id="@+id/shopping_rbtn_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:src="@drawable/ovaltwo"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:layout_weight="1"
+                android:text="@string/mine_name41"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mine_name42"/>
+
+            <TextView
+                android:id="@+id/shopping_rmb_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/sum_10"
+                android:text="¥0"
+                android:textColor="@color/colorred"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/shopping_settlement_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorred"
+            android:gravity="center"
+            android:text="@string/mine_name43"
+            android:textColor="@color/colorwhites"/>
+    </LinearLayout>
+
+</RelativeLayout>

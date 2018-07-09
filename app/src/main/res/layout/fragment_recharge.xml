@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.fragment.mine.RechargeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:background="@color/colorwhites">
+
+        <EditText
+            android:id="@+id/mine_recharge_et_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_horizontal"
+            android:hint="@string/HomePage_name58"
+            android:inputType="number"
+            android:paddingBottom="@dimen/sum_10"
+            android:paddingTop="@dimen/sum_10"
+            android:textColorHint="@color/colorgraynessd"/>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginRight="@dimen/sum_10"
+            android:text="@string/HomePage_name59"
+            android:textColor="@color/colorblack"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mine_recharge_determine_id"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_40"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:text="@string/mialog_name4"/>
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:padding="@dimen/sum_10"
+        android:textColor="@color/transparence50"/>
+
+</LinearLayout>

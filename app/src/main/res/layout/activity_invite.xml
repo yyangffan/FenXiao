@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_invite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.InviteActivity">
+
+    <LinearLayout
+        android:id="@+id/invite_llone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:id="@+id/fenxiao_return_id5"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/fenxiao_title_id5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_35"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/currency_name11"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/invite_one"
+        android:layout_below="@+id/invite_llone"
+        android:layout_centerHorizontal="true"
+        app:indicator_drawable_selected="@drawable/indicator_select"
+        app:indicator_drawable_unselected="@drawable/indicator_unselect"
+        app:indicator_height="8dp"
+        app:indicator_margin="5dp"
+        app:indicator_width="8dp"/>
+
+    <TextView
+        android:id="@+id/invite_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/invite_yaoqingcode"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sum_20"
+        android:text="@string/currency_name12"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/invite_yaoqingcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fenxiao_invitation"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sum_5"
+        android:paddingBottom="@dimen/sum_20"
+        android:text="- -"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/invite_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/invite_yaoqingcode"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/invite_yaoqingcode"
+        android:background="@drawable/round_bg"
+        android:padding="2dp"
+        android:text="复制"
+        android:textSize="10sp"/>
+
+
+    <TextView
+        android:id="@+id/fenxiao_invitation"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="@dimen/sum_230"
+        android:layout_height="@dimen/sum_50"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/sum_10"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:text="@string/currency_name13"/>
+</RelativeLayout>

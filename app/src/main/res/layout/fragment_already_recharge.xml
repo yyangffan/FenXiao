@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/colorgraynessb"
+             android:orientation="vertical"
+             tools:context="com.linkhand.fenxiao.fragment.mine.AlreadyRechargeFragment">
+
+
+    <ListView
+        android:id="@+id/alreadyrecharge_lv_id2"
+        android:background="@color/colorwhites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+</LinearLayout>

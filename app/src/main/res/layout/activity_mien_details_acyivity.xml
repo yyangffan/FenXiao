@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mien_details_acyivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhites"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.MienDetailsAcyivity">
+
+    <LinearLayout
+        android:id="@+id/llayout_one"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/open_group_return_id"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_50"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_5"
+            android:text="@string/HomePage_name96"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llayout_one">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llayout_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llayout_one"
+                android:orientation="vertical"
+                android:padding="@dimen/sum_10">
+
+                <TextView
+                    android:id="@+id/mien_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.3"
+                    android:text="测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题"
+                    android:textColor="@color/colorblack"
+                    android:textSize="@dimen/sum_20"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sum_10">
+
+                    <TextView
+                        android:id="@+id/details_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="xxxx-xx-xx"/>
+
+                    <ImageView
+                        android:id="@+id/mien_imgv_what"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/heart_red"/>
+
+                    <TextView
+                        android:id="@+id/mien_detail_renNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/sum_5"
+                        android:text="xx人"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/sum_10"
+                    android:background="@color/colorgraynessd"/>
+
+                <WebView
+                    android:id="@+id/mien_detail_wb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/llayout_two"
+                    android:layout_marginLeft="@dimen/sum_10"
+                    android:layout_marginRight="@dimen/sum_10"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorgraynessd"/>
+
+            <LinearLayout
+                android:id="@+id/llayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:padding="@dimen/sum_10">
+
+                <ImageView
+                    android:id="@+id/mien_details_imgv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/heart_gray"/>
+
+                <TextView
+                    android:id="@+id/mien_detail_botNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="- -"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

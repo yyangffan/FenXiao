@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorblack">#000</color>
+    <color name="colorwhites">#fff</color>
+    <!--字体灰-->
+    <color name="colorgraynessd">#FFBABABA</color>
+    <!--背景色colorgraynessb-->
+    <color name="colorgraynessb">#eeeeee</color>
+    <!--主色colorred-->
+    <color name="colorred">#FF6652</color>
+    <!--头像获取照片字体颜色-->
+    <color name="colorphoto">#FF6652</color>
+    <color name="coloryellows">#ff0</color>
+    <color name="coloryellows2">#ffff9800</color>
+    <color name="coloryellow2">#FFe018</color>
+    <!--按钮灰-->
+    <color name="transparence50">#80000000</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="gray_ffour">#F4F4F4</color>
+    <color name="edt_gray">#FFF3F3F3</color>
+
+
+    <!-- 半透明遮挡 -->
+    <color name="gray_translucent">#5e000000</color>
+    <color name="text_gray">#999999</color>
+
+    <color name="gray_f5">#F5F5F5</color>
+
+    <color name="color_f6">#f6f6f6</color>
+    <color name="mine_money">#B24639</color>
+
+</resources>

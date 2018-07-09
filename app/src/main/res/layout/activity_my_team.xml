@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_team"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.mine.MyTeamActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/fenxiao_return_id6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_5"
+                android:text="@string/login_fanhui"
+                android:textColor="@color/colorwhites"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/fenxiao_title_id6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_50"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mine_name12"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gold_medal_llayout_id"
+        android:layout_width="@dimen/sum_180"
+        android:layout_height="@dimen/sum_80"
+        android:layout_marginTop="@dimen/sum_60"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/sum_20"
+        >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mine_name15"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_30"/>
+
+        <TextView
+            android:textSize="@dimen/sum_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorwhites"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_20"
+        android:src="@mipmap/a"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_5"
+        android:text="差x人晋级"/>
+
+    <LinearLayout
+        android:id="@+id/silver_medal_llayout_id"
+        android:layout_width="@dimen/sum_180"
+        android:layout_height="@dimen/sum_80"
+        android:layout_marginTop="@dimen/sum_20"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/sum_20"
+        >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mine_name16"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_30"/>
+
+        <TextView
+            android:textSize="@dimen/sum_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorwhites"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_20"
+        android:src="@mipmap/a"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_5"
+        android:text="差x人晋级"/>
+
+    <LinearLayout
+        android:id="@+id/copper_medal_llayout_id"
+        android:layout_width="@dimen/sum_180"
+        android:layout_height="@dimen/sum_80"
+        android:layout_marginTop="@dimen/sum_20"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/sum_20"
+       >
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mine_name17"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_30"/>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/mine_name18"
+            android:textColor="@color/colorwhites"/>
+
+    </LinearLayout>
+
+</LinearLayout>

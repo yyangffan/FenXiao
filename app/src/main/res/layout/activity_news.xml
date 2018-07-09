@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_news"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.news.NewsActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+        <LinearLayout
+            android:gravity="center"
+            android:id="@+id/fenxiao_return_id4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_5"
+                android:text="@string/login_fanhui"
+                android:textColor="@color/colorwhites"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/fenxiao_title_id4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_50"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="消息通知"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <com.yydcdut.sdlv.SlideAndDragListView
+        android:layout_marginTop="@dimen/sum_10"
+        android:divider="@null"
+        android:id="@+id/news_listview_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

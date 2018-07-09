@@ -1,0 +1,45 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="sum_53">53dp</dimen>//底部栏
+
+
+    <dimen name="sum_1">1dp</dimen>
+    <dimen name="sum_3">3dp</dimen>
+    <dimen name="sum_5">5dp</dimen>
+    <dimen name="sum_7">7dp</dimen>
+    <dimen name="sum_8">8dp</dimen>
+    <dimen name="sum_10">10dp</dimen>
+    <dimen name="sum_12">12dp</dimen>
+    <dimen name="sum_14">14dp</dimen>
+    <dimen name="sum_15">15dp</dimen>
+    <dimen name="sum_16">16dp</dimen>
+    <dimen name="sum_18">18dp</dimen>
+    <dimen name="sum_20">20dp</dimen>
+    <dimen name="sum_25">25dp</dimen>
+    <dimen name="sum_30">30dp</dimen>
+    <dimen name="sum_35">35dp</dimen>
+    <!--40下框-->
+    <dimen name="sum_40">40dp</dimen>
+    <dimen name="sum_45">45dp</dimen>
+    <dimen name="sum_50">50dp</dimen>
+    <dimen name="sum_60">60dp</dimen>
+    <dimen name="sum_70">70dp</dimen>
+    <dimen name="sum_80">80dp</dimen>
+    <dimen name="sum_85">85dp</dimen>
+    <dimen name="sum_90">90dp</dimen>
+    <dimen name="sum_100">100dp</dimen>
+    <dimen name="sum_110">110dp</dimen>
+    <dimen name="sum_120">120dp</dimen>
+    <dimen name="sum_130">130dp</dimen>
+    <dimen name="sum_150">150dp</dimen>
+    <dimen name="sum_180">180dp</dimen>
+    <dimen name="sum_200">200dp</dimen>
+    <dimen name="sum_230">230dp</dimen>
+    <dimen name="sum_dialog_300">300dp</dimen>
+
+    <dimen name="y100">100px</dimen>
+    <dimen name="x20">15px</dimen>
+    <dimen name="x1">1px</dimen>
+</resources>

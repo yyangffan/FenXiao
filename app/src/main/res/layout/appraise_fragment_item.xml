@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorwhites"
+              android:orientation="vertical"
+              android:padding="@dimen/sum_10"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!--<com.linkhand.fenxiao.utils.RoundImageView-->
+        <!--android:id="@+id/appraise_riv_id"-->
+        <!--android:layout_width="@dimen/sum_40"-->
+        <!--android:layout_height="@dimen/sum_40"-->
+        <!--android:scaleType="fitXY"-->
+        <!--imagecontrol:border_inside_color="#fff"-->
+        <!--imagecontrol:border_outside_color="#fff"-->
+        <!--imagecontrol:border_thickness="1dp"-->
+        <!--/>-->
+        <com.linkhand.fenxiao.utils.view.CircleImageView
+            android:id="@+id/appraise_riv_id"
+            android:layout_width="@dimen/sum_40"
+            android:layout_height="@dimen/sum_40"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:src="@drawable/default_portrait"
+            />
+
+        <TextView
+            android:id="@+id/appraise_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="- -"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/appraise_content_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sum_20"
+        android:layout_marginTop="@dimen/sum_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="- -"/>
+
+    <LinearLayout
+        android:id="@+id/item_fragment_ll"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_one"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_1"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+        <ImageView
+            android:id="@+id/iv_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_1"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+        <ImageView
+            android:id="@+id/iv_three"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_1"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+        <ImageView
+            android:id="@+id/iv_four"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_1"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+        <ImageView
+            android:id="@+id/iv_five"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_20"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/appraise_time_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000.10.10"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_5"
+            android:text="@string/HomePage_name26"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/appraise_color_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorgraynessd"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_is_recharge"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.mine.IsRechargeActivity">
+
+    <LinearLayout
+        android:id="@+id/allMembers_llayout_id2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorwhites"
+        android:gravity="center"
+        android:padding="@dimen/sum_10"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/mine_name33"
+            android:textColor="@color/colorblack"/>
+
+        <TextView
+            android:id="@+id/son_number_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="xx子币"
+            android:textColor="@color/colorred"/>
+
+        <TextView
+            android:id="@+id/Mother_number_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_5"
+            android:gravity="center"
+            android:text="xx母币"
+            android:textColor="@color/colorred"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/allMembers_llayout_id2"
+        android:background="@color/colorwhites"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_35"
+            android:background="@color/colorred"
+            >
+
+            <LinearLayout
+                android:id="@+id/allmembers_return_id2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/sum_20"
+                    android:layout_height="@dimen/sum_20"
+                    android:layout_marginBottom="@dimen/sum_3"
+                    android:layout_marginLeft="@dimen/sum_15"
+                    android:layout_marginTop="@dimen/sum_3"
+                    android:src="@drawable/returnleft"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sum_5"
+                    android:text="@string/login_fanhui"
+                    android:textColor="@color/colorwhites"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/allmembers_title_id8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/sum_50"
+                android:gravity="center"
+                android:text="充值/提现"
+                android:textColor="@color/colorwhites"
+                android:textSize="@dimen/sum_20"/>
+
+            <TextView
+                android:id="@+id/recharge_jilu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingRight="5dp"
+                android:layout_centerVertical="true"
+                android:text="充值/提现记录"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/mine_tabLayout_id4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:tabIndicatorColor="@color/colorred"
+            app:tabSelectedTextColor="@color/colorred"
+            app:tabTextColor="@color/colorblack"/>
+
+        <FrameLayout
+            android:id="@+id/mine_fragment_id4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</RelativeLayout>

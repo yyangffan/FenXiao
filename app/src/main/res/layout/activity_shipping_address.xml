@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shipping_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.ShippingAddressActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorgraynessb"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorwhites"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/address_name_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sum_35"
+                    android:background="@null"
+                    android:hint="@string/HomePage_name72"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/sum_10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/colorgraynessd"
+                    android:textSize="@dimen/sum_14"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorgraynessb"></View>
+
+                <EditText
+                    android:id="@+id/address_phone_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sum_35"
+                    android:background="@null"
+                    android:hint="@string/HomePage_name73"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/sum_10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/colorgraynessd"
+                    android:textSize="@dimen/sum_14"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_35"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@color/colorwhites"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/province_llayout_id"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/province_tvname_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/HomePage_name74"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/colorgraynessd"
+                        android:textSize="@dimen/sum_14"/>
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/sum_5"
+                        android:background="@drawable/xiala"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/city_llayout_id"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/city_tvname_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/HomePage_name75"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/colorgraynessd"
+                        android:textSize="@dimen/sum_14"/>
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/sum_5"
+                        android:background="@drawable/xiala"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/area_llayout_id"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/area_tvname_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/HomePage_name76"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/colorgraynessd"
+                        android:textSize="@dimen/sum_14"/>
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/sum_5"
+                        android:background="@drawable/xiala"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--<LinearLayout-->
+            <!--android:padding="@dimen/sum_10"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/sum_1"-->
+            <!--android:background="@color/colorwhites"-->
+            <!--android:gravity="center">-->
+
+            <EditText
+                android:id="@+id/detailAddress_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sum_1"
+                android:background="@color/colorwhites"
+                android:ellipsize="end"
+                android:hint="@string/HomePage_name77"
+                android:padding="@dimen/sum_10"
+                android:textColor="@color/black"
+                android:textColorHint="@color/colorgraynessd"
+                android:textSize="@dimen/sum_14"/>
+
+            <!--</LinearLayout>-->
+
+
+            <TextView
+                android:id="@+id/shipping_insert_address_id"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_40"
+                android:layout_marginBottom="@dimen/sum_10"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:layout_marginRight="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@drawable/btn_bg_rounded_two"
+                android:text="@string/HomePage_name71"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/shipping_address_return_id"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/shipping_address_title_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_50"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/HomePage_name70"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+

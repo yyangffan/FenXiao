@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/llayout_details_id"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorgraynessb"
+              android:orientation="vertical">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/intention_item_tu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sum_150"
+            android:scaleType="fitXY"
+
+            />
+        <!--android:src="@drawable/b"-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/intention_item_tu"
+            android:background="@color/gray_translucent"
+            android:padding="@dimen/sum_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_5"
+                android:text="@string/HomePage_name65"
+                android:textColor="@color/colorwhites"/>
+
+            <TextView
+                android:id="@+id/intention_item_ren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:text="1"
+                android:textColor="@color/colorwhites"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/HomePage_name66"
+                android:textColor="@color/colorwhites"/>
+
+            <TextView
+                android:id="@+id/intention_item_istuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/sum_5"
+                android:text="已团x人"
+                android:textColor="@color/colorwhites"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/sum_10">
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/intention_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="名称"
+                android:textColor="@color/colorblack"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sum_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/HomePage_name63"
+                    android:textColor="@color/colorblack"/>
+
+                <TextView
+                    android:id="@+id/intention_item_rmb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sum_10"
+                    android:text="99.00"
+                    android:textColor="@color/colorred"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_rounded_two"
+            android:paddingBottom="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:paddingTop="@dimen/sum_5"
+            android:text="@string/HomePage_name69"
+            android:textColor="@color/colorwhites"/>
+    </LinearLayout>
+
+</LinearLayout>

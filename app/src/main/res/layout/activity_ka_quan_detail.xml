@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.homepage.home.KaQuanDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred">
+
+        <LinearLayout
+            android:id="@+id/myvip_back"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_5"
+            android:text="商品详情页"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sum_150"
+                app:indicator_drawable_selected="@drawable/indicator_select"
+                app:indicator_drawable_unselected="@drawable/indicator_unselect"
+                app:indicator_height="8dp"
+                app:indicator_margin="5dp"
+                app:indicator_width="8dp"/>
+
+            <TextView
+                android:id="@+id/vip_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/sum_5"
+                android:paddingLeft="@dimen/sum_10"
+                android:paddingTop="@dimen/sum_5"
+                android:text=""
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/vip_deatail_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sum_10"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/sum_10"
+                android:paddingLeft="@dimen/sum_10"
+                android:textColor="@color/colorred"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/sum_5"
+                android:paddingLeft="@dimen/sum_10"
+                android:paddingTop="@dimen/sum_5"
+                android:text="地址"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/vip_detail_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sum_10"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/sum_10"
+                android:paddingLeft="@dimen/sum_10"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sum_1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="@dimen/sum_10"
+                android:text="图文详情"
+                android:textColor="@color/black"/>
+
+            <WebView
+                android:id="@+id/vip_detail_wb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/vip_detail_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        android:gravity="center"
+        android:padding="@dimen/sum_10"
+        android:text="立即使用"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+
+</LinearLayout>

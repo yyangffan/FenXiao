@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/deck_all_rlayout_id"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/sum_80"
+    android:orientation="vertical"
+    android:padding="@dimen/sum_10">
+
+    <com.linkhand.fenxiao.utils.RoundImageView
+        android:id="@+id/onedeck_roundImageView_id"
+        android:layout_width="@dimen/sum_60"
+        android:layout_height="@dimen/sum_60"
+        android:scaleType="fitXY"
+        android:src="@drawable/b"
+        imagecontrol:border_inside_color="#fff"
+        imagecontrol:border_outside_color="#fff"
+        imagecontrol:border_thickness="1dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sum_60"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_toRightOf="@+id/onedeck_roundImageView_id"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/onedeck_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xxx"
+            android:textColor="@color/colorblack"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/onedeck_tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sum_10"
+                android:text="@string/HomePage_name55"
+                android:textColor="@color/transparence50"/>
+
+            <TextView
+                android:id="@+id/onedeck_referrer_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/onedeck_name_id"
+                android:layout_marginTop="@dimen/sum_10"
+                android:layout_toRightOf="@+id/onedeck_tv_id"
+                android:text="xxx"
+                android:textColor="@color/transparence50"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/mine_registration_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sum_80"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:text="@string/mine_name23"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/mine_recharge_llayout_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/sum_60"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/HomePage_name56"
+            android:textColor="@color/transparence50"/>
+
+        <ImageView
+            android:id="@+id/deck_iv_one"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/wu"/>
+
+        <ImageView
+            android:id="@+id/deck_iv_two"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="@dimen/sum_5"
+            android:scaleType="fitXY"
+            android:src="@drawable/wu"/>
+
+        <ImageView
+            android:id="@+id/deck_iv_three"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="@dimen/sum_5"
+            android:layout_marginRight="@dimen/sum_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/wu"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/returnright"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

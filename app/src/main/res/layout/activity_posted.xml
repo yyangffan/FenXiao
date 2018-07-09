@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_posted"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.currency.PostedActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/fenxiao_return_id3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_5"
+                android:text="@string/login_fanhui"
+                android:textColor="@color/colorwhites"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/fenxiao_title_id3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_50"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/currency_name2"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/coin_sum_etid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:hint="@string/currency_name14"
+        android:inputType="number"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:padding="@dimen/sum_10"
+        android:textSize="@dimen/sum_14"/>
+
+    <EditText
+        android:id="@+id/coin_sum_etid2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_1"
+        android:background="@color/colorwhites"
+        android:hint="@string/currency_name15"
+        android:inputType="number|numberDecimal"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:padding="@dimen/sum_10"
+        android:textSize="@dimen/sum_14"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_200"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/coin_describe_etid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="@string/currency_name7"
+            android:padding="@dimen/sum_10"
+            android:textSize="@dimen/sum_14"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fenxiao_release"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_40"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_20"
+        android:background="@drawable/btn_bg_rounded_two"
+        android:text="@string/currency_name8"/>
+
+    <TextView
+        android:id="@+id/posted_note"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/sum_10"
+        android:textColor="@color/transparence50"/>
+
+</LinearLayout>

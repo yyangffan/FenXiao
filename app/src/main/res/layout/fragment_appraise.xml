@@ -1,0 +1,106 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorgraynessb"
+        android:orientation="vertical"
+        tools:context="com.linkhand.fenxiao.fragment.home.AppraiseFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorwhites"
+            android:padding="@dimen/sum_10"
+            android:text="@string/HomePage_name18"/>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/sum_1"-->
+            <!--android:background="@color/colorwhites"-->
+            <!--android:padding="@dimen/sum_10">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/HomePage_name19"/>-->
+
+            <!--<RatingBar-->
+                <!--android:id="@+id/Home_company_item_RatingBar_id1"-->
+                <!--style="@style/myRatingBar"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/sum_10"-->
+                <!--android:isIndicator="true"-->
+                <!--android:max="5"-->
+                <!--android:numStars="5"-->
+                <!--android:progress="5"-->
+
+                <!--android:stepSize="1"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/colorwhites"-->
+            <!--android:paddingBottom="@dimen/sum_5"-->
+            <!--android:paddingLeft="@dimen/sum_10"-->
+            <!--android:paddingRight="@dimen/sum_20">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/appraise_subdivision_id"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toLeftOf="@+id/appraise_tv_id"-->
+                <!--android:text="5.0"-->
+                <!--android:textColor="@color/colorred"-->
+                <!--android:textSize="@dimen/sum_25"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/appraise_tv_id"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBottom="@+id/appraise_subdivision_id"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:text="@string/HomePage_name25"-->
+                <!--android:textColor="@color/colorred"-->
+                <!--android:textSize="@dimen/sum_20"/>-->
+        <!--</RelativeLayout>-->
+
+        <com.linkhand.fenxiao.utils.MyListView
+            android:id="@+id/appraise_listview_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></com.linkhand.fenxiao.utils.MyListView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sum_10"
+            android:background="@color/colorwhites"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/all_evaluation"
+                android:layout_width="@dimen/sum_110"
+                android:layout_height="@dimen/sum_40"
+                android:layout_marginBottom="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@drawable/btn_bg"
+                android:text="@string/HomePage_name27"
+                android:textColor="@color/colorred"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

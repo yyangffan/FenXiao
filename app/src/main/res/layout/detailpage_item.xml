@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="@dimen/sum_10"
+              android:background="@drawable/btn_bg_rounded_grey"
+    >
+
+    <TextView
+        android:id="@+id/detailpage_tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingLeft="@dimen/sum_10"
+        android:paddingRight="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_5"
+        android:text=""/>
+</LinearLayout>

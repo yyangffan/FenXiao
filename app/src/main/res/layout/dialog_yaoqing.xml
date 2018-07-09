@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_yaoqing_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/sum_5"
+        android:text="提示"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/colorgraynessb"
+        android:layout_height="0.5dp"/>
+
+    <TextView
+        android:id="@+id/dialog_yaoqing_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/sum_10"
+        />
+
+    <EditText
+        android:id="@+id/dialog_yaoqing_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/sum_5"
+        android:background="@drawable/edt_bg"
+        android:hint="请输入邀请码"
+        android:minHeight="40dp"
+        android:paddingLeft="@dimen/sum_5"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/dialog_yaoqing_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        android:gravity="center"
+        android:padding="@dimen/sum_10"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+</LinearLayout>

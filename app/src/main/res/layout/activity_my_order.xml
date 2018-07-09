@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorgraynessb"
+    tools:context="com.linkhand.fenxiao.activity.mine.MyOrderActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/mine_return_id"
+            android:layout_width="@dimen/sum_20"
+            android:layout_height="@dimen/sum_20"
+            android:layout_marginBottom="@dimen/sum_3"
+            android:layout_marginLeft="@dimen/sum_15"
+            android:layout_marginTop="@dimen/sum_3"
+            android:src="@drawable/returnleft"/>
+
+
+        <TextView
+            android:id="@+id/fenxiao_title_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_35"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:text="@string/mine_order_name1"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/mine_tabLayout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:tabIndicatorColor="@color/colorred"
+        app:tabSelectedTextColor="@color/colorred"
+        app:tabTextColor="@color/colorblack"/>
+
+    <FrameLayout
+        android:id="@+id/mine_fragment_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

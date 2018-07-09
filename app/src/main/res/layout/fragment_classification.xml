@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorgraynessb"
+              android:orientation="vertical"
+              tools:context="com.linkhand.fenxiao.fragment.ClassificationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/classification_return_id"
+            android:layout_width="@dimen/sum_20"
+            android:layout_height="@dimen/sum_20"
+            android:layout_marginBottom="@dimen/sum_3"
+            android:layout_marginLeft="@dimen/sum_15"
+            android:layout_marginTop="@dimen/sum_3"
+            android:src="@drawable/returnleft"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_5"
+            android:text="@string/classification_name"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sum_10"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@drawable/btn_bg_three"
+        android:gravity="center_vertical"
+        >
+
+        <ImageView
+            android:id="@+id/search_class_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/sum_10"
+            android:src="@drawable/search"/>
+
+        <EditText
+            android:id="@+id/check_class_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/classification_name2"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:textColor="@color/colorblack"
+            android:textColorHint="@color/colorgraynessd"
+            android:textSize="@dimen/sum_14"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorwhites"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/fenlei_lv_id"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorgraynessb"
+            android:divider="@color/colorgraynessb"
+            android:dividerHeight="0dp"
+            android:scrollbars="none"/>
+
+        <FrameLayout
+            android:id="@+id/fenlei_flayout_id"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhites"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.dialog.MyDialog">
+
+
+    <TextView
+        android:id="@+id/mydialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:text="@string/mialog_name"/>
+
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:background="@color/colorgraynessb"/>
+
+    <TextView
+        android:id="@+id/config_notice_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:text="@string/mialog_name"/>
+
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorgraynessb"/>
+
+    <TextView
+        android:id="@+id/dialog_confirm_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10"
+        android:text="@string/mialog_name5"
+        android:textColor="@color/colorred"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_llayout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/dialog_login_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="不同意"
+            />
+
+        <TextView
+            android:id="@+id/dialog_login_id2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="同意"
+            android:textColor="@color/colorred"/>
+    </LinearLayout>
+</LinearLayout>

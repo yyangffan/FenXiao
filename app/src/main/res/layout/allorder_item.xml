@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/all_order_llayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorgraynessb"
+              android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorwhites"
+        android:padding="@dimen/sum_10">
+
+        <TextView
+            android:id="@+id/allorder_item_title"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/allorder_item_number_id"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_toRightOf="@+id/allorder_item_tuid"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="标题"
+            android:textColor="@color/transparence50"
+            />
+
+
+        <TextView
+            android:id="@+id/allorder_rmbtwo_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/allorder_item_guige"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/allorder_item_tuid"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="¥xx"
+            android:textColor="@color/colorred"/>
+
+        <TextView
+            android:id="@+id/allorder_motherrmb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/allorder_rmbtwo_id"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_toRightOf="@+id/allorder_rmbtwo_id"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="母币"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/allorder_rmb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/allorder_rmbtwo_id"
+            android:layout_alignLeft="@+id/allorder_rmbtwo_id"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="¥xxx"
+            android:textColor="@color/colorred"/>
+
+        <TextView
+            android:id="@+id/allorder_childrmb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/sum_10"
+            android:layout_alignBottom="@+id/allorder_rmb_id"
+            android:layout_toRightOf="@+id/allorder_rmb_id"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="子币"
+            android:textColor="@color/colorgraynessd"/>
+    <!--下面这个TextView并没有实质性作用-->
+        <TextView
+            android:id="@+id/allorder_item_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/allorder_item_title"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_toRightOf="@+id/allorder_item_tuid"
+            android:text="@string/mine_name35"/>
+    <!--这个View才是真正用来显示规格的-->
+        <TextView
+            android:id="@+id/allorder_item_guige"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/allorder_item_tv_id"
+            android:layout_toLeftOf="@+id/allorder_item_number_id"
+            android:layout_toRightOf="@+id/allorder_item_tv_id"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/allorder_item_title"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/sum_10"
+            android:text="xxx"/>
+
+        <TextView
+            android:id="@+id/allorder_item_number_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="x1"
+            android:textColor="@color/colorgraynessd"/>
+
+        <ImageView
+            android:id="@+id/allorder_item_tuid"
+            android:layout_width="@dimen/sum_60"
+            android:layout_height="@dimen/sum_60"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/position_img"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/sum_1"
+        android:background="@color/colorwhites"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/sum_10">
+
+        <TextView
+            android:id="@+id/idorder_tv_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="拼团中"
+            android:textColor="@color/colorred"/>
+
+        <TextView
+            android:id="@+id/allorder_item_tuihuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/sum_5"
+            android:background="@drawable/btn_bg_two"
+            android:paddingBottom="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:paddingTop="@dimen/sum_5"
+            android:text="退货"
+            android:textColor="@color/colorred"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/allorder_item_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_two"
+            android:paddingBottom="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:paddingTop="@dimen/sum_5"
+            android:text="取消"
+            android:textColor="@color/colorred"/>
+    </LinearLayout>
+</LinearLayout>

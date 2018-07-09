@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_personal_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorgraynessb"
+    android:orientation="vertical"
+    tools:context="com.linkhand.fenxiao.activity.mine.PersonalDataActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_35"
+        android:background="@color/colorred"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/mine_llayoutreturn_id"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/sum_20"
+                android:layout_height="@dimen/sum_20"
+                android:layout_marginBottom="@dimen/sum_3"
+                android:layout_marginLeft="@dimen/sum_15"
+                android:layout_marginTop="@dimen/sum_3"
+                android:src="@drawable/returnleft"/>
+
+            <TextView
+                android:layout_width="@dimen/sum_15"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fenxiao_title_id9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_35"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:text="@string/mine_order_name3"
+            android:textColor="@color/colorwhites"
+            android:textSize="@dimen/sum_20"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_tu_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
+
+        <com.linkhand.fenxiao.utils.view.CircleImageView
+            android:id="@+id/mine_civ_id"
+            android:layout_width="@dimen/sum_50"
+            android:layout_height="@dimen/sum_50"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:src="@drawable/default_portrait"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/avatar_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/sum_10"
+                android:text="@string/mine_name47"
+                android:textColor="@color/colorgraynessd"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/sum_10"
+                android:src="@drawable/returnright"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_phone_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mine_name45"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/mine_tv_phone_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sum_5"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:layout_marginTop="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_10"
+            android:src="@drawable/return_right_two"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_name_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mine_name53"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/mine_tv_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sum_5"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:layout_marginTop="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_10"
+            android:src="@drawable/return_right_two"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_realname_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mine_name44"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/mine_tv_realname_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sum_5"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:layout_marginTop="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_10"
+            android:src="@drawable/return_right_two"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_number_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mine_name46"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/mine_tv_number_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sum_5"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:layout_marginTop="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_10"
+            android:src="@drawable/return_right_two"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mine_llayout_wx_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorwhites"
+        android:paddingBottom="@dimen/sum_5"
+        android:paddingTop="@dimen/sum_5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sum_10"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/mine_name50"
+            android:textColor="@color/colorgraynessd"/>
+
+        <TextView
+            android:id="@+id/mine_tv_wx_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sum_5"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/sum_5"
+            android:layout_marginTop="@dimen/sum_5"
+            android:paddingLeft="@dimen/sum_5"
+            android:paddingRight="@dimen/sum_10"
+            android:src="@drawable/return_right_two"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="@dimen/sum_10"
+        android:layout_marginRight="@dimen/sum_10"
+        android:layout_marginTop="@dimen/sum_10"
+        android:background="@color/colorgraynessb"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/mine_rel_over"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/mine_tv_over"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/sum_5"
+                android:scaleType="fitXY"
+                android:src="@drawable/shen_over"/>
+
+            <ImageView
+                android:id="@+id/mine_imgv_over"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:src="@drawable/position_img"
+                android:visibility="gone"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mine_rel_bot"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/ming_tv_bot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/sum_5"
+                android:scaleType="fitXY"
+                android:src="@drawable/shen_bot"/>
+
+            <ImageView
+                android:id="@+id/mine_imgv_bot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                android:src="@drawable/position_img"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
