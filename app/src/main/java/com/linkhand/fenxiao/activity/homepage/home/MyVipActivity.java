@@ -400,8 +400,8 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
                     mMyVipQu.setText("区");
                     areaId = "";
                 }
-                getData();
                 popupWindow.dismiss();
+                mRefreshLayout.autoRefresh();
             }
         });
     }
@@ -421,7 +421,8 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
                     areaId = "";
                 }
                 popupWindow.dismiss();
-                getData();
+                mRefreshLayout.autoRefresh();
+
             }
         });
     }
@@ -438,7 +439,8 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
                     Log.e("yh", "区--" + cityName + "--id--" + areaId);
                 }
                 popupWindow.dismiss();
-                getData();
+                mRefreshLayout.autoRefresh();
+
             }
         });
     }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import com.linkhand.fenxiao.picture_select.FullyGridLayoutManager;
 import com.linkhand.fenxiao.picture_select.GridImageAdapter;
 import com.linkhand.fenxiao.utils.MultipleImages.NoScrollGridView;
 import com.linkhand.fenxiao.utils.MultipleImages.TakePhotoWindow;
+import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.util.FileUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -57,10 +59,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static com.linkhand.fenxiao.utils.util.FileUtil.getRealFilePathFromUri;
+
 /********************************************************************
-  @version: 1.0.0
-  @变更历史: 评论界面
-********************************************************************/
+ @version: 1.0.0
+ @变更历史: 评论界面
+ ********************************************************************/
 public class EvaluationActivity extends BaseActicity implements View.OnClickListener, View.OnTouchListener {
 
     @Bind(R.id.evaluation_return_id)
@@ -86,6 +89,8 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
     RecyclerView mRecycler;
     @Bind(R.id.evaluation_title)
     TextView mEvaluationTitle;
+    @Bind(R.id.evaluation_rb)
+    RatingBar mEvaluationRb;
 
     //---------图---------
     private ArrayList<String> listPath;
@@ -268,6 +273,11 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
 
     /*调用评论接口*/
     public void onMessage(String content) {
+        float rating = mEvaluationRb.getRating();
+        if(rating==0.0){
+            ToastUtil.showToast(this,"请选择星级");
+            return;
+        }
         mConfirm.setEnabled(false);
         mConfirm.setText("提交中,请稍候....");
         mConfirm.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.btn_bg_rounded_six));
@@ -276,7 +286,8 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
                 .addFormDataPart("evaluate_good_id", mGoodId)//	商品id
                 .addFormDataPart("evaluate_good_name", mTitle)//商品名称
                 .addFormDataPart("evaluate_content", content) //	评价内容
-                .addFormDataPart("order_id", mOrderId);  //	订单id
+                .addFormDataPart("order_id", mOrderId) //	订单id
+                .addFormDataPart("star_num", rating+"");  //	星级评价
 //                    .addFormDataPart("head_img", listPath.get(0), RequestBody.create(MediaType.parse("image/*"), file))
         if (listPath != null) {//全部图片
             if (!listPath.get(0).equals("a")) {
@@ -286,8 +297,8 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
                 }
             }
         }
-        Log.e("yh", "?evaluate_user_id=" + mUserId + "&evaluate_good_id=" + mGoodId + "&evaluate_good_name=" + mTitle + "&evaluate_content="
-                + content+"order_id="+mOrderId+"&eval_imgs0="+listPath.get(0));
+//        Log.e("yh", "?evaluate_user_id=" + mUserId + "&evaluate_good_id=" + mGoodId + "&evaluate_good_name=" + mTitle + "&evaluate_content="
+//                + content + "order_id=" + mOrderId + "&eval_imgs0=" + listPath.get(0));
         Call<ReturnFeng> call = service.upLoadComments(requestBody.build());
         call.enqueue(new Callback<ReturnFeng>() {
                          @Override
@@ -430,6 +441,7 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
             selectMyPhoto();
         }
     };
+
     /**
      * 拍照
      */

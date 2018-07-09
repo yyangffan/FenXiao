@@ -48,12 +48,12 @@
 
         <TextView
             android:id="@+id/evaluation_title"
-            android:focusableInTouchMode="true"
-            android:focusable="true"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/sum_35"
             android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center"
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
@@ -76,46 +76,76 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/evaluation_llayout_id2"
+                android:id="@+id/evaluation_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_10"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:padding="@dimen/sum_10"
+                    android:text="星级评价"/>
+
+                <RatingBar
+                    android:id="@+id/evaluation_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:isIndicator="false"
+                    style="@style/MyRatingBarStyle"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:numStars="5"
+                    android:layout_marginBottom="@dimen/sum_10"
+                    android:rating="0.0"/>
+
+
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/evaluation_ll"
                 android:background="@color/colorwhites"
                 android:padding="@dimen/sum_10">
 
-                <ScrollView
+                <EditText
+                    android:id="@+id/evaluation_et_id"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/evaluation_et_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:minHeight="@dimen/sum_180"
-                        android:background="@null"
-                        android:gravity="top"
-                        android:hint="@string/mine_name49"
-                        android:textColorHint="@color/colorgraynessd"/>
-                </ScrollView>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="@string/mine_name49"
+                    android:minHeight="@dimen/sum_180"
+                    android:textColorHint="@color/colorgraynessd"/>
+            </ScrollView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/scroll"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/evaluation_llayout_id2"
                 android:overScrollMode="never"/>
 
             <com.linkhand.fenxiao.utils.MultipleImages.NoScrollGridView
                 android:id="@+id/evaluation_iv_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_below="@+id/evaluation_llayout_id2"
+                android:layout_below="@+id/scroll"
                 android:layout_margin="15px"
                 android:numColumns="3"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 >
             </com.linkhand.fenxiao.utils.MultipleImages.NoScrollGridView>
 

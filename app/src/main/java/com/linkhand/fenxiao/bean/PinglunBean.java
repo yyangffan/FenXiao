@@ -61,7 +61,16 @@ public class PinglunBean {
         private String evaluate_content;
         private String user_name;
         private String user_head_img;
+        private String evaluate_star_num;
         private List<String> eimg;
+
+        public String getEvaluate_star_num() {
+            return evaluate_star_num;
+        }
+
+        public void setEvaluate_star_num(String evaluate_star_num) {
+            this.evaluate_star_num = evaluate_star_num;
+        }
 
         public int getEvaluate_id() {
             return evaluate_id;

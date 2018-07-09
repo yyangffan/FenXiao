@@ -148,4 +148,18 @@
         </attr>
     </declare-styleable>
 
+    <style name="MyRatingBarStyle" parent="@android:style/Widget.Holo.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_layer</item>
+        <item name="android:minHeight">23dp</item>
+        <item name="android:maxHeight">23dp</item>
+        <item name="android:minWidth">30dp</item>
+    </style>
+
+ <style name="MyRatingBarStyleSmall" parent="@android:style/Widget.Holo.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_layer_small</item>
+        <item name="android:minHeight">15dp</item>
+        <item name="android:maxHeight">15dp</item>
+    </style>
+
+
 </resources>

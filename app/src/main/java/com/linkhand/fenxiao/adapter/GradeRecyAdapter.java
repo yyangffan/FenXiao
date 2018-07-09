@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +61,7 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
                 return true;
             }
         });
-
+        vh.mRatingBar.setRating(Float.parseFloat(bean.getEvaluate_star_num()));
 
     }
 
@@ -74,6 +75,7 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
         private TextView mtv_title;
         private TextView mtv_content;
         private RecyclerView mrecy_item;
+        private RatingBar mRatingBar;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,6 +83,7 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
             mtv_title = (TextView) itemView.findViewById(R.id.item_grade_title);
             mtv_content = (TextView) itemView.findViewById(R.id.item_upgrade_content);
             mrecy_item = (RecyclerView) itemView.findViewById(R.id.item_upgrade_recy);
+            mRatingBar = (RatingBar) itemView.findViewById(R.id.evaluation_rb);
 
 
         }
