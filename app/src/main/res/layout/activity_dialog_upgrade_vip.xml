@@ -33,7 +33,7 @@
         android:paddingBottom="@dimen/sum_3"
         android:paddingTop="@dimen/sum_10"
         android:text="@string/mialog_name11"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
     <TextView
         android:id="@+id/dialog_tv_id"
@@ -42,7 +42,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/sum_10"
         android:text="@string/mialog_name12"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
 
     <View
@@ -64,7 +64,7 @@
             android:paddingBottom="@dimen/sum_10"
             android:paddingTop="@dimen/sum_10"
             android:text="@string/HomePage_name35"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/dialog_viplogin_id"

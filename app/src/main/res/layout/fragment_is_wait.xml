@@ -39,7 +39,14 @@
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
     <ListView
         android:id="@+id/isPay_listview_id"
         android:dividerHeight="@dimen/sum_10"
@@ -47,5 +54,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"/>
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

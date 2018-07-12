@@ -15,6 +15,7 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.home.IntentionAdapter;
+import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.home.IntentionGoods;
 import com.linkhand.fenxiao.info.InfoData;
@@ -39,6 +40,7 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
+    String mUserIsVip; //是否vip  0否  1是
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         mReturn.setOnClickListener(this);
     }
 
@@ -178,6 +181,11 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         service = retrofit.create(InfoData.class);
     }
 
+    public void onIsLoginVip() {
+        MyDialogVip dialog = new MyDialogVip(this);
+        dialog.show();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -191,7 +199,6 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
             public void onClick(View v) {
                 String idea_id = list.get(0).get("idea_id").toString();//商品id
                 String is_have = list.get(0).get("is_have").toString();//是否订购(是否已关注 1是 0否)
-
                 Intent intent = new Intent(IntentionActivity.this, InDetailsActivity.class);
                 intent.putExtra("idea_id", idea_id);
                 startActivity(intent);
@@ -204,13 +211,15 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
             public void onClick(View v) {
                 String idea_id = list.get(0).get("idea_id").toString();//商品id
                 String is_have = list.get(0).get("is_have").toString();//是否订购(是否已关注 1是 0否)
-                if (is_have.equals("1")) {
-                    onCancelOrder(idea_id);//取消订购
-                } else if (is_have.equals("0")) {
-                    onOrder(idea_id);//立即订购
+                if (mUserIsVip.equals("1")) {
+                    if (is_have.equals("1")) {
+                        onCancelOrder(idea_id);//取消订购
+                    } else if (is_have.equals("0")) {
+                        onOrder(idea_id);//立即订购
+                    }
+                } else{
+                    onIsLoginVip();//购买vip
                 }
-//                Intent intent = new Intent(IntentionActivity.this, DetailPageActivity.class);
-//                startActivity(intent);
             }
         });
 

@@ -36,7 +36,7 @@
         android:paddingBottom="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
         android:hint="@string/mialog_name21"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
     <View
         android:layout_width="280dp"

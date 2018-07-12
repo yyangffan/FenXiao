@@ -30,6 +30,7 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
     private List<DingDanResponse.InfoBean> mListBean;
     private AlertDialog mTh_dialog;
     private String order_id = "";//进行退货时的id
+    SmartRefreshLayout mSmartRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +85,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
         mReturn = (ImageView) v.findViewById(R.id.mine_return_id4);
         mLinearLayout = (LinearLayout) v.findViewById(R.id.mine_llayout_gone_id3);
         mll = (LinearLayout) v.findViewById(R.id.goods_ll);
+        mSmartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //存入返回判断  1不提示
@@ -133,6 +136,8 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
 //            }
 //        });
         mListView.setAdapter(mAdapter);
+        mSmartRefreshLayout.setEnableLoadmore(false);
+        mSmartRefreshLayout.setEnableRefresh(false);
     }
 
     /*删除订单*/

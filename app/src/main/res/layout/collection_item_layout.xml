@@ -38,7 +38,7 @@
         android:layout_alignBottom="@+id/collection_item_tuid"
         android:layout_toRightOf="@+id/collection_item_zirmb"
         android:text="@string/home_item_name2"
-        android:textColor="@color/colorgraynessd"
+        android:textColor="@color/gray_text"
         android:textSize="@dimen/sum_16"/>
 
     <TextView
@@ -59,7 +59,7 @@
         android:layout_above="@+id/collection_item_zirmb"
         android:layout_toRightOf="@+id/collection_item_murmb"
         android:text="@string/home_item_name3"
-        android:textColor="@color/colorgraynessd"
+        android:textColor="@color/gray_text"
         android:textSize="@dimen/sum_16"/>
 
     <TextView
@@ -75,7 +75,7 @@
         android:paddingRight="@dimen/sum_10"
         android:paddingTop="@dimen/sum_5"
         android:text="@string/mine_name39"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
 
     <ImageView

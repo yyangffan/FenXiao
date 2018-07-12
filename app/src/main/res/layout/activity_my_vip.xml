@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="0dp"
-            android:textColor="@color/colorgraynessd"
+            android:textColor="@color/gray_text"
             app:layout_constraintBottom_toTopOf="@+id/myvip_money"
             app:layout_constraintLeft_toLeftOf="@+id/myvip_title"/>
 

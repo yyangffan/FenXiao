@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="失效宝贝(2)"
-                        android:textColor="@color/colorgraynessd"/>
+                        android:textColor="@color/gray_text"/>
 
                     <TextView
                         android:id="@+id/shopping_tv_cancelAll"

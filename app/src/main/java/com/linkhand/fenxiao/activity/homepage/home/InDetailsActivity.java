@@ -25,6 +25,7 @@ import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.GradeRecyAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
+import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.IdeaGoodsDetailsFeng;
@@ -114,6 +115,9 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     private AlertDialog mLiuyanDialog;
     private int page = 0;
 
+    String mUserIsVip; //是否vip  0否  1是
+    private String mMoney_num;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +143,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         editor = preferences.edit();
         //获取个人id
         mUserId = preferences.getString("user_id", "");
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         mTabLayout.addTab(mTabLayout.newTab().setText("图文详情"));
         mTabLayout.addTab(mTabLayout.newTab().setText("留言"));
         //取得从上一个Activity当中传递过来的Intent对象
@@ -194,17 +199,31 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
     }
 
+    public void onIsLoginVip() {
+        MyDialogVip dialog = new MyDialogVip(this);
+        dialog.show();
+    }
+
     public void onClicks() {
-        mReturn.setOnClickListener(this);//返回
         mPurchasing.setOnClickListener(this);//立刻购买
         mLLayoutCollect.setOnClickListener(this);//收藏
         mShare.setOnClickListener(this);//分享
         mDetailsLiuyan.setOnClickListener(this);
+
+        mReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InDetailsActivity.this.finish();
+            }
+        });//返回
     }
 
     @Override
     public void onClick(View v) {
-
+        if (mUserIsVip.equals("0")) {
+            onIsLoginVip();//购买vip
+            return;
+        }
         switch (v.getId()) {
             case R.id.detail_collect_llayout_id://收藏
                 if (house == 1) {//是否已关注  1是  0否
@@ -215,9 +234,6 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 break;
             case R.id.details_share://分享
                 onShare();//分享
-                break;
-            case R.id.home_return_id3://返回
-                this.finish();
                 break;
             case R.id.detail_purchasing_id://立刻购买
                 if (have == 1) {//是否已关注  1是  0否
@@ -317,12 +333,13 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     String good_name = bean.getIdea_name();//商品名称
                     String money_mater = bean.getIdea_mater();//母币价格
                     String money_son = bean.getIdea_son();//子币价格
-                    String money_num = bean.getIdea_nownum();//当前收藏人数
+                    //当前收藏人数
+                    mMoney_num = bean.getIdea_nownum();
 
 
                     mZiSum.setText(money_son);
                     mMuSum.setText(money_mater);
-                    mThinkSum.setText(money_num + "人想买");
+                    mThinkSum.setText(mMoney_num + "人想买");
                     mIndetailsName.setText(good_name);
 
                     if (house == 1) {//是否已收藏  1是  0否
@@ -394,7 +411,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     }
                     for (int i = 0; i < liuYanBean.getInfo().size(); i++) {
                         LiuYanBean.InfoBean liuyan_info = liuYanBean.getInfo().get(i);
-                        PinglunBean.InfoBean infoBean = new PinglunBean.InfoBean(liuyan_info.getMsg_text(), liuyan_info.getUser_name(), liuyan_info.getUser_head_img());
+                        PinglunBean.InfoBean infoBean = new PinglunBean.InfoBean(liuyan_info.getMsg_text(), liuyan_info.getUser_name(), liuyan_info.getUser_head_img(), "没有");
                         mPingList.add(infoBean);
                     }
                     mGradeAdapter.notifyDataSetChanged();
@@ -433,7 +450,10 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 if (code == 100) {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
 //                    InDetailsActivity.this.finish();
-                    onMessage();
+                    mMoney_num = (Integer.parseInt(mMoney_num) - 1) + "";
+                    mThinkSum.setText(mMoney_num + "人想买");
+                    have = 0;
+                    mPurchasing.setText("立即订购");
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -461,7 +481,10 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 if (code == 100) {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
 //                    InDetailsActivity.this.finish();
-                    onMessage();
+                    mMoney_num = (Integer.parseInt(mMoney_num) + 1) + "";
+                    mThinkSum.setText(mMoney_num + "人想买");
+                    have = 1;
+                    mPurchasing.setText("取消订购");
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -491,7 +514,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
-                    onMessage();
+                    house = 1;
+                    mCollect.setImageResource(R.drawable.collection_two);
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -500,7 +524,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<ReturnFeng> call, Throwable t) {
-
+                ToastUtil.showToast(InDetailsActivity.this, "网络异常");
             }
         });
     }
@@ -520,7 +544,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
-                    onMessage();
+                    house = 0;
+                    mCollect.setImageResource(R.drawable.collection);
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -529,7 +554,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<ReturnFeng> call, Throwable t) {
-
+                ToastUtil.showToast(InDetailsActivity.this, "网络异常");
             }
         });
     }

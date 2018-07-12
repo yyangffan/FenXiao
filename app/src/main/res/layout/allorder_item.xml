@@ -52,7 +52,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="母币"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/allorder_rmb_id"
@@ -78,7 +78,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="子币"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
     <!--下面这个TextView并没有实质性作用-->
         <TextView
             android:id="@+id/allorder_item_tv_id"
@@ -113,7 +113,7 @@
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:text="x1"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <ImageView
             android:id="@+id/allorder_item_tuid"

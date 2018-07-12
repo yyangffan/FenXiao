@@ -42,10 +42,11 @@ public class PinglunBean {
     }
 
     public static class InfoBean {
-        public InfoBean(String evaluate_content, String user_name, String user_head_img) {
+        public InfoBean(String evaluate_content, String user_name, String user_head_img,String evaluate_star_num) {
             this.evaluate_content = evaluate_content;
             this.user_name = user_name;
             this.user_head_img = user_head_img;
+            this.evaluate_star_num=evaluate_star_num;
         }
 
         /**

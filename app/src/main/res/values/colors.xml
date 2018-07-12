@@ -12,6 +12,7 @@
     <color name="colorwhites">#fff</color>
     <!--字体灰-->
     <color name="colorgraynessd">#FFBABABA</color>
+    <color name="gray_text">#969696</color><!--新的所有涉及灰色字体的颜色-->
     <!--背景色colorgraynessb-->
     <color name="colorgraynessb">#eeeeee</color>
     <!--主色colorred-->
@@ -29,7 +30,7 @@
 
 
     <!-- 半透明遮挡 -->
-    <color name="gray_translucent">#5e000000</color>
+    <color name="gray_translucent">#969696</color>
     <color name="text_gray">#999999</color>
 
     <color name="gray_f5">#F5F5F5</color>

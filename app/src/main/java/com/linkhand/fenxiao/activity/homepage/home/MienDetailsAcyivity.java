@@ -1,6 +1,8 @@
 package com.linkhand.fenxiao.activity.homepage.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -14,6 +16,7 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.bean.MienDainZanBean;
 import com.linkhand.fenxiao.bean.MienDetailBean;
+import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.utils.DateUtil;
 import com.linkhand.fenxiao.views.MyWevClient;
@@ -56,6 +59,9 @@ public class MienDetailsAcyivity extends BaseActicity {
     ImageView mMienImgvWhat;
 
     private String mAr_id = "";
+    String mUserIsVip; //是否vip  0否  1是
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -67,6 +73,9 @@ public class MienDetailsAcyivity extends BaseActicity {
     }
 
     public void initWhat() {
+        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        mUserIsVip = preferences.getString("userIsVip", "0");
         Intent intent = this.getIntent();
         if (intent != null) {
             mAr_id = intent.getStringExtra("ar_id");
@@ -81,7 +90,11 @@ public class MienDetailsAcyivity extends BaseActicity {
                 this.finish();
                 break;
             case R.id.llayout:
-                Dianzan();
+                if (mUserIsVip.equals("1")) {
+                    Dianzan();
+                } else if (mUserIsVip.equals("0")) {
+                    onIsLoginVip();
+                }
                 break;
         }
     }
@@ -157,8 +170,13 @@ public class MienDetailsAcyivity extends BaseActicity {
                 Toast.makeText(MienDetailsAcyivity.this, "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
+
+    public void onIsLoginVip() {//购买vip弹窗
+        MyDialogVip dialog = new MyDialogVip(this);
+        dialog.show();
+    }
+
 
 }

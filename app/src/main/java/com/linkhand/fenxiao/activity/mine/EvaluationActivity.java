@@ -193,7 +193,7 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
                 .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
                 //.imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
                 //.setOutputCameraPath("/CustomPath")// 自定义拍照保存路径
-                .enableCrop(false)// 是否裁剪
+                .enableCrop(true)// 是否裁剪
                 .compress(false)// 是否压缩
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
                 //.compressSavePath(getPath())//压缩图片保存地址
@@ -203,9 +203,9 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
                 .hideBottomControls(true)// 是否显示uCrop工具栏，默认不显示
                 .isGif(false)// 是否显示gif图片
                 .freeStyleCropEnabled(false)// 裁剪框是否可拖拽
-                .circleDimmedLayer(true)// 是否圆形裁剪
-                .showCropFrame(false)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
+                .circleDimmedLayer(false)// 是否圆形裁剪
+                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
+                .showCropGrid(true)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
                 .openClickSound(false)// 是否开启点击声音
                 .selectionMedia(selectList)// 是否传入已选图片
 //                        .videoMaxSecond(15)
@@ -214,7 +214,7 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
                 //.cropCompressQuality(90)// 裁剪压缩质量 默认100
                 .minimumCompressSize(100)// 小于100kb的图片不压缩
                 //.cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效
-                .rotateEnabled(true) // 裁剪是否可旋转图片
+                .rotateEnabled(false) // 裁剪是否可旋转图片
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片
                 //.videoQuality()// 视频录制质量 0 or 1
                 //.videoSecond()//显示多少秒以内的视频or音频也可适用
@@ -227,7 +227,7 @@ public class EvaluationActivity extends BaseActicity implements View.OnClickList
         if (selectList != null) {
             if (selectList.size() != 0) {
                 for (LocalMedia media : selectList) {
-                    listPath.add(media.getPath());
+                    listPath.add(media.getCutPath());
                 }
                 onMessage(content);
             } else {

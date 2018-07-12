@@ -144,9 +144,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        //获取个人id
-        mUserId = preferences.getString("user_id", "");
-        //是否vip  0否  1是
+        mUserId = preferences.getString("user_id", "");//获取个人id
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         //获取是否第一次进首页instructions须知  1是提示完了
         mIsOne = preferences.getInt("instructions", 0);
@@ -155,7 +153,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             public void OnBannerClick(int position) {
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
-                } else if (mUserIsVip.equals("1")) {//是否vip  0否  1是
+                } else {
                     if (mBanner_ids != null) {
                         Map<String, Object> map = mBanner_ids.get(position);
                         String sl_jump = (String) map.get("sl_jump");
@@ -172,8 +170,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 //                        ToastUtil.showToast(HomePageFragment.this.getActivity(), "无跳转");
                         }
                     }
-                } else if (mUserIsVip.equals("0")) {
-                    onIsLoginVip();//购买vip
                 }
             }
         });
@@ -202,26 +198,17 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
-                    if (mUserIsVip.equals("1")) {//是否vip  0否  1是
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), IntentionActivity.class);
-                        startActivity(intent);
-                    } else if (mUserIsVip.equals("0")) {
-                        onIsLoginVip();//购买vip
-                    }
-
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), IntentionActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.opengroup_llayout_id://开团专区
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
-                    if (mUserIsVip.equals("1")) {//是否vip  0否  1是
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), OpenGroupActivity.class);
-                        intent.putExtra("is_type", "1");
-                        startActivity(intent);
-                    } else if (mUserIsVip.equals("0")) {
-                        onIsLoginVip();//购买vip
-                    }
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), OpenGroupActivity.class);
+                    intent.putExtra("is_type", "1");
+                    startActivity(intent);
                 }
                 break;
             case R.id.invite_llayout_id://金牌专区
@@ -254,12 +241,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
-                    if (mUserIsVip.equals("1")) {//是否vip  0否  1是
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), MienActivity.class);
-                        startActivity(intent);
-                    } else if (mUserIsVip.equals("0")) {
-                        onIsLoginVip();//购买vip
-                    }
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), MienActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.fenxiao_news_ll_id://消息通知
@@ -592,16 +575,11 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View v) {
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
-//                    onIsLoginVip();//登录购买vip
                 } else {
-                    if (mUserIsVip.equals("0")) {//是否vip  0否  1是
-                        onIsLoginVip();//登录购买vip
-                    } else {
-                        String id = list.get(0).get("id").toString();//商品id
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), DetailPageActivity.class);
-                        intent.putExtra("good_id", id);
-                        startActivity(intent);
-                    }
+                    String id = list.get(0).get("id").toString();//商品id
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), DetailPageActivity.class);
+                    intent.putExtra("good_id", id);
+                    startActivity(intent);
                 }
             }
         });

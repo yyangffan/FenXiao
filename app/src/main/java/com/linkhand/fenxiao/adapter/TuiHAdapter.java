@@ -89,7 +89,11 @@ public class TuiHAdapter extends BaseAdapter {
         vh.mtv_son_name.setText(mSon_name);
         vh.mtv_cancel.setVisibility(View.GONE);
         if (tuiHBean.getOrder_quit() == 1) {
-            vh.mtv_state.setText("已退货");
+            if (tuiHBean.getOrder_state() == 1) {
+                vh.mtv_state.setText("开团失败取消");
+            } else {
+                vh.mtv_state.setText("已退货");
+            }
         } else {
             vh.mtv_state.setText("退货中");
         }

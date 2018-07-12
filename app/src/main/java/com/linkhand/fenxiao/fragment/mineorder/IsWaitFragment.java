@@ -29,6 +29,7 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +67,8 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
     String mUserId;//个人id
     All0rderFragmentAdapter mAdapter;
     List<DingDanResponse.InfoBean> mlistBean;
-
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,6 +130,9 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
                 startActivity(intent);
             }
         });
+        mSmartRefresh.setEnableLoadmore(false);
+        mSmartRefresh.setEnableRefresh(false);
+
     }
 
     /*删除订单*/
@@ -151,6 +156,7 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
             }
         });
     }
+
     @OnClick({R.id.mine_return_id2, R.id.textView2})
     public void onViewClicked(View view) {
         switch (view.getId()) {

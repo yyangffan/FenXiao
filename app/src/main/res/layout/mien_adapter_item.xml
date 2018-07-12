@@ -16,7 +16,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="标题标题标题标题标题标题标题"
-        android:textSize="@dimen/sum_20"/>
+        android:textSize="16sp"/>
 
 
     <ImageView
@@ -34,12 +34,11 @@
         android:id="@+id/mien_item_ren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mien_item_tuid"
         android:layout_marginLeft="@dimen/sum_5"
-        android:layout_toRightOf="@+id/mien_item_tu"
         android:text="x人"
-        android:textColor="@color/colorgraynessd"
-        android:textSize="@dimen/sum_16"/>
+        android:textColor="@color/gray_text"
+        android:layout_alignBottom="@+id/mien_item_tu"
+        android:layout_toEndOf="@+id/mien_item_tu"/>
 
 
     <TextView
@@ -49,7 +48,7 @@
         android:layout_alignBottom="@+id/mien_item_tuid"
         android:layout_alignParentRight="true"
         android:text="xxxx-xx-xx"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
 
     <ImageView

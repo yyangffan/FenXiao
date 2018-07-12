@@ -35,7 +35,7 @@
         android:paddingBottom="@dimen/sum_3"
         android:paddingTop="@dimen/sum_10"
         android:text="@string/mialog_name8"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
 
     <TextView
@@ -45,7 +45,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/sum_10"
         android:text="@string/mialog_name9"
-        android:textColor="@color/colorgraynessd"/>
+        android:textColor="@color/gray_text"/>
 
 
     <View

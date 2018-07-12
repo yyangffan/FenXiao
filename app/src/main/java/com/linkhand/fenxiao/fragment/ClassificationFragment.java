@@ -26,7 +26,6 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.OpenGroupActivity;
 import com.linkhand.fenxiao.activity.login.LoginActivity;
 import com.linkhand.fenxiao.adapter.fenlei.MyAdapter;
-import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.fenlei.Category;
 import com.linkhand.fenxiao.feng.fenlei.LeftClassFeng;
 import com.linkhand.fenxiao.fragment.fenlei.JDFragment;
@@ -123,21 +122,17 @@ public class ClassificationFragment extends BaseFragment implements View.OnClick
         if (mUserId.equals("")) {//是否登录
             onLogin();//去登陆
         } else {
-            if (mUserIsVip.equals("0")) {//是否vip  0否  1是
-                onPrompt();//提示信息
+            String cntent = mCheckClass.getText() + "";
+            Log.e("yh", "cntent--" + cntent);
+            if (!cntent.equals("")) {
+                Log.e("yh", "搜索内容--" + cntent);
+                Intent intent = new Intent(ClassificationFragment.this.getActivity(), OpenGroupActivity.class);
+                intent.putExtra("mClassify_id", "");//分类id
+                intent.putExtra("mBrand_id", "");//品牌id
+                intent.putExtra("mKeyword_id", cntent);//关键字
+                startActivity(intent);
             } else {
-                String cntent = mCheckClass.getText() + "";
-                Log.e("yh", "cntent--" + cntent);
-                if (!cntent.equals("")) {
-                    Log.e("yh", "搜索内容--" + cntent);
-                    Intent intent = new Intent(ClassificationFragment.this.getActivity(), OpenGroupActivity.class);
-                    intent.putExtra("mClassify_id", "");//分类id
-                    intent.putExtra("mBrand_id", "");//品牌id
-                    intent.putExtra("mKeyword_id", cntent);//关键字
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(ClassificationFragment.this.getActivity(), "请输入搜索内容", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(ClassificationFragment.this.getActivity(), "请输入搜索内容", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -270,13 +265,6 @@ public class ClassificationFragment extends BaseFragment implements View.OnClick
     public void onLogin() {//去登陆
         Intent intent = new Intent(ClassificationFragment.this.getActivity(), LoginActivity.class);//登录
         startActivity(intent);
-    }
-
-    public void onPrompt() {//提示信息购买vip
-        MyDialogVip dialog = new MyDialogVip(getActivity());
-//        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
-        dialog.show();
-//        Toast.makeText(ClassificationFragment.this.getActivity(), "请先购买vip!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

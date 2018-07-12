@@ -123,7 +123,7 @@
                     android:gravity="center"
                     android:drawableTop="@drawable/shen_over"
                     android:text="@string/shenfenzheng_over"
-                    android:textColor="@color/colorgraynessd"/>
+                    android:textColor="@color/gray_text"/>
 
                 <ImageView
                     android:id="@+id/apporve_imgv_over"
@@ -153,7 +153,7 @@
                     android:drawableTop="@drawable/shen_bot"
                     android:gravity="center"
                     android:text="@string/shenfenzheng_back"
-                    android:textColor="@color/colorgraynessd"
+                    android:textColor="@color/gray_text"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"/>
 

@@ -70,7 +70,7 @@
                 android:layout_marginLeft="@dimen/sum_10"
                 android:ellipsize="end"
                 android:text="@string/classification_name3"
-                android:textColor="@color/colorgraynessd"
+                android:textColor="@color/gray_text"
                 android:textSize="@dimen/sum_14"/>
         </LinearLayout>
 

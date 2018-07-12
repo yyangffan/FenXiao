@@ -88,7 +88,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/sum_10"
                 android:text="@string/mine_name47"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/mine_name45"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/mine_tv_phone_id"
@@ -153,7 +153,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/mine_name53"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/mine_tv_name_id"
@@ -189,7 +189,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/mine_name44"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/mine_tv_realname_id"
@@ -227,7 +227,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/mine_name46"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/mine_tv_number_id"
@@ -265,7 +265,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/mine_name50"
-            android:textColor="@color/colorgraynessd"/>
+            android:textColor="@color/gray_text"/>
 
         <TextView
             android:id="@+id/mine_tv_wx_id"

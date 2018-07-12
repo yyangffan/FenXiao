@@ -264,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/sum_5"
                     android:text="@string/mine_name5"
-                    android:textColor="@color/colorgraynessd"/>
+                    android:textColor="@color/gray_text"/>
 
                 <ImageView
                     android:layout_width="wrap_content"

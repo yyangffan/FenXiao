@@ -13,6 +13,7 @@ import com.linkhand.fenxiao.adapter.TuiHAdapter;
 import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.TuiHBean;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -37,6 +38,8 @@ public class TuihActivity extends BaseActicity {
     TextView mFenxiaoTitleId;
     @Bind(R.id.tuihuo_lv)
     SlideAndDragListView mTuihuoLv;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
     private List<TuiHBean.InfoBean> mInfoBeanList;
     private TuiHAdapter mTuiHAdapter;
 
@@ -59,6 +62,8 @@ public class TuihActivity extends BaseActicity {
     }
 
     public void initEver() {
+        mSmartRefresh.setEnableLoadmore(false);
+        mSmartRefresh.setEnableRefresh(false);
         mInfoBeanList = new ArrayList<>();
         mTuiHAdapter = new TuiHAdapter(this, mInfoBeanList);
         Menu menu = new Menu(false, 0);//第1个参数表示滑动 item 是否能滑的过头 true 表示过头，false 表示不过头
@@ -79,7 +84,7 @@ public class TuihActivity extends BaseActicity {
                         if (infoBean.getOrder_quit() == 1) {
                             userDelete(infoBean.getOrder_id() + "");
                         } else {
-                            ToastUtil.showToast(TuihActivity.this,"只可删除退货完成的订单");
+                            ToastUtil.showToast(TuihActivity.this, "只可删除退货完成的订单");
                         }
                         break;
                     default:

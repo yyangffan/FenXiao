@@ -35,6 +35,7 @@ import com.linkhand.fenxiao.adapter.home.MyClassLVAdapter;
 import com.linkhand.fenxiao.adapter.home.ParameterAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
 import com.linkhand.fenxiao.dialog.DialogUpgradeVIP;
+import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.MyViewPagDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.fenlei.Category;
@@ -168,6 +169,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     private List<PinglunBean.InfoBean> mPingList;
     private List<Map<String, Object>> mMapList;
     private String guige_imgv = "";
+    String mUserIsVip; //是否vip  0否  1是
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +195,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         editor = preferences.edit();
         mListview.setFocusable(false);
         mUserId = preferences.getString("user_id", "");
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
         mDetailsZibitext.setText(Son_name);//子币
@@ -252,16 +255,24 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     }
 
     public void onClicks() {
-        mReturn.setOnClickListener(this);//返回
         mShoppingCart.setOnClickListener(this);//加入购物车
         mPurchasing.setOnClickListener(this);//立刻购买
         mCollectLayout.setOnClickListener(this);//收藏
         mShare.setOnClickListener(this);//分享
+        mReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailPageActivity.this.finish();
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
-
+        if (mUserIsVip.equals("0")) {//是否vip  0否  1是
+            onIsLoginVip();//购买vip
+            return;
+        }
         switch (v.getId()) {
             case R.id.detail_collect_llayout_id://收藏
                 if (house == 1) {//是否已收藏 1为已收藏  0未收藏
@@ -327,6 +338,12 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
 
         }
+    }
+
+    public void onIsLoginVip() {//购买vip
+        MyDialogVip dialog = new MyDialogVip(this);
+//        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
+        dialog.show();
     }
 
     /*获取评论数据*/
@@ -791,7 +808,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
-                    onMessage();
+                    house = 1;
+                    mCollect.setImageResource(R.drawable.collection_two);
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -820,7 +838,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
-                    onMessage();
+                    house=0;
+                    mCollect.setImageResource(R.drawable.collection);
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

@@ -128,7 +128,7 @@
                 android:layout_below="@+id/fenxiao_registration"
                 android:layout_marginTop="@dimen/sum_10"
                 android:text="@string/login_wangjimima"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:id="@+id/fenxiao_diushi"
@@ -138,7 +138,7 @@
                 android:layout_below="@+id/fenxiao_registration"
                 android:layout_marginTop="@dimen/sum_10"
                 android:text="账户丢失"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
 
         </RelativeLayout>

@@ -16,6 +16,7 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.home.NewsAdapter;
 import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.MessageResponse;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -37,6 +38,7 @@ public class NewsActivity extends BaseActicity implements View.OnClickListener {
     SlideAndDragListView mListView;
     NewsAdapter mAdapter;
     private List<MessageResponse.InfoBean> mList;
+    SmartRefreshLayout mSmartRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class NewsActivity extends BaseActicity implements View.OnClickListener {
 
     public void init() {
         mReturn = (LinearLayout) findViewById(R.id.fenxiao_return_id4);
+        mSmartRefreshLayout = (SmartRefreshLayout) findViewById(R.id.smartRefresh);
         mListView = (SlideAndDragListView) findViewById(R.id.news_listview_id);
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -68,19 +71,16 @@ public class NewsActivity extends BaseActicity implements View.OnClickListener {
             public int onMenuItemClick(View v, final int itemPosition, int buttonPosition, int direction) {
                 switch (direction) {
                     case MenuItem.DIRECTION_RIGHT:
-//                        new ShowRemindDialog().showRemind(NewsActivity.this, "确定", "取消", "", "删除消息?", 0, new ShowRemindDialog.OnTvClickListener() {
-//                            @Override
-//                            public void OnSureClickListener() {
-                                deleteOneMsg(mList.get(itemPosition).getTrade_id() + "");
-//                            }
-//                        });
+                        deleteOneMsg(mList.get(itemPosition).getTrade_id() + "");
                         break;
-                    default :
+                    default:
                         return Menu.ITEM_NOTHING;
                 }
                 return Menu.ITEM_NOTHING;
             }
         });
+        mSmartRefreshLayout.setEnableLoadmore(false);
+        mSmartRefreshLayout.setEnableRefresh(false);
 
     }
 

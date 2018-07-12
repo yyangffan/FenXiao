@@ -121,6 +121,7 @@
                     android:id="@+id/evaluation_et_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="16sp"
                     android:background="@null"
                     android:gravity="top"
                     android:hint="@string/mine_name49"

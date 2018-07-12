@@ -61,7 +61,12 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
                 return true;
             }
         });
-        vh.mRatingBar.setRating(Float.parseFloat(bean.getEvaluate_star_num()));
+        if(bean.getEvaluate_star_num().equals("没有")){
+            vh.mRatingBar.setVisibility(View.GONE);
+        }else {
+            vh.mRatingBar.setVisibility(View.VISIBLE);
+            vh.mRatingBar.setRating(Float.parseFloat(bean.getEvaluate_star_num()));
+        }
 
     }
 

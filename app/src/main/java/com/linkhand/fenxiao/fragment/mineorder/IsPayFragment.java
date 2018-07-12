@@ -28,6 +28,7 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
     ImageView mReturn;//返回
     LinearLayout mLinearLayout;//标题
     LinearLayout mll;
+    SmartRefreshLayout mSmartRefreshLayout;
     InfoData service;
     private List<DingDanResponse.InfoBean> mListBean;
 
@@ -77,6 +79,7 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
         mLinearLayout = (LinearLayout) v.findViewById(R.id.mine_llayout_gone_id1);
         mReturn = (ImageView) v.findViewById(R.id.mine_return_id2);
         mll = (LinearLayout) v.findViewById(R.id.ispay_ll);
+        mSmartRefreshLayout= (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //存入返回判断  1不提示
@@ -97,29 +100,8 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
                 return true;
             }
         });
-
-//        Menu menu = new Menu(false, 0);//第1个参数表示滑动 item 是否能滑的过头 true 表示过头，false 表示不过头
-//        menu.addItem(new MenuItem.Builder().setWidth(200)
-//                .setBackground(new ColorDrawable(Color.RED))
-//                .setText("删除")
-//                .setDirection(MenuItem.DIRECTION_RIGHT)
-//                .setTextColor(Color.WHITE)
-//                .setTextSize(20)
-//                .build());
-//        mListView.setMenu(menu);
-//        mListView.setOnMenuItemClickListener(new SlideAndDragListView.OnMenuItemClickListener() {
-//            @Override
-//            public int onMenuItemClick(View v, final int itemPosition, int buttonPosition, int direction) {
-//                switch (direction) {
-//                    case MenuItem.DIRECTION_RIGHT:
-//                        userDelete(mListBean.get(itemPosition).getOrder_id());
-//                        break;
-//                    default:
-//                        return Menu.ITEM_NOTHING;
-//                }
-//                return Menu.ITEM_NOTHING;
-//            }
-//        });
+        mSmartRefreshLayout.setEnableLoadmore(false);
+        mSmartRefreshLayout.setEnableRefresh(false);
     }
 
     public void onClicks() {

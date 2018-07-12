@@ -25,6 +25,7 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,7 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
     LinearLayout mll_one;
     InfoData service;
     private List<DingDanResponse.InfoBean> mListBean;
+    SmartRefreshLayout mSmartRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +75,7 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
         mReturn = (ImageView) v.findViewById(R.id.mine_return_id3);
         mLinearLayout = (LinearLayout) v.findViewById(R.id.mine_llayout_gone_id2);
         mll_one = (LinearLayout) v.findViewById(R.id.shipping_ll);
+        mSmartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //存入返回判断  1不提示
@@ -115,6 +118,8 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
 //                return Menu.ITEM_NOTHING;
 //            }
 //        });
+        mSmartRefreshLayout.setEnableLoadmore(false);
+        mSmartRefreshLayout.setEnableRefresh(false);
     }
 
     public void onClicks() {

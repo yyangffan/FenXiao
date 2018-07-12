@@ -142,7 +142,11 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.shopping_all_rbtn_id://全选
-                onAllChoose();
+                if (mInfoBeen != null &&mInfoBeen.size()!=0&& list1 != null&&list1.size()!=0) {
+                    onAllChoose();
+                }else {
+                    ToastUtil.showToast(this.getActivity(),"没有商品可选择");
+                }
                 break;
             case R.id.shopping_settlement_id://去结算
                 obtainMessage();//获取下单信息
@@ -204,9 +208,13 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 @Override
                 public void onResponse(Call<ShoppingCartListNewFeng> call, Response<ShoppingCartListNewFeng> response) {
                     ShoppingCartListNewFeng pcfeng = response.body();
-                    Log.e("yh", "pcfeng--" + pcfeng);
                     int code = pcfeng.getCode();
                     if (code == 100) {
+                        /*初始化全选按钮*/
+                        if(mRbtn!=null) {
+                            mRbtn.setImageResource(R.drawable.ovaltwo);
+                        }
+                        mBoolean = false;
                         int MinvalidNumber = 0;//失效个
                         mInfoBeen = pcfeng.getInfo();
                         List<ShoppingCartListNewFeng.NotCartBean> not_cart = pcfeng.getNot_cart();
@@ -347,7 +355,9 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 for (int i = 0; i < list1.size(); i++) {
                     list1.get(i).put("is_selected", "2");//1选中   2未选中
                 }
-                mNewAdapter.notifyDataSetChanged();
+                if(mNewAdapter!=null) {
+                    mNewAdapter.notifyDataSetChanged();
+                }
                 mRmbs = 0;
                 mRmbszi = 0;
             }
@@ -374,7 +384,9 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
             }
-            mNewAdapter.notifyDataSetChanged();
+            if(mNewAdapter!=null) {
+                mNewAdapter.notifyDataSetChanged();
+            }
         }
         if (mAllRmb != null) {
             mAllRmb.setText(mRmbs + Mater_name + "\n" + mRmbszi + Son_name);

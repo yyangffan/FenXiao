@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +56,6 @@ public class JDFragment extends BaseFragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
-    String mUserIsVip;//是否vip  0否  1是
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +82,6 @@ public class JDFragment extends BaseFragment {
         mUserId = preferences.getString("user_id", "");
         Log.e("yh", "mUserId--" + mUserId);
         //是否vip  0否  1是
-        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
-        Log.e("yh", "是否vip--" + mUserIsVip);
 
         //获取Fragment传值
         Bundle bundle = getArguments();
@@ -194,20 +190,15 @@ public class JDFragment extends BaseFragment {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    onUserVip();//获取vip状态
                     if (mUserId.equals("")) {//是否登录
                         onLogin();//去登陆
                     } else {
-                        if (mUserIsVip.equals("0")) {//是否vip  0否  1是
-                            onPrompt();//提示信息
-                        } else {
-                            Log.e(TAG, "position--" + position + "--id--" + id + "--商品id--" + cateBeanList.get(position).getCate_id());
-                            Intent intent = new Intent(JDFragment.this.getActivity(), OpenGroupActivity.class);
-                            intent.putExtra("mClassify_id", cateBeanList.get(position).getCate_id() + "");//分类id
-                            intent.putExtra("mBrand_id", "");//品牌id
-                            intent.putExtra("mKeyword_id", "");//关键字
-                            startActivity(intent);
-                        }
+                        Log.e(TAG, "position--" + position + "--id--" + id + "--商品id--" + cateBeanList.get(position).getCate_id());
+                        Intent intent = new Intent(JDFragment.this.getActivity(), OpenGroupActivity.class);
+                        intent.putExtra("mClassify_id", cateBeanList.get(position).getCate_id() + "");//分类id
+                        intent.putExtra("mBrand_id", "");//品牌id
+                        intent.putExtra("mKeyword_id", "");//关键字
+                        startActivity(intent);
                     }
 
                 }
@@ -231,20 +222,15 @@ public class JDFragment extends BaseFragment {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    onUserVip();//获取vip状态
                     if (mUserId.equals("")) {//是否登录
                         onLogin();//去登陆
                     } else {
-                        if (mUserIsVip.equals("0")) {//是否vip  0否  1是
-                            onPrompt();//提示信息
-                        } else {
-                            Log.e(TAG, "position--" + position + "--id--" + id + "--商品id--" + brandBeanList.get(position).getBrand_id());
-                            Intent intent = new Intent(JDFragment.this.getActivity(), OpenGroupActivity.class);
-                            intent.putExtra("mClassify_id", "");//分类id
-                            intent.putExtra("mBrand_id", brandBeanList.get(position).getBrand_id() + "");//品牌id
-                            intent.putExtra("mKeyword_id", "");//关键字
-                            startActivity(intent);
-                        }
+                        Log.e(TAG, "position--" + position + "--id--" + id + "--商品id--" + brandBeanList.get(position).getBrand_id());
+                        Intent intent = new Intent(JDFragment.this.getActivity(), OpenGroupActivity.class);
+                        intent.putExtra("mClassify_id", "");//分类id
+                        intent.putExtra("mBrand_id", brandBeanList.get(position).getBrand_id() + "");//品牌id
+                        intent.putExtra("mKeyword_id", "");//关键字
+                        startActivity(intent);
                     }
                 }
             });
@@ -275,13 +261,6 @@ public class JDFragment extends BaseFragment {
         dialog.show();
 //        Toast.makeText(JDFragment.this.getActivity(), "请先购买vip!", Toast.LENGTH_SHORT).show();
     }
-
-    public void onUserVip() {
-        //是否vip  0否  1是
-        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
-        Log.e("yh", "是否vip--" + mUserIsVip);
-    }
-
 
 
 }

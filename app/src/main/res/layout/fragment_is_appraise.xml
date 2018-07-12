@@ -38,12 +38,25 @@
 
     </LinearLayout>
 
-    <com.yydcdut.sdlv.SlideAndDragListView
-        android:id="@+id/isAppraise_listview_id"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
-        android:dividerHeight="@dimen/sum_10"
-        android:layout_marginTop="@dimen/sum_10"
-        android:layout_height="match_parent"
-        android:divider="@null"/>
+        android:layout_height="match_parent">
 
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <com.yydcdut.sdlv.SlideAndDragListView
+            android:id="@+id/isAppraise_listview_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/sum_10"
+            android:divider="@null"
+            android:dividerHeight="@dimen/sum_10"/>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

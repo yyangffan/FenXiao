@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,12 +58,12 @@ public class MyViewPagDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_viewpage, null);
         setContentView(mView);
         getWindow().setBackgroundDrawable(new ColorDrawable(0x0000ffff));
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//可以隐藏掉通知栏
         mvp = (ViewPager) mView.findViewById(R.id.dialog_vp);
         mtv = (TextView) mView.findViewById(R.id.dialog_num);
         mtv_save = (TextView) mView.findViewById(R.id.dialog_save);

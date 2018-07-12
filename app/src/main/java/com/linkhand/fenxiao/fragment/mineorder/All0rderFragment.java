@@ -32,6 +32,7 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -63,6 +64,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
     private List<DingDanResponse.InfoBean> mListBean;
     private AlertDialog mTh_dialog;
     private String order_id = "";//进行退货时的id
+    SmartRefreshLayout mSmartRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +82,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
         mAdapter = new All0rderFragmentAdapter(All0rderFragment.this.getActivity(), mListBean);
         mAdapter.setOnItemClicks(this);
         mListView = (SlideAndDragListView) v.findViewById(R.id.allorder_listview_id);
+        mSmartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");
@@ -109,10 +112,10 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 switch (direction) {
                     case MenuItem.DIRECTION_RIGHT:
                         String order_state = mListBean.get(itemPosition).getOrder_state();
-                        if(order_state.equals("4")) {
+                        if (order_state.equals("4")) {
                             userDelete(mListBean.get(itemPosition).getOrder_id());
-                        }else {
-                            ToastUtil.showToast(All0rderFragment.this.getActivity(),"只可删除交易完成的订单");
+                        } else {
+                            ToastUtil.showToast(All0rderFragment.this.getActivity(), "只可删除交易完成的订单");
                         }
                         break;
                     default:
@@ -129,6 +132,8 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 mTh_dialog.show();
             }
         });
+        mSmartRefreshLayout.setEnableLoadmore(false);
+        mSmartRefreshLayout.setEnableRefresh(false);
     }
 
     /*删除订单*/

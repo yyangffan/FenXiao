@@ -130,7 +130,7 @@ public class HomePageActivity extends BaseActicity {
                 radioButton.setChecked(true);
                 radioButton.setTextColor(this.getResources().getColor(R.color.colorred));
             } else {
-                radioButton.setTextColor(this.getResources().getColor(R.color.colorgraynessd));
+                radioButton.setTextColor(this.getResources().getColor(R.color.gray_text));
             }
         }
     }

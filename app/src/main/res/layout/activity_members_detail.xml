@@ -143,7 +143,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name25"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:id="@+id/members_name_id"
@@ -168,7 +168,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name26"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:id="@+id/telephone_number_id"
@@ -193,7 +193,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name27"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -225,7 +225,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name28"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -255,7 +255,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name29"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:id="@+id/members_top_name"
@@ -279,7 +279,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/mine_name30"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
 
             <TextView
                 android:id="@+id/members_recommend_number"
@@ -303,7 +303,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="我的级别人数"
-                android:textColor="@color/colorgraynessd"/>
+                android:textColor="@color/gray_text"/>
             <TextView
                 android:id="@+id/member_detail_jibierenshu"
                 android:layout_width="wrap_content"
