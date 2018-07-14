@@ -29,7 +29,7 @@
         android:layout_toRightOf="@+id/collection_item_tuid"
         android:text="￥100"
         android:textColor="@color/colorred"
-        android:textSize="@dimen/sum_16"/>
+       />
 
     <TextView
         android:id="@+id/collection_item_zitext"
@@ -39,7 +39,7 @@
         android:layout_toRightOf="@+id/collection_item_zirmb"
         android:text="@string/home_item_name2"
         android:textColor="@color/gray_text"
-        android:textSize="@dimen/sum_16"/>
+      />
 
     <TextView
         android:id="@+id/collection_item_murmb"
@@ -50,7 +50,7 @@
         android:layout_toRightOf="@+id/collection_item_tuid"
         android:text="￥100"
         android:textColor="@color/colorred"
-        android:textSize="@dimen/sum_16"/>
+       />
 
     <TextView
         android:id="@+id/collection_item_mutext"
@@ -60,7 +60,7 @@
         android:layout_toRightOf="@+id/collection_item_murmb"
         android:text="@string/home_item_name3"
         android:textColor="@color/gray_text"
-        android:textSize="@dimen/sum_16"/>
+   />
 
     <TextView
         android:id="@+id/collection_item_goumai"

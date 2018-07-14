@@ -273,7 +273,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                                 ShoppingCartListNewFeng.NotCartBean mCart = not_cart.get(i);
                                 ShoppingCartListNewFeng.InfoBean infobean = new ShoppingCartListNewFeng.InfoBean(mCart.getCart_id(), mCart.getGood_id(),
                                         mCart.getUser_id(), mCart.getSpeci_ids(), mCart.getCart_mater(), mCart.getCart_son(), mCart.getCart_num(), mCart.getCart_add_time(),
-                                        mCart.getCart_state(), mCart.getGood_name(), mCart.getGood_is_top(), mCart.getImg_url(), 0);
+                                        mCart.getCart_state(), mCart.getGood_name(), mCart.getGood_is_top(), mCart.getImg_url(), 0,mCart.getSpeci());
                                 mNotCartBeen.add(infobean);
                             }
 

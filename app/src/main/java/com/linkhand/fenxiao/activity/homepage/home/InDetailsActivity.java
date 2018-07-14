@@ -20,12 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.GradeRecyAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
+import com.linkhand.fenxiao.dialog.MyViewPagDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.IdeaGoodsDetailsFeng;
@@ -36,6 +38,7 @@ import com.linkhand.fenxiao.utils.MyRecycleView;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.youmeng.ShareUtils;
 import com.linkhand.fenxiao.views.MyWevClient;
+import com.luck.picture.lib.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -45,6 +48,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,7 +121,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
     String mUserIsVip; //是否vip  0否  1是
     private String mMoney_num;
-
+    private List<Map<String, Object>> mMapList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -569,11 +573,15 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     }
 
     public void onRoastingTu(List<IdeaGoodsDetailsFeng.InfoBean.ImgBean> imgs) {//轮播图
+        mMapList = new ArrayList<>();
         list = new ArrayList<>();
         titleList = new ArrayList<>();
         for (int i = 0; i < imgs.size(); i++) {
             Uri uri = Uri.parse(C.TU + imgs.get(i).getIdea_img_url());
             list.add(uri);
+            Map<String, Object> map = new HashMap<>();
+            map.put("image", C.TU + imgs.get(i).getIdea_img_url());
+            mMapList.add(map);
 //            titleList.add(titles[i]);
         }
         //设置banner样式
@@ -595,6 +603,22 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         mBanner.setDelayTime(2000);
         //banner设置方法全部调用完毕时最后调用
         mBanner.start();
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                List<View> mlist = new ArrayList<>();
+                List<String> mdizhi = new ArrayList<>();
+                for (Map<String, Object> map : mMapList) {
+                    PhotoView photoView = new PhotoView(InDetailsActivity.this);
+                    Glide.with(InDetailsActivity.this).load(map.get("image")).into(photoView);
+                    mlist.add(photoView);
+                    mdizhi.add((String) map.get("image"));
+                }
+                MyViewPagDialog myViewPagDialog = new MyViewPagDialog(InDetailsActivity.this, mlist, mdizhi, position);
+                myViewPagDialog.show();
+            }
+        });
+
     }
 
     private void initRetrofit() {

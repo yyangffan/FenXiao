@@ -52,11 +52,21 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <!-- 首页 -->
-        <activity android:name=".MainActivity">
+        <!-- 启动-引导-页 -->
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StartTheme">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-            <!-- 打开应用会白屏下这设置的是默认图 -->
-            <!-- android:theme="@style/StartTheme" -->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <!-- 主页 -->
+        <activity
+            android:name=".activity.homepage.HomePageActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -72,10 +82,6 @@
         <!-- 忘记密码 -->
         <activity android:name=".activity.login.RetrievePswActivity">
         </activity>
-        <!-- 底部导航 -->
-        <activity
-            android:name=".activity.homepage.HomePageActivity"
-            android:launchMode="singleTask"/>
         <!-- 我的订单  全部 -->
         <activity android:name=".activity.mine.MyOrderActivity">
         </activity>
@@ -401,6 +407,7 @@
         </activity>
         <activity android:name=".activity.homepage.home.KaQuanDetailActivity">
         </activity>
+
     </application>
 
 </manifest>

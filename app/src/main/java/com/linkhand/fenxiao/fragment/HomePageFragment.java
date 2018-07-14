@@ -543,7 +543,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         //设置图片集合
         mBanner.setImages(list);
         //设置banner动画效果
-        mBanner.setBannerAnimation(Transformer.DepthPage);
+        mBanner.setBannerAnimation(Transformer.Default);
         //设置标题集合
 //        mBanner.setBannerTitles(titleList);
         //设置自动轮播，默认为true

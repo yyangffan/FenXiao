@@ -74,7 +74,7 @@ public class ShoppingCartListNewFeng {
 
     public static class InfoBean {
         public InfoBean(String cart_id, String good_id, String user_id, String speci_ids, String cart_mater,
-                        String cart_son, String cart_num, String cart_add_time, String cart_state, String good_name, String good_is_top, String img_url, int good_state) {
+                        String cart_son, String cart_num, String cart_add_time, String cart_state, String good_name, String good_is_top, String img_url, int good_state,List<SpeciBean> speci) {
             this.cart_id = cart_id;
             this.good_id = good_id;
             this.user_id = user_id;
@@ -88,6 +88,7 @@ public class ShoppingCartListNewFeng {
             this.good_is_top = good_is_top;
             this.img_url = img_url;
             this.good_state = good_state;
+            this.speci=speci;
         }
 
         /**
@@ -300,6 +301,15 @@ public class ShoppingCartListNewFeng {
         private String good_name;
         private String good_is_top;
         private String img_url;
+        private List<InfoBean.SpeciBean> speci;
+
+        public List<InfoBean.SpeciBean> getSpeci() {
+            return speci;
+        }
+
+        public void setSpeci(List<InfoBean.SpeciBean> speci) {
+            this.speci = speci;
+        }
 
         public String getCart_id() {
             return cart_id;

@@ -7,12 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <!--&lt;!&ndash;//StartTheme打开应用会白屏下这设置的是默认图&ndash;&gt;-->
-    <!--<style name="StartTheme" parent="AppTheme">-->
-        <!--<item name="android:windowBackground">@drawable/umeng_socialize_qq</item>-->
-    <!--</style>-->
-
+    <style name="StartTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/banner</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
     <!--//圆形图片-->
     <declare-styleable name="roundedimageview">
         <attr name="border_thickness" format="dimension"/>

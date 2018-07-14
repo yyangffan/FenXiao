@@ -85,6 +85,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
             holder.mChangeNumber = (TextView) convertView.findViewById(R.id.detail_number_id);//数量
             holder.mfailure = (ImageView) convertView.findViewById(R.id.failure_image_id);//失效
             holder.mtv_cancel = (TextView) convertView.findViewById(R.id.shopping_new_cancel);
+            holder.mLinearLayout = (LinearLayout) convertView.findViewById(R.id.shopping_ll_shixiao);
             convertView.setTag(holder);
         } else {
             holder = (ShoppingNewAdapter.ViewHolder) convertView.getTag();
@@ -119,7 +120,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
                         holder.mType.setText(name + ":" + value);
                         Log.e("yh1", holder.mType.getText().toString());
                     } else {
-                        holder.mType.setText(str + "  " + name + ":" + value);
+                        holder.mType.setText(str + ";" + name + ":" + value);
                         Log.e("yh2", holder.mType.getText().toString());
                     }
                 }
@@ -133,6 +134,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
 //                holder.mfailure.setVisibility(View.VISIBLE);
                 holder.mtv_cancel.setVisibility(View.VISIBLE);
                 holder.mSelected.setVisibility(View.GONE);
+                holder.mLinearLayout.setVisibility(View.GONE);
                 isSelected = "2";
             } else {
 //                holder.mfailure.setVisibility(View.GONE);
@@ -199,7 +201,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
         ImageView mSelected;//是否选中
         TextView mType;//类型
         TextView mNumber;//数量
-
+        LinearLayout mLinearLayout;
         Button mSubtract;//减
         Button mAdd;//加
         TextView mChangeNumber;//数量
