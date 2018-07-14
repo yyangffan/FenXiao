@@ -71,7 +71,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * 首页
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass
  */
 public class HomePageFragment extends BaseFragment implements View.OnClickListener, HomeInfo, HomeVipInfo {
 
