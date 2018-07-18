@@ -443,6 +443,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             List<GoodsDetailsFeng.InfoBean.ImgBean> imgBeen = bean.getImg();
             if (imgBeen.size() != 0) {
                 String thumb = C.TU + imgBeen.get(0).getImg_url();
+                guige_imgv=thumb;
 //                        Log.e("yh", "thumb--" + thumb);
                 Glide.with(DetailPageActivity.this)
                         .load(thumb)
@@ -507,6 +508,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String thumb = speciBeanList.get(i).getSpeci_vals().get(0).getGsp_img() + "";
                 if (!thumb.equals("")) {
                     thumb = C.TU + thumb;
+                    guige_imgv=thumb;
 //                        Log.e("yh", "thumb--" + thumb);
                     Glide.with(DetailPageActivity.this)
                             .load(thumb)
