@@ -442,6 +442,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
                     mTeamQiandao.setText("已签到");
+                    onMessage();
                 }
                 ToastUtil.showToast(MineFragment.this.getActivity(), httpResponse.getSuccess());
             }
