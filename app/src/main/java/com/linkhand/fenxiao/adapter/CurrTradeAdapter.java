@@ -1,6 +1,7 @@
 package com.linkhand.fenxiao.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,14 @@ public class CurrTradeAdapter extends RecyclerView.Adapter<CurrTradeAdapter.View
     private Context mContext;
     private List<CurrTrade.InfoBean> mLists;
     private LayoutInflater mInflater;
+    SharedPreferences preferences;
+    String Mater_name = "母币";//母币名称
+    String Son_name = "子币";//子币名称
 
     public CurrTradeAdapter(Context context, List<CurrTrade.InfoBean> stringList) {
+        preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        Mater_name = preferences.getString("Mater_name", "母币");//母币名称
+        Son_name = preferences.getString("Son_name", "子币");//子币名称
         mContext = context;
         mLists = stringList;
         mInflater = LayoutInflater.from(mContext);
@@ -54,9 +61,9 @@ public class CurrTradeAdapter extends RecyclerView.Adapter<CurrTradeAdapter.View
             vh.mtv_bot.setVisibility(View.GONE);
             vh.mtv_top.setText(bean.getTrade_son_money().contains("-") ? bean.getTrade_son_money()+bean.getTrade_type() : "+" + bean.getTrade_son_money()+bean.getTrade_type());
         }else {
-            vh.mtv_top.setText(bean.getTrade_son_money().contains("-") ? bean.getTrade_son_money() : "+" + bean.getTrade_son_money());
+            vh.mtv_top.setText(bean.getTrade_son_money().contains("-") ? bean.getTrade_son_money() +Son_name: "+" + bean.getTrade_son_money()+Son_name);
             vh.mtv_bot.setVisibility(View.VISIBLE);
-            vh.mtv_bot.setText(bean.getTrade_mater_money().contains("-") ? bean.getTrade_mater_money() : "+" + bean.getTrade_mater_money());
+            vh.mtv_bot.setText(bean.getTrade_mater_money().contains("-") ? bean.getTrade_mater_money() +Mater_name: "+" + bean.getTrade_mater_money()+Mater_name);
         }
 
     }

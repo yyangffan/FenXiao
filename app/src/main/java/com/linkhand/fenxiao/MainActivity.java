@@ -13,13 +13,27 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.linkhand.fenxiao.activity.homepage.HomePageActivity;
 import com.linkhand.fenxiao.dialog.MvpAdapter;
+import com.linkhand.fenxiao.feng.home.YDBean;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+/********************************************************************
+ @version: 1.0.0
+ @description: 启动页--引导页
+ @author: 杨帆
+ @time: 2018/7/19 14:56
+ @变更历史:
+ ********************************************************************/
 
 public class MainActivity extends BaseActicity {
     @Bind(R.id.mian_tv_finish)
@@ -32,7 +46,6 @@ public class MainActivity extends BaseActicity {
     private List<View> mViews;
     private List<ImageView> mImageViews;
     private MvpAdapter mMvpAdapter;
-    private int[] mInts;
 
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -57,29 +70,8 @@ public class MainActivity extends BaseActicity {
             return;
         }
 
-        mInts = new int[]{R.drawable.intention_goods_img, R.drawable.banner, R.drawable.upload_img};
         mViews = new ArrayList<>();
         mImageViews = new ArrayList<>();
-
-        for (int i = 0; i < mInts.length; i++) {
-            ImageView imageView = new ImageView(this);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setImageResource(mInts[i]);
-            mViews.add(imageView);
-            ImageView img = new ImageView(this);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(38, 38);
-            layoutParams.leftMargin = 12;
-            layoutParams.rightMargin = 12;
-            img.setLayoutParams(layoutParams);
-            if (i == 0) {
-                img.setImageResource(R.drawable.indicator_select);
-            } else {
-                img.setImageResource(R.drawable.indicator_unselect);
-            }
-            mImageViews.add(img);
-            mMainLl.addView(img);
-        }
-
 
         mMvpAdapter = new MvpAdapter(this, mViews, null);
         mMainMvp.setAdapter(mMvpAdapter);
@@ -125,9 +117,23 @@ public class MainActivity extends BaseActicity {
 
     /*获取引导页图片*/
     public void getYinDao() {
-//        Call<HttpResponse> call=service.
+        Call<YDBean> call = service.getPic(new HashMap<String, Object>());
+        call.enqueue(new Callback<YDBean>() {
+            @Override
+            public void onResponse(Call<YDBean> call, Response<YDBean> response) {
+                YDBean ydBean = response.body();
+                int code = ydBean.getCode();
+                if (code == 100) {
+                    setMsg(ydBean.getInfo());
+                }
 
-//        setMsg();
+            }
+
+            @Override
+            public void onFailure(Call<YDBean> call, Throwable t) {
+                ToastUtil.showToast(MainActivity.this, "网络异常");
+            }
+        });
     }
 
     /*设置数据*/
@@ -138,9 +144,9 @@ public class MainActivity extends BaseActicity {
             Glide.with(this).load(C.TU + mStrings.get(i)).into(imageView);
             mViews.add(imageView);
             ImageView img = new ImageView(this);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(38, 38);
-            layoutParams.leftMargin = 12;
-            layoutParams.rightMargin = 12;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(20, 20);
+            layoutParams.leftMargin = 15;
+            layoutParams.rightMargin = 15;
             img.setLayoutParams(layoutParams);
             if (i == 0) {
                 img.setImageResource(R.drawable.indicator_select);

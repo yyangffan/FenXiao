@@ -32,7 +32,6 @@ import java.util.List;
 public class HomePageActivity extends BaseActicity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private ShoppingFragment mShoppingFragment;
     private RadioGroup mrg;
     private RadioButton mrbone;
     private RadioButton mrbtwo;
@@ -42,10 +41,12 @@ public class HomePageActivity extends BaseActicity {
     private FragmentManager mFragmentManager;
     private List<Fragment> mList;
     private List<RadioButton> mRadioButtons;
-    private MineFragment mMineFragment;
-    private HomePageFragment mHomePageFragment;
+    private HomePageFragment mHomePageFragment;//首页
+    private ExchangeFragment mExchangeFragment;//购物券兑换
+    private ClassificationFragment mClassificationFragment;//分类
+    private ShoppingFragment mShoppingFragment;//购物车
+    private MineFragment mMineFragment;//我的
     private static final String TAG = "HomePageActivity";
-    private ExchangeFragment mExchangeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,13 @@ public class HomePageActivity extends BaseActicity {
         mShoppingFragment = new ShoppingFragment();
         mMineFragment = new MineFragment();
         mHomePageFragment = new HomePageFragment();
-        mList.add(mHomePageFragment);//首页
-        mList.add(new ClassificationFragment());//分类
+        mList.add(mHomePageFragment);
+        mClassificationFragment = new ClassificationFragment();
+        mList.add(mClassificationFragment);
         mExchangeFragment = new ExchangeFragment();
-        mList.add(mExchangeFragment);//购物券兑换
-        mList.add(mShoppingFragment);//购物车
-        mList.add(mMineFragment);//我的
+        mList.add(mExchangeFragment);
+        mList.add(mShoppingFragment);
+        mList.add(mMineFragment);
         mRadioButtons.add(mrbone);
         mRadioButtons.add(mrbtwo);
         mRadioButtons.add(mrbthree);
@@ -159,7 +161,7 @@ public class HomePageActivity extends BaseActicity {
         }
         Intent intent = this.getIntent();
         int what = Integer.parseInt(preferences.getString("what", "0"));
-        if(what!=0) {
+        if (what != 0) {
             toChangeWghat(what);
         }
         if (mHomePageFragment != null && mHomePageFragment.isVisible()) {
@@ -174,7 +176,7 @@ public class HomePageActivity extends BaseActicity {
         if (mExchangeFragment != null) {
             mExchangeFragment.onRefresh();
         }
-        editor.putString("what","0");
+        editor.putString("what", "0");
         editor.commit();
 
     }

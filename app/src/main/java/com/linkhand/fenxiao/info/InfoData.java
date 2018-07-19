@@ -43,6 +43,7 @@ import com.linkhand.fenxiao.feng.home.VipGoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.VipLvResponse;
 import com.linkhand.fenxiao.feng.home.VipPayResponse;
 import com.linkhand.fenxiao.feng.home.VipXiaDanResponse;
+import com.linkhand.fenxiao.feng.home.YDBean;
 import com.linkhand.fenxiao.feng.login.LoginFeng;
 import com.linkhand.fenxiao.feng.login.Register;
 import com.linkhand.fenxiao.feng.login.Registered;
@@ -555,6 +556,11 @@ public interface InfoData {
     @FormUrlEncoded
     @POST("user/loginout")
     Call<HttpResponse> getLoginOut(@FieldMap Map<String, Object> map);
+
+    //引导页
+    @FormUrlEncoded
+    @POST("config/get_pic")
+    Call<YDBean> getPic(@FieldMap Map<String, Object> map);
 
 
 }

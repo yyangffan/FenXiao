@@ -57,21 +57,21 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StartTheme">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-        <!-- 主页 -->
-        <activity
-            android:name=".activity.homepage.HomePageActivity"
-            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <!-- 主页 -->
+        <activity
+            android:name=".activity.homepage.HomePageActivity"
+            android:launchMode="singleTask">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <!-- 登陆页 -->
         <activity android:name=".activity.login.LoginActivity">
