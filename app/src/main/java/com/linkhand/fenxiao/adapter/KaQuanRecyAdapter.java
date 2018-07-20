@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.feng.home.VipLvResponse;
@@ -47,7 +48,9 @@ public class KaQuanRecyAdapter extends RecyclerView.Adapter<KaQuanRecyAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder vh, final int position) {
         VipLvResponse.UsedataBean bean = mLists.get(position);
-        Glide.with(mContext).load(C.TU + bean.getUse_img()).into(vh.mimgv);
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+        Glide.with(mContext).load(C.TU + bean.getUse_img()).apply(requestOptions).into(vh.mimgv);
         vh.mtv_title.setText(bean.getUse_name());
         vh.mtv_position.setText(bean.getCity_str());
         vh.mtv_money.setText("¥" + bean.getUse_money());

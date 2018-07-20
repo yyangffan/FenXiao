@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -161,8 +162,11 @@ public class MembersDetailActivity extends BaseActicity implements View.OnClickL
 
                     } else {
                         thumb = C.TU + thumb;
+                        RequestOptions requestOptions=new RequestOptions();
+                        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                         Glide.with(MembersDetailActivity.this)
                                 .load(thumb)
+                                .apply(requestOptions)
                                 .into(mImageView);//头像
                     }
                 } else {

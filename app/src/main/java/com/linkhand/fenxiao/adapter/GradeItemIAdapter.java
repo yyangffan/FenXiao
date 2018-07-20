@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 
@@ -38,7 +39,9 @@ public class GradeItemIAdapter extends RecyclerView.Adapter<GradeItemIAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder vh, int position) {
         String bean = mLists.get(position);
-        Glide.with(mContext).load(C.TU + bean).into(vh.mimgv);
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+        Glide.with(mContext).load(C.TU + bean).apply(requestOptions).into(vh.mimgv);
 
     }
 

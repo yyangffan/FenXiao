@@ -83,8 +83,8 @@
         android:layout_above="@+id/fenxiao_invitation"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/sum_20"
         android:layout_marginTop="@dimen/sum_5"
-        android:paddingBottom="@dimen/sum_20"
         android:text="- -"
         android:textColor="@color/black"
         android:textSize="18sp"/>
@@ -93,10 +93,12 @@
         android:id="@+id/invite_copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/invite_yaoqingcode"
+        android:layout_above="@+id/fenxiao_invitation"
+        android:layout_marginBottom="@dimen/sum_20"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/invite_yaoqingcode"
         android:background="@drawable/round_bg"
+        android:gravity="center"
         android:padding="2dp"
         android:text="复制"
         android:textSize="10sp"/>

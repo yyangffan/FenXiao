@@ -143,9 +143,11 @@ public class All0rderFragmentAdapter extends BaseAdapter {
                 holder.mIsOrder.setText("拼团中");
                 holder.mButton.setText("取消");
                 holder.mButton.setVisibility(View.VISIBLE);
+                holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("2")) {
                 holder.mIsOrder.setText("买家已付款");
                 holder.mButton.setVisibility(View.GONE);
+                holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("3")) {
                 holder.mIsOrder.setText("卖家已发货");
                 holder.mButton.setText("确认收货");
@@ -160,6 +162,7 @@ public class All0rderFragmentAdapter extends BaseAdapter {
                 holder.mIsOrder.setText("待付款");
                 holder.mButton.setText("取消");
                 holder.mButton.setVisibility(View.VISIBLE);
+                holder.mtv_tuihuo.setVisibility(View.GONE);
             }
             if (thumb.equals("") | thumb.equals("null")) {
 

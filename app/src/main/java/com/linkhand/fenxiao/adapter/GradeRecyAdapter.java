@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.bean.PinglunBean;
@@ -45,7 +46,9 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
         PinglunBean.InfoBean bean = mLists.get(position);
         vh.mtv_title.setText(bean.getUser_name());
         vh.mtv_content.setText(bean.getEvaluate_content());
-        Glide.with(mContext).load(C.TU + bean.getUser_head_img()).into(vh.mimgv);
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
+        Glide.with(mContext).load(C.TU + bean.getUser_head_img()).apply(requestOptions).into(vh.mimgv);
         if (bean.getEimg() != null && bean.getEimg().size() != 0) {
             vh.mrecy_item.setVisibility(View.VISIBLE);
             GradeItemIAdapter gradeItemIAdapter = new GradeItemIAdapter(mContext, bean.getEimg());

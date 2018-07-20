@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.feng.home.TuiHBean;
@@ -75,7 +76,9 @@ public class TuiHAdapter extends BaseAdapter {
         }
         vh.mtv_no.setVisibility(View.GONE);
         TuiHBean.InfoBean tuiHBean = mInfoBeanList.get(position);
-        Glide.with(mContext).load(C.TU + tuiHBean.getImg_url()).into(vh.mimgv);
+        RequestOptions requestOptions=new RequestOptions();
+        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+        Glide.with(mContext).load(C.TU + tuiHBean.getImg_url()).apply(requestOptions).into(vh.mimgv);
         vh.mtv_title.setText(tuiHBean.getOrder_good_name());
         String guige = "";
         for (TuiHBean.InfoBean.SpeciBean bean : tuiHBean.getSpeci()) {

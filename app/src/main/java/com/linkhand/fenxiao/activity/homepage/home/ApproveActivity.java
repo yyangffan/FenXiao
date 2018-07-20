@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -363,13 +364,17 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     if (isWhat == 0) {
-                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).into(mApporveImgvOver);
+                        RequestOptions requestOptions=new RequestOptions();
+                        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvOver);
                         imgv_over = selectList.get(0).getCutPath();
                         mApproveTvOver.setVisibility(View.GONE);
                         mApporveImgvOver.setVisibility(View.VISIBLE);
                         Log.e(TAG, "onActivityResult: " + imgv_over);
                     } else {
-                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).into(mApporveImgvBot);
+                        RequestOptions requestOptions=new RequestOptions();
+                        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvBot);
                         imgv_bot = selectList.get(0).getCutPath();
                         Log.e(TAG, "onActivityResult: " + imgv_bot);
                         mApproveTvBot.setVisibility(View.GONE);

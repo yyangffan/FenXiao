@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -445,8 +446,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String thumb = C.TU + imgBeen.get(0).getImg_url();
                 guige_imgv=thumb;
 //                        Log.e("yh", "thumb--" + thumb);
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 Glide.with(DetailPageActivity.this)
                         .load(thumb)
+                        .apply(requestOptions)
                         .into(mFigure);
 
             }
@@ -510,8 +514,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     thumb = C.TU + thumb;
                     guige_imgv=thumb;
 //                        Log.e("yh", "thumb--" + thumb);
+                    RequestOptions requestOptions=new RequestOptions();
+                    requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                     Glide.with(DetailPageActivity.this)
                             .load(thumb)
+                            .apply(requestOptions)
                             .into(mFigure);
                 }
                 myList.add(myMap);
@@ -968,8 +975,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                         String thumb = C.TU + img;
                         guige_imgv = C.TU + img;
 //                        Log.e("yh", "thumb--" + thumb);
+                        RequestOptions requestOptions=new RequestOptions();
+                        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                         Glide.with(DetailPageActivity.this)
                                 .load(thumb)
+                                .apply(requestOptions)
                                 .into(mFigure);
                     }
 
