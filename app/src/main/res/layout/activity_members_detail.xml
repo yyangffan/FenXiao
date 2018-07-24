@@ -23,7 +23,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="14dp"
-            android:src="@drawable/a"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/phone"
             android:text="@string/mine_name22"/>
 
         <TextView

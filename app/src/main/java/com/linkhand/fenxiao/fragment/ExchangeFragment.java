@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -334,6 +336,12 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         final PasswordInputView pass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
         alertDialog.setView(v);
         alertDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showKeyboard(pass);
+            }
+        },300);
 //        alertDialog.setContentView(v);
         pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -355,7 +363,20 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             }
         });
     }
-
+    //弹出软键盘
+    public void showKeyboard(EditText editText) {
+        //其中editText为dialog中的输入框的 EditText
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager) ExchangeFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
     /*验证二级密码是否正确*/
     public void commitPass(String pay_pwd, final OnWhatsTheResult listener) {
         Map<String, Object> map = new HashMap<>();
@@ -504,7 +525,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
                         String curr_mater_num = (String) list.get(0).get("curr_mater_num");//剩余(发布)母币
                         String user_id = (String) list.get(0).get("user_id");//发布者id  0为官方
                         if (user_id.equals(mUserId)) {//撤销发布
-                            new ShowRemindDialog().showRemind(ExchangeFragment.this.getActivity(), "确定", "取消", "提示", "取消发布？", 0, new ShowRemindDialog.OnTvClickListener() {
+                            new ShowRemindDialog().showRemind(ExchangeFragment.this.getActivity(), "确定", "取消", "提示", "取消发布？", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
                                 @Override
                                 public void OnSureClickListener() {
                                     cancelFabu(curr_id);

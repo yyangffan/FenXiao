@@ -36,10 +36,11 @@ public class PasswordInputView extends EditText {
     private Paint passwordPaint = new Paint(ANTI_ALIAS_FLAG);
     private Paint borderPaint = new Paint(ANTI_ALIAS_FLAG);
     private int textLength;
+    private Context mContext;
 
     public PasswordInputView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        mContext=context;
         DisplayMetrics dm = getResources().getDisplayMetrics();
         borderWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, borderWidth, dm);
         borderRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, borderRadius, dm);
@@ -77,7 +78,8 @@ public class PasswordInputView extends EditText {
         // 内容区
         RectF rectIn = new RectF(rect.left + defaultContMargin, rect.top + defaultContMargin,
                 rect.right - defaultContMargin, rect.bottom - defaultContMargin);
-        borderPaint.setColor(Color.WHITE);
+//        borderPaint.setColor(Color.WHITE);/*原*/
+        borderPaint.setColor(Color.parseColor("#F4F4F4"));
         canvas.drawRoundRect(rectIn, borderRadius, borderRadius, borderPaint);
 
         // 分割线

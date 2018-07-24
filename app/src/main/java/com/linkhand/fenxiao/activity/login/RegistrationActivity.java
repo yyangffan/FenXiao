@@ -105,7 +105,7 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
 
                 break;
             case R.id.fenxiao_return_id://返回
-                if(!mIsAccessLogin) {
+                if (!mIsAccessLogin) {
                     Intent intent = new Intent(this, HomePageActivity.class);
                     intent.putExtra("where", "0");
                     startActivity(intent);
@@ -122,10 +122,6 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
                     return;
                 }
                 getCode(s);
-                if (mRunning) {
-                } else {
-                    downTimer.start();
-                }
                 break;
             case R.id.agreement_id://注册协议
                 onAgreement();//获取协议信息
@@ -145,7 +141,12 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
-                Log.e("yh", pcfeng + "--");
+                if (pcfeng.getCode() == 100) {
+                    if (mRunning) {
+                    } else {
+                        downTimer.start();
+                    }
+                }
                 Toast.makeText(RegistrationActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
             }
 
@@ -226,7 +227,7 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
             mRunning = false;
 //            mSend.getResources().getColor(R.color.colorred, null);
             mSend.setTextColor(RegistrationActivity.this.getResources().getColor(R.color.colorred));
-            mSend.setText("发送验证码");
+            mSend.setText("重新发送");
         }
     };
 
@@ -298,7 +299,7 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if(!mIsAccessLogin) {
+        if (!mIsAccessLogin) {
             Intent intent = new Intent(this, HomePageActivity.class);
             intent.putExtra("where", "0");
             startActivity(intent);

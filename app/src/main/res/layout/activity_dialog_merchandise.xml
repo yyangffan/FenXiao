@@ -16,17 +16,6 @@
         android:paddingTop="@dimen/sum_10"
         >
 
-
-        <!--<TextView-->
-        <!--android:id="@+id/detail_shoppingcart_id2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="@dimen/sum_53"-->
-        <!--android:layout_weight="2"-->
-        <!--android:background="@color/coloryellows2"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/HomePage_name23"-->
-        <!--android:textColor="@color/colorwhites"/>-->
-
         <TextView
             android:id="@+id/detail_purchasing_id2"
             android:layout_width="0dp"

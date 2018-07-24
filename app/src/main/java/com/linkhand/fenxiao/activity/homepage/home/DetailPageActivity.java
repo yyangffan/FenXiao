@@ -107,6 +107,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     SmartRefreshLayout mUpgradeSmart;
     @Bind(R.id.order_kucun)
     TextView mOrderKucun;
+    @Bind(R.id.upgrade_tv_shoucang)
+    TextView mUpgradeTvShoucang;
     private TextView mtv_xiangou;
     TextView mPopPurchasing;//popupWindow的立刻购买
     Button mJia, mJian;//弹窗 加 减
@@ -444,9 +446,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             List<GoodsDetailsFeng.InfoBean.ImgBean> imgBeen = bean.getImg();
             if (imgBeen.size() != 0) {
                 String thumb = C.TU + imgBeen.get(0).getImg_url();
-                guige_imgv=thumb;
+                guige_imgv = thumb;
 //                        Log.e("yh", "thumb--" + thumb);
-                RequestOptions requestOptions=new RequestOptions();
+                RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 Glide.with(DetailPageActivity.this)
                         .load(thumb)
@@ -512,9 +514,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String thumb = speciBeanList.get(i).getSpeci_vals().get(0).getGsp_img() + "";
                 if (!thumb.equals("")) {
                     thumb = C.TU + thumb;
-                    guige_imgv=thumb;
+                    guige_imgv = thumb;
 //                        Log.e("yh", "thumb--" + thumb);
-                    RequestOptions requestOptions=new RequestOptions();
+                    RequestOptions requestOptions = new RequestOptions();
                     requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                     Glide.with(DetailPageActivity.this)
                             .load(thumb)
@@ -609,8 +611,10 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
                     if (house == 1) {//是否已收藏 1为已收藏  0未收藏
                         mCollect.setImageResource(R.drawable.collection_two);
+                        mUpgradeTvShoucang.setText("已收藏");
                     } else if (house == 0) {
                         mCollect.setImageResource(R.drawable.collection);
+                        mUpgradeTvShoucang.setText("收藏");
                     }
                     mGoodsTitle.setText(good_name);
                     mGoodsZiRMB.setText(money_son);
@@ -819,6 +823,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                     house = 1;
                     mCollect.setImageResource(R.drawable.collection_two);
+                    mUpgradeTvShoucang.setText("已收藏");
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -847,8 +852,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
-                    house=0;
+                    house = 0;
                     mCollect.setImageResource(R.drawable.collection);
+                    mUpgradeTvShoucang.setText("收藏");
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -975,7 +981,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                         String thumb = C.TU + img;
                         guige_imgv = C.TU + img;
 //                        Log.e("yh", "thumb--" + thumb);
-                        RequestOptions requestOptions=new RequestOptions();
+                        RequestOptions requestOptions = new RequestOptions();
                         requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                         Glide.with(DetailPageActivity.this)
                                 .load(thumb)

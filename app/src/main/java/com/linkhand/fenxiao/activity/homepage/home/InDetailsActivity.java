@@ -109,6 +109,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     String mMoodId;//商品id
     List<Uri> list;
     List<String> titleList;
+    @Bind(R.id.detail_tv_shoucang)
+    TextView mDetailTvShoucang;
 
     private DisplayImageOptions options;
     private String mShare_url = "";
@@ -348,13 +350,17 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
                     if (house == 1) {//是否已收藏  1是  0否
                         mCollect.setImageResource(R.drawable.collection_two);
+                        mDetailTvShoucang.setText("已收藏");
                     } else if (house == 0) {
                         mCollect.setImageResource(R.drawable.collection);
+                        mDetailTvShoucang.setText("收藏");
                     }
                     if (have == 1) {//是否已关注  1是  0否
                         mPurchasing.setText("取消订购");
+                        mPurchasing.setBackgroundColor(InDetailsActivity.this.getResources().getColor(R.color.colorgraynessd));
                     } else {
                         mPurchasing.setText("立即订购");
+                        mPurchasing.setBackgroundColor(InDetailsActivity.this.getResources().getColor(R.color.colorred));
                     }
                     String content = bean.getIdea_intro();
                     if (content != null) {
@@ -458,6 +464,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     mThinkSum.setText(mMoney_num + "人想买");
                     have = 0;
                     mPurchasing.setText("立即订购");
+                    mPurchasing.setBackgroundColor(InDetailsActivity.this.getResources().getColor(R.color.colorred));
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -489,6 +496,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     mThinkSum.setText(mMoney_num + "人想买");
                     have = 1;
                     mPurchasing.setText("取消订购");
+                    mPurchasing.setBackgroundColor(InDetailsActivity.this.getResources().getColor(R.color.colorgraynessd));
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -520,6 +528,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                     house = 1;
                     mCollect.setImageResource(R.drawable.collection_two);
+                    mDetailTvShoucang.setText("已收藏");
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -550,6 +559,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                     house = 0;
                     mCollect.setImageResource(R.drawable.collection);
+                    mDetailTvShoucang.setText("收藏");
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

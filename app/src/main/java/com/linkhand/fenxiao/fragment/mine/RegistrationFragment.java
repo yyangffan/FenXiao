@@ -154,8 +154,9 @@ public class RegistrationFragment extends BaseFragment implements View.OnClickLi
                 int code = allConfigFeng.getCode();
                 if (code == 100) {
                     String presen = allConfigFeng.getInfo().getPresen();//提现说明
-                    mNote.setText(presen);
-
+                    if(mNote!=null) {
+                        mNote.setText(presen);
+                    }
                 }
 
             }

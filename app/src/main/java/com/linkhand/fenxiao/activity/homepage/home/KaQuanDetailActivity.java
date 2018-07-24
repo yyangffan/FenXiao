@@ -1,15 +1,19 @@
 package com.linkhand.fenxiao.activity.homepage.home;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -100,6 +104,12 @@ public class KaQuanDetailActivity extends BaseActicity {
         mtv_title.setText("请向商家索取密码");
         alertDialog.setView(v);
         alertDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showKeyboard(pass);
+            }
+        },300);
         pass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -120,7 +130,20 @@ public class KaQuanDetailActivity extends BaseActicity {
             }
         });
     }
-
+    //弹出软键盘
+    public void showKeyboard(EditText editText) {
+        //其中editText为dialog中的输入框的 EditText
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
     /*使用卡券*/
     public void useKaquan(String pass) {
         Map<String, Object> map = new HashMap<>();

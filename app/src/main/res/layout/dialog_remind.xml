@@ -86,7 +86,6 @@
         <View
             android:layout_width="300dp"
             android:layout_height="1dp"
-            android:layout_marginTop="0dp"
             android:background="@color/colorgraynessb"/>
 
     </LinearLayout>
@@ -96,7 +95,7 @@
         android:id="@+id/dialog_llayout_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+       android:paddingBottom="10dp"
         android:visibility="gone">
 
         <TextView

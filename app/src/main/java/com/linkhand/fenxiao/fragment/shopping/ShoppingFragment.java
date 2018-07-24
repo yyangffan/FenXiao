@@ -212,7 +212,9 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     if (code == 100) {
                         /*初始化全选按钮*/
                         if(mRbtn!=null) {
-                            mRbtn.setImageResource(R.drawable.ovaltwo);
+                            if(mBoolean) {
+                                mRbtn.setImageResource(R.drawable.ovaltwo);
+                            }
                         }
                         mBoolean = false;
                         int MinvalidNumber = 0;//失效个
@@ -620,8 +622,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
 
 
     @Override
-    public void onItemClicks(LinearLayout mLinearLayout, final Button jian, Button jia, final TextView num, ImageView mSelected, ImageView mImageView, final List<Map<String, Object>> list) {
-        mSelected.setOnClickListener(new View.OnClickListener() {
+    public void onItemClicks(LinearLayout mLinearLayout, final Button jian, Button jia, final TextView num, View mSelected, ImageView mImageView, final List<Map<String, Object>> list,View ll) {
+        ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = (int) list.get(0).get("position");

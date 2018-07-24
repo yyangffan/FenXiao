@@ -87,6 +87,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
             holder.mfailure = (ImageView) convertView.findViewById(R.id.failure_image_id);//失效
             holder.mtv_cancel = (TextView) convertView.findViewById(R.id.shopping_new_cancel);
             holder.mLinearLayout = (LinearLayout) convertView.findViewById(R.id.shopping_ll_shixiao);
+            holder.mll_all= (LinearLayout) convertView.findViewById(R.id.shopping_ll_all);
             convertView.setTag(holder);
         } else {
             holder = (ShoppingNewAdapter.ViewHolder) convertView.getTag();
@@ -179,7 +180,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
             map.put("good_state", good_state);//是否失效  1未失效  0已失效
 
             mList.add(map);
-            mShoppingInfo.onItemClicks(holder.mRLayout, holder.mSubtract, holder.mAdd, holder.mChangeNumber, holder.mSelected, holder.mDelete, mList);
+            mShoppingInfo.onItemClicks(holder.mRLayout, holder.mSubtract, holder.mAdd, holder.mChangeNumber, holder.mSelected, holder.mDelete, mList,holder.mll_all);
 
         }
         return convertView;
@@ -211,6 +212,7 @@ public class ShoppingNewAdapter extends BaseAdapter {
         TextView mChangeNumber;//数量
         ImageView mfailure;//失效
         TextView mtv_cancel;//失效 文字显示
+        LinearLayout mll_all;
 
     }
 }

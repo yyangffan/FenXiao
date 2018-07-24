@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/sum_5"
+    android:paddingLeft="@dimen/sum_10"
     android:paddingRight="@dimen/sum_5"
     android:paddingTop="@dimen/sum_5">
 
@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/parameter_name_id"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/sum_50"
+        android:minWidth="@dimen/sum_60"
         android:layout_height="wrap_content"
         android:text="xxxx"
         android:textColor="@color/gray_text"/>
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="1dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorgraynessd"
+        android:background="@color/gray_text"
         android:layout_marginLeft="@dimen/sum_10"
         android:layout_marginRight="@dimen/sum_10"
      />
@@ -28,7 +28,7 @@
         android:id="@+id/parameter_content_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/transparence50"
+        android:textColor="@color/black"
         android:text="xx"/>
 
 </LinearLayout>

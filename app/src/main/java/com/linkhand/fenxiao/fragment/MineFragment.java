@@ -422,7 +422,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_img_id:
                 uploadHeadImage();
                 break;
-            case R.id.team_qiandao:
+            case R.id.team_qiandao://签到
                 toSignIn();
                 break;
             case R.id.mine_llayout_id5://退货界面
@@ -680,6 +680,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     if (sign_in.equals("1")) {
                         if (mTeamQiandao != null) {
                             mTeamQiandao.setText("已签到");
+                        }
+                    }else {
+                        if (mTeamQiandao != null) {
+                            mTeamQiandao.setText("签到");
                         }
                     }
                 } else {

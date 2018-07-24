@@ -72,6 +72,12 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
     String provinceId = "";//省id
     String cityId = "";//市id
     String areaId = "";//区id
+    @Bind(R.id.collection_return)
+    LinearLayout mCollectionReturn;
+    @Bind(R.id.shipping_address_title_id)
+    TextView mShippingAddressTitleId;
+    @Bind(R.id.activity_shipping_address)
+    LinearLayout mActivityShippingAddress;
 
     private View mView;
     ListView mPopwListView;
@@ -92,7 +98,7 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
         onGuangBiao();//隐藏光标
     }
 
-    public void initView(){
+    public void initView() {
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //获取个人id
@@ -106,6 +112,7 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
         mProvinceLlayout.setOnClickListener(ShippingAddressActivity.this);
         mCityLlayout.setOnClickListener(ShippingAddressActivity.this);
         mAreaLlayout.setOnClickListener(ShippingAddressActivity.this);
+        mActivityShippingAddress.setOnClickListener(this);
 
     }
 
@@ -135,6 +142,9 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
                 break;
             case R.id.shipping_insert_address_id://确定
                 determine();
+                break;
+            case R.id.activity_shipping_address:
+                this.finish();
                 break;
         }
     }
@@ -170,7 +180,7 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
                 ReturnFeng feng = response.body();
                 Log.e("yh", "feng--" + feng);
                 int code = feng.getCode();
-                String info=feng.getSuccess();
+                String info = feng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(ShippingAddressActivity.this, info, Toast.LENGTH_SHORT).show();
                     ShippingAddressActivity.this.finish();
@@ -300,7 +310,6 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
             }
         });
     }
-
 
 
     public void onGuangBiao() {//隐藏光标

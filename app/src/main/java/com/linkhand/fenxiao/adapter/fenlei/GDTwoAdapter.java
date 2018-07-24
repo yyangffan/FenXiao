@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.feng.fenlei.RightClassFeng;
@@ -67,11 +68,12 @@ public class GDTwoAdapter extends BaseAdapter {
             if (thrmb.equals("") | thrmb.equals("null")) {
             } else {
                 thrmb = C.TU + thrmb;
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 Glide.with(context)
                         .load(thrmb)
-//                                    .error(R.mipmap.ic_launcher)
+                        .apply(requestOptions)
                         .into(holder.imv);
-//                    Log.e("yh", "--thrmb全" + thrmb);
             }
 
         }

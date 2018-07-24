@@ -47,6 +47,8 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
 
     private String mZi = "";
     private String mMother = "";
+    String Mater_name = "母币";//母币名称
+    String Son_name = "子币";//子币名称
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
             mZi = intent.getStringExtra("zi");
             mMother = intent.getStringExtra("mother");
         }
+        Mater_name = preferences.getString("Mater_name", "母币");//母币名称
+        Son_name = preferences.getString("Son_name", "子币");//子币名称
         mSonNumberId.setText(mZi);
         mMotherNumberId.setText(mMother);
         mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id4);
@@ -140,10 +144,10 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
                     String mater_money = mBean.getUser_mater_money();//母币
                     String son_money = mBean.getUser_son_money();//子币
                     if (mSonNumberId != null) {
-                        mSonNumberId.setText(son_money);
+                        mSonNumberId.setText(son_money+Son_name);
                     }
                     if (mMotherNumberId != null) {
-                        mMotherNumberId.setText(mater_money);
+                        mMotherNumberId.setText(mater_money+Mater_name);
                     }
                 } else {
 //                    Toast.makeText(MineFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();

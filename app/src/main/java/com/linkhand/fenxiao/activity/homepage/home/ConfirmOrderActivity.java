@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -426,6 +427,12 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
         final PasswordInputView pass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
         alertDialog.setView(v);
         alertDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showKeyboard(pass);
+            }
+        },300);
 //        alertDialog.setContentView(v);
         pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -447,7 +454,20 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             }
         });
     }
-
+    //弹出软键盘
+    public void showKeyboard(EditText editText) {
+        //其中editText为dialog中的输入框的 EditText
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
     /*验证二级密码是否正确*/
     public void commitPass(String pay_pwd) {
         Map<String, Object> map = new HashMap<>();

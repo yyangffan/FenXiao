@@ -118,6 +118,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
                     android:background="@color/colorwhites"
                     >
 
@@ -140,6 +141,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
+                            android:textColor="@color/black"
                             android:layout_height="wrap_content"
                             android:text="@string/HomePage_name1"/>
                     </LinearLayout>
@@ -164,6 +166,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="@string/HomePage_name2"/>
                     </LinearLayout>
 
@@ -192,6 +195,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:text="@string/HomePage_name93"/>
                     </LinearLayout>
 
@@ -215,6 +219,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+
                             android:paddingBottom="@dimen/sum_5"
                             android:text="金牌专区"/>
                     </LinearLayout>
@@ -261,6 +267,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/home_fram_fc"
                             android:layout_centerHorizontal="true"
+                            android:textColor="@color/black"
+
                             android:text="@string/HomePage_name94"/>
                     </RelativeLayout>
 
@@ -271,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:orientation="horizontal">
 
@@ -301,7 +309,7 @@
                         app:mvDirection="bottom_to_top"
                         app:mvInterval="2000"
                         app:mvSingleLine="true"
-                        app:mvTextColor="@color/black"
+                        app:mvTextColor="@color/colorgraynessd"
                         app:mvTextSize="14sp"
                         />
 

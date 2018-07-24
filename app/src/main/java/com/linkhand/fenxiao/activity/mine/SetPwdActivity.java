@@ -136,14 +136,6 @@ public class SetPwdActivity extends BaseActicity {
             return;
         }
         getCode(phone);
-        if (!phone.equals("")) {
-            if (mRunning) {
-            } else {
-                downTimer.start();
-            }
-        } else {
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private CountDownTimer downTimer = new CountDownTimer(60 * 1000, 1000) {
@@ -162,7 +154,7 @@ public class SetPwdActivity extends BaseActicity {
             mRunning = false;
 //            mSend.getResources().getColor(R.color.colorred, null);
             mSend.setTextColor(SetPwdActivity.this.getResources().getColor(R.color.colorred));
-            mSend.setText("发送验证码");
+            mSend.setText("重新发送");
         }
     };
 
@@ -176,6 +168,12 @@ public class SetPwdActivity extends BaseActicity {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
+                if(pcfeng.getCode()==100){
+                    if (mRunning) {
+                    } else {
+                        downTimer.start();
+                    }
+                }
                 Toast.makeText(SetPwdActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
             }
 

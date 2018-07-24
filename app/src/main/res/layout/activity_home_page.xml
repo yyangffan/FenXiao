@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        android:paddingTop="3dp"
         android:orientation="horizontal">
 
         <RadioButton

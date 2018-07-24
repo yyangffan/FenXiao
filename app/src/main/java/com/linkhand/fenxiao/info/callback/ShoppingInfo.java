@@ -1,5 +1,6 @@
 package com.linkhand.fenxiao.info.callback;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,5 +14,5 @@ import java.util.Map;
  */
 
 public interface ShoppingInfo {
-    void onItemClicks(LinearLayout mLinearLayout, Button jian, Button jia, TextView num, ImageView mSelected, ImageView mImageView, List<Map<String, Object>> list);
+    void onItemClicks(LinearLayout mLinearLayout, Button jian, Button jia, TextView num, View mSelected, ImageView mImageView, List<Map<String, Object>> list,View ll);
 }

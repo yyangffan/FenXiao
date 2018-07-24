@@ -133,10 +133,6 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
                     return;
                 }
                 getCode(s);
-                if (mRunning) {
-                } else {
-                    downTimer.start();
-                }
                 break;
             case R.id.approve_confirm://确定
                 onConfirm();//确定
@@ -307,7 +303,12 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
-                Log.e("yh", pcfeng + "--");
+                if(pcfeng.getCode()==100){
+                    if (mRunning) {
+                    } else {
+                        downTimer.start();
+                    }
+                }
                 Toast.makeText(ApproveActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
             }
 
@@ -346,7 +347,7 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
             mRunning = false;
 //            mApproveSend.getResources().getColor(R.color.colorred, null);
             mApproveSend.setTextColor(ApproveActivity.this.getResources().getColor(R.color.colorred));
-            mApproveSend.setText("发送验证码");
+            mApproveSend.setText("重新发送");
         }
     };
 

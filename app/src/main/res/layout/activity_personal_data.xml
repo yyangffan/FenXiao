@@ -106,8 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@color/colorwhites"
-        android:paddingBottom="@dimen/sum_5"
-        android:paddingTop="@dimen/sum_5">
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
 
         <TextView
             android:layout_width="0dp"
@@ -123,7 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_5"/>
+            android:layout_marginRight="@dimen/sum_15"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -134,7 +135,7 @@
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_10"
             android:src="@drawable/return_right_two"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
@@ -143,8 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@color/colorwhites"
-        android:paddingBottom="@dimen/sum_5"
-        android:paddingTop="@dimen/sum_5">
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
 
         <TextView
             android:layout_width="0dp"
@@ -160,7 +161,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_5"/>
+            android:layout_marginRight="@dimen/sum_5"
+
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -179,8 +182,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="@color/colorwhites"
-        android:paddingBottom="@dimen/sum_5"
-        android:paddingTop="@dimen/sum_5">
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
 
         <TextView
             android:layout_width="0dp"
@@ -196,7 +199,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_5"/>
+            android:layout_marginRight="@dimen/sum_15"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -217,8 +221,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sum_10"
         android:background="@color/colorwhites"
-        android:paddingBottom="@dimen/sum_5"
-        android:paddingTop="@dimen/sum_5">
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
 
         <TextView
             android:layout_width="0dp"
@@ -234,7 +238,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_5"/>
+            android:layout_marginRight="@dimen/sum_15"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -255,8 +260,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sum_10"
         android:background="@color/colorwhites"
-        android:paddingBottom="@dimen/sum_5"
-        android:paddingTop="@dimen/sum_5">
+        android:paddingBottom="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_10">
 
         <TextView
             android:layout_width="0dp"
@@ -272,7 +277,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_5"/>
+            android:layout_marginRight="@dimen/sum_5"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="wrap_content"

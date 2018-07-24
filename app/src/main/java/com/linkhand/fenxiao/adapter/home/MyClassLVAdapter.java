@@ -23,7 +23,6 @@ import java.util.List;
 public class MyClassLVAdapter extends BaseAdapter {
     private Context context;
     private List<GoodsDetailsFeng.InfoBean.SpeciBean> BeanList;
-    private ViewHolder holder = null;
     LeftLVIn mLeftLVIn;
     List<MyGoodsFeng> myList;
 
@@ -69,9 +68,6 @@ public class MyClassLVAdapter extends BaseAdapter {
                 GoodsDetailsFeng.InfoBean.SpeciBean speciBean = BeanList.get(position);
                 String cat_name = speciBean.getSpeci_name();//类型
                 holder.mTextView.setText(cat_name);
-            }
-            if (holder.mGridView != null) {
-                GoodsDetailsFeng.InfoBean.SpeciBean speciBean = BeanList.get(position);
                 DetailPageAdapter gridViewAdapter = new DetailPageAdapter(context, speciBean, mLeftLVIn,position,myList);
                 holder.mGridView.setAdapter(gridViewAdapter);
             }

@@ -100,7 +100,7 @@ public class HomePageFragmentAdapter extends BaseAdapter {
             holder.mMuRMB.setVisibility(View.VISIBLE);
             holder.mZiRMB.setVisibility(View.VISIBLE);
             holder.mVipRMB.setVisibility(View.GONE);
-            holder.mMuRMB.setText(murmb);
+            holder.mMuRMB.setText("¥"+murmb);
             holder.mZiRMB.setText("¥"+zirmb);
 
 

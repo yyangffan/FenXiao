@@ -120,6 +120,12 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
+                if(pcfeng.getCode()==100) {
+                    if (mRunning) {
+                    } else {
+                        downTimer.start();
+                    }
+                }
                 Toast.makeText(RetrievePswActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
             }
 
@@ -141,14 +147,6 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
             return;
         }
         getCode(phone);
-        if (!phone.equals("")) {
-            if (mRunning) {
-            } else {
-                downTimer.start();
-            }
-        } else {
-            Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void onConfirm() {
@@ -227,7 +225,7 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
             mRunning = false;
 //            mSend.getResources().getColor(R.color.colorred, null);
             mSend.setTextColor(RetrievePswActivity.this.getResources().getColor(R.color.colorred));
-            mSend.setText("发送验证码");
+            mSend.setText("重新发送");
         }
     };
 

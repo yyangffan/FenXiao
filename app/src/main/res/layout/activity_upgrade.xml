@@ -55,6 +55,7 @@
                 android:src="@drawable/collection"/>
 
             <TextView
+                android:id="@+id/upgrade_tv_shoucang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sum_3"
@@ -131,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/detail_llayout_id"
         android:layout_below="@+id/upgrade_top_ll"
-       >
+        >
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -179,6 +180,7 @@
                         android:layout_below="@+id/Details_murmb_id"
                         android:layout_marginTop="@dimen/sum_3"
                         android:text="@string/HomePage_name5"
+                        android:textSize="16sp"
                         android:textColor="@color/colorred"/>
 
                     <TextView
@@ -190,18 +192,28 @@
                         android:gravity="bottom"
                         android:text="xxx"
                         android:textColor="@color/colorred"
-                        android:textSize="14sp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/Details_zibitext_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/Details_zirmb_id"
-                        android:layout_marginTop="@dimen/sum_3"
+                        android:layout_marginBottom="2dp"
                         android:layout_toRightOf="@+id/Details_zirmb_id"
                         android:text="@string/home_item_name2"
                         android:textColor="@color/gray_translucent"
-                        android:textSize="14sp"/>
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/Details_f_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Details_title_id"
+                        android:layout_marginTop="@dimen/sum_3"
+                        android:text="@string/HomePage_name5"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorred"/>
 
                     <TextView
                         android:id="@+id/Details_murmb_id"
@@ -209,20 +221,22 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/Details_title_id"
                         android:layout_marginTop="@dimen/sum_3"
+                        android:layout_toRightOf="@+id/Details_f_id"
                         android:text="xxx"
                         android:textColor="@color/colorred"
-                        android:textSize="14sp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/Details_mutext_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/Details_murmb_id"
-                        android:layout_marginTop="@dimen/sum_3"
                         android:layout_toRightOf="@+id/Details_murmb_id"
                         android:text="@string/home_item_name3"
+                        android:layout_marginBottom="2dp"
+
                         android:textColor="@color/gray_translucent"
-                        android:textSize="14sp"/>
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/Details_tv_id"
