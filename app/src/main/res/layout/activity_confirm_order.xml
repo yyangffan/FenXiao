@@ -17,8 +17,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_35"
-            android:background="@color/colorred"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/gray_c"
+            android:layout_marginBottom="1dp"
             android:gravity="center">
 
             <LinearLayout
@@ -40,9 +41,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/sum_5"
-                    android:visibility="gone"
                     android:text="@string/login_fanhui"
-                    android:textColor="@color/colorwhites"/>
+                    android:textColor="@color/title_tv_color"
+                    android:visibility="gone"/>
             </LinearLayout>
 
 
@@ -54,7 +55,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/HomePage_name37"
-                android:textColor="@color/colorwhites"
+                android:textColor="@color/title_tv_color"
                 android:textSize="@dimen/sum_20"/>
 
         </LinearLayout>
@@ -62,7 +63,7 @@
         <RelativeLayout
             android:id="@+id/order_address_id"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_70"
+            android:layout_height="wrap_content"
             android:background="@color/colorwhites"
             android:gravity="center_vertical"
             android:padding="@dimen/sum_10">
@@ -70,7 +71,8 @@
             <ImageView
                 android:id="@+id/order_iv_id"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:src="@drawable/address"/>
 
             <TextView
@@ -98,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/order_username_id"
                 android:layout_marginLeft="@dimen/sum_10"
-                android:layout_marginTop="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_5"
                 android:layout_toRightOf="@+id/order_iv_id"
                 android:text="@string/HomePage_name38"
                 android:textColor="@color/black"/>
@@ -108,16 +110,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/order_username_id"
-                android:layout_marginLeft="@dimen/sum_10"
-                android:layout_marginTop="@dimen/sum_10"
+                android:layout_marginLeft="@dimen/sum_5"
+                android:layout_marginTop="@dimen/sum_5"
+                android:layout_marginRight="@dimen/sum_5"
                 android:layout_toRightOf="@+id/order_tv_id"
+                android:ellipsize="end"
+                android:layout_toLeftOf="@+id/order_iv_ids"
+                android:lines="1"
                 android:text=""
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/insert_address"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/sum_10"
                 android:layout_toLeftOf="@+id/order_iv_ids"
                 android:gravity="center"
@@ -127,8 +134,9 @@
             <ImageView
                 android:id="@+id/order_iv_ids"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/returnright"/>
         </RelativeLayout>
 
@@ -155,12 +163,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/HomePage_name42"/>
+                android:text="@string/HomePage_name42"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/HomePage_name43"/>
+                android:text="@string/HomePage_name43"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -284,6 +294,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="合计金额: "
+                android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <TextView

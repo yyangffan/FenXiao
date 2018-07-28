@@ -41,6 +41,7 @@ import com.linkhand.fenxiao.feng.home.TuiHBean;
 import com.linkhand.fenxiao.feng.home.VipDetailResponse;
 import com.linkhand.fenxiao.feng.home.VipGoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.VipLvResponse;
+import com.linkhand.fenxiao.feng.home.VipMoneyBean;
 import com.linkhand.fenxiao.feng.home.VipPayResponse;
 import com.linkhand.fenxiao.feng.home.VipXiaDanResponse;
 import com.linkhand.fenxiao.feng.home.YDBean;
@@ -561,6 +562,11 @@ public interface InfoData {
     @FormUrlEncoded
     @POST("config/get_pic")
     Call<YDBean> getPic(@FieldMap Map<String, Object> map);
+
+    //vip商品价格
+    @FormUrlEncoded
+    @POST("order/get_vip_money")
+    Call<VipMoneyBean> getVipMoney(@FieldMap Map<String, Object> map);
 
 
 }

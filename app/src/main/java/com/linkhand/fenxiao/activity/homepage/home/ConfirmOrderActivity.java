@@ -720,13 +720,14 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
                     String site_city1 = bean.getSite_city1();//省
                     String site_city2 = bean.getSite_city2();//市
                     String site_city3 = bean.getSite_city3();//区
+                    String site_detail = bean.getSite_detail();//详细信息
                     String site_name = bean.getSite_name();//名称
                     String site_tel = bean.getSite_tel();//电话
                     sited_id = bean.getSite_id();//收货地址id
 
                     mName.setText(site_name);//默认收货人名称
                     mPhone.setText(site_tel);//默认收货人电话
-                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3);//默认收货人地址
+                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3+site_detail);//默认收货人地址
                 } else {
 //                    Toast.makeText(ConfirmOrderActivity.this, success, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ConfirmOrderActivity.this, "清选择收货地址", Toast.LENGTH_SHORT).show();
@@ -772,12 +773,13 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
                     String site_city1 = bean.getSite_city1();//省
                     String site_city2 = bean.getSite_city2();//市
                     String site_city3 = bean.getSite_city3();//区
+                    String site_detail = bean.getSite_detail();//详细信息
                     String site_name = bean.getSite_name();//名称
                     String site_tel = bean.getSite_tel();//电话
 
                     mName.setText(site_name);//选中收货人名称
                     mPhone.setText(site_tel);//选中收货人电话
-                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3);//选中收货人地址
+                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3+site_detail);//选中收货人地址
                 } else {
                     Toast.makeText(ConfirmOrderActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

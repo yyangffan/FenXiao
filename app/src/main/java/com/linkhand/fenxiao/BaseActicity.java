@@ -24,6 +24,7 @@ public class BaseActicity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     public String mUserId;//个人id
+    public String mUserReal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,11 +32,12 @@ public class BaseActicity extends AppCompatActivity {
         editor = preferences.edit();
         //获取个人id
         mUserId = preferences.getString("user_id", "");
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
         super.onCreate(savedInstanceState);
-        StatusBarUtils.setWindowStatusBarColor(this, R.color.colorred);//状态栏
+        StatusBarUtils.setWindowStatusBarColor(this, R.color.gray_c);//状态栏
         //添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);
         //禁止横屏
@@ -72,5 +74,11 @@ public class BaseActicity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
     }
 }

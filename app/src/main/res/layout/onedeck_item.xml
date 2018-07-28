@@ -23,6 +23,7 @@
         android:layout_height="@dimen/sum_60"
         android:layout_marginLeft="@dimen/sum_10"
         android:layout_toRightOf="@+id/onedeck_roundImageView_id"
+        android:layout_toLeftOf="@+id/mine_recharge_llayout_id"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -30,6 +31,9 @@
             android:id="@+id/onedeck_name_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingRight="5dp"
+            android:lines="1"
             android:text="xxx"
             android:textColor="@color/colorblack"/>
 
@@ -51,6 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/onedeck_name_id"
                 android:layout_marginTop="@dimen/sum_10"
+                android:ellipsize="end"
+                android:paddingRight="5dp"
+                android:lines="1"
                 android:layout_toRightOf="@+id/onedeck_tv_id"
                 android:text="xxx"
                 android:textColor="@color/transparence50"/>

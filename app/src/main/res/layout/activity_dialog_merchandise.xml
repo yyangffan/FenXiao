@@ -5,7 +5,7 @@
     android:id="@+id/activity_dialog_merchandise"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    >
 
     <LinearLayout
         android:id="@+id/detail_llayout_id2"
@@ -13,39 +13,36 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorwhites"
-        android:paddingTop="@dimen/sum_10"
         >
 
         <TextView
             android:id="@+id/detail_purchasing_id2"
             android:layout_width="0dp"
-            android:layout_height="@dimen/sum_53"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:background="@color/colorred"
             android:gravity="center"
+            android:padding="@dimen/sum_15"
             android:text="@string/HomePage_name24"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/colorwhites"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/detail_llayout_id2"
         android:orientation="vertical">
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/sum_90"
                 android:layout_marginTop="@dimen/sum_10"
                 android:background="@color/colorwhites"
-
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -70,11 +67,13 @@
                         android:id="@+id/return_id1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/sum_10">
+                        >
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:background="@drawable/circle_black"
+                            android:padding="@dimen/sum_8"
                             android:src="@drawable/close"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -86,23 +85,16 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingRight="@dimen/sum_10"
-                    android:visibility="gone">
+                    >
 
                     <TextView
+                        android:id="@+id/shopping_qingxuzn"
                         android:layout_width="wrap_content"
+                        android:maxLines="3"
+                        android:ellipsize="end"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
-                        android:text="@string/HomePage_name28"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="100"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/HomePage_name29"/>
-
+                        android:text="请选择"/>
 
                 </LinearLayout>
 
@@ -128,137 +120,131 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/merchandise_tu_id"
-                    android:layout_width="@dimen/sum_100"
-                    android:layout_height="@dimen/sum_100"
-                    android:layout_marginLeft="@dimen/sum_10"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/position_img"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/merchandise_tu_id"
+                android:layout_width="@dimen/sum_100"
+                android:layout_height="@dimen/sum_100"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:background="@drawable/imgv_shape"
+                android:scaleType="fitXY"
+                android:src="@drawable/position_img"/>
         </RelativeLayout>
 
-        <ScrollView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartRefresh"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorwhites">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-            <LinearLayout
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
+                android:background="@color/white"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
                 android:background="@color/colorwhites"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/sum_10"
-                android:paddingTop="@dimen/sum_20">
+                android:paddingTop="10dp">
 
                 <LinearLayout
-                    android:id="@+id/home_type_llayout_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical"
+                    >
 
                     <com.linkhand.fenxiao.utils.MyListView
                         android:id="@+id/home_type_listview_id"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_1"
-                    android:background="@color/colorgraynessb"/>
-
-                <RelativeLayout
-                    android:id="@+id/number_rlayout_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_60">
-
-                    <TextView
-                        android:id="@+id/detail_tv_id3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="@string/HomePage_name32"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sum_16"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorwhites"
+                        android:divider="@color/white"
+                        android:dividerHeight="0dp"
+                        android:paddingLeft="@dimen/sum_10"
                         />
 
-                    <TextView
-                        android:id="@+id/detail_bottom_xiangou"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/detail_tv_id3"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"/>
+                    <View
+                        android:id="@+id/pop_up_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sum_1"
+                        android:background="@color/colorgraynessb"/>
 
-                    <LinearLayout
-                        android:id="@+id/detail_additionll_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/sum_10"
-                        android:gravity="center_vertical">
+                    <RelativeLayout
+                        android:id="@+id/number_rlayout_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorwhites"
+                        android:padding="@dimen/sum_5">
+
+
+                        <TextView
+                            android:id="@+id/detail_tv_id3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/HomePage_name32"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sum_16"
+                            />
+
+                        <TextView
+                            android:id="@+id/detail_bottom_xiangou"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/detail_tv_id3"
+                            android:textColor="@color/black"/>
 
                         <Button
                             android:id="@+id/detail_addition_id"
-                            android:layout_width="@dimen/sum_50"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/sum_45"
+                            android:layout_height="@dimen/sum_45"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:background="@color/gray_f5"
                             android:text="＋"
                             android:textColor="@color/transparence50"
                             android:textSize="16sp"/>
-                    </LinearLayout>
-                    <!--<ImageView-->
-                    <!--android:id="@+id/detail_addition_id"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_marginRight="@dimen/sum_10"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:src="@drawable/a"/>-->
 
-                    <TextView
-                        android:id="@+id/detail_number_id"
-                        android:layout_width="@dimen/sum_40"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/detail_additionll_id"
-                        android:gravity="center"
-                        android:text="@string/HomePage_name34"
-                        android:textColor="@color/black"/>
+                        <TextView
+                            android:id="@+id/detail_number_id"
+                            android:layout_width="@dimen/sum_40"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/detail_addition_id"
+                            android:gravity="center"
+                            android:text="@string/HomePage_name34"
+                            android:textColor="@color/black"/>
 
-                    <!--<ImageView-->
-                    <!--android:id="@+id/detail_subtraction_id"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_toLeftOf="@+id/detail_number_id"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:src="@drawable/a"/>-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/detail_number_id"
-                        android:gravity="center_vertical">
 
                         <Button
                             android:id="@+id/detail_subtraction_id"
-                            android:layout_width="@dimen/sum_50"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/sum_45"
+                            android:layout_height="@dimen/sum_45"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/detail_number_id"
                             android:background="@color/gray_f5"
+                            android:textSize="16sp"
                             android:text="—"
                             android:textColor="@color/transparence50"/>
-                    </LinearLayout>
-                </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_1"
-                    android:background="@color/colorgraynessb"/>
-            </LinearLayout>
-        </ScrollView>
+                    </RelativeLayout>
+                    <View
+                        android:id="@+id/pop_down_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sum_1"
+                        android:background="@color/colorgraynessb"/>
+                </LinearLayout>
+            </ScrollView>
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

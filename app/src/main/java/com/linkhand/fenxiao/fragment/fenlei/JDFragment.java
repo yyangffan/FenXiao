@@ -24,6 +24,7 @@ import com.linkhand.fenxiao.adapter.fenlei.GDTwoAdapter;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.fenlei.RightClassFeng;
 import com.linkhand.fenxiao.info.InfoData;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class JDFragment extends BaseFragment {
     String TAG = "yh";
     private View rootView = null;
     private LinearLayout llayout_main = null;
-
+    private SmartRefreshLayout mSmartRefreshLayout;
     private LinearLayout.LayoutParams lp_gd = null;
     private LinearLayout.LayoutParams lp_tv = null;
     //    private ArrayList<Category> itemList = null;
@@ -75,7 +76,9 @@ public class JDFragment extends BaseFragment {
 
     public void initView() {
         llayout_main = (LinearLayout) rootView.findViewById(R.id.llayout_jd_frg_main);
-
+        mSmartRefreshLayout= (SmartRefreshLayout) rootView.findViewById(R.id.smartRefresh);
+        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setEnableLoadmore(false);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //获取个人id

@@ -110,10 +110,12 @@ public class AddressAdapter extends BaseAdapter {
                 if (site_is_first.equals("1")) {//1 默认 0不默认(R.color.colorred);
                     holder.mRoundTu.setImageResource(R.drawable.marquee_yes);
                     holder.mContent.setTextColor(Color.RED);
+                    holder.mContent.setText("已经设为默认");
                 } else if (site_is_first.equals("0")) {//1 默认 0不默认
                     holder.mRoundTu.setImageResource(R.drawable.marquee);
 //                holder.mContent.getResources().getColor(R.color.colorgraynessd);
                     holder.mContent.setTextColor(Color.GRAY);
+                    holder.mContent.setText("设为默认");
                 }
 
 

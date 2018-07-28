@@ -15,11 +15,13 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.home.IntentionAdapter;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.home.IntentionGoods;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.DetailsInfo;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class IntentionActivity extends BaseActicity implements DetailsInfo, View.OnClickListener {
     ListView mListView;
+    SmartRefreshLayout mSmartRefreshLayout;
     LinearLayout mReturn;//返回
     IntentionAdapter mAdapter;
     InfoData service;
@@ -54,6 +57,9 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
 
     public void init() {
         mListView = (ListView) findViewById(R.id.intention_lv_id);
+        mSmartRefreshLayout = (SmartRefreshLayout) findViewById(R.id.smartRefresh);
+        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setEnableLoadmore(false);
         mReturn = (LinearLayout) findViewById(R.id.intention_return_id);//返回
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -185,6 +191,10 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         MyDialogVip dialog = new MyDialogVip(this);
         dialog.show();
     }
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this);
+        dialog.show();
+    }
 
     @Override
     protected void onStart() {
@@ -212,6 +222,10 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
                 String idea_id = list.get(0).get("idea_id").toString();//商品id
                 String is_have = list.get(0).get("is_have").toString();//是否订购(是否已关注 1是 0否)
                 if (mUserIsVip.equals("1")) {
+                    if (mUserReal.equals("0")) {//是否认证  0否  1是
+                        onApprove();
+                        return;
+                    }
                     if (is_have.equals("1")) {
                         onCancelOrder(idea_id);//取消订购
                     } else if (is_have.equals("0")) {

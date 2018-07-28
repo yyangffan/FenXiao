@@ -51,14 +51,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/allMembers_llayout_id2"
-        android:background="@color/colorwhites"
+        android:background="@color/colorgraynessb"
         android:orientation="vertical"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_35"
-            android:background="@color/colorred"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/gray_c"
+            android:layout_marginBottom="1dp"
             >
 
             <LinearLayout
@@ -80,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/sum_5"
                     android:text="@string/login_fanhui"
-                    android:textColor="@color/colorwhites"/>
+                    android:textColor="@color/title_tv_color"/>
             </LinearLayout>
 
 
@@ -92,7 +93,7 @@
                 android:layout_marginRight="@dimen/sum_50"
                 android:gravity="center"
                 android:text="充值/提现"
-                android:textColor="@color/colorwhites"
+                android:textColor="@color/title_tv_color"
                 android:textSize="@dimen/sum_20"/>
 
             <TextView
@@ -103,7 +104,7 @@
                 android:paddingRight="5dp"
                 android:layout_centerVertical="true"
                 android:text="充值/提现记录"
-                android:textColor="@color/white"/>
+                android:textColor="@color/title_tv_color"/>
 
         </RelativeLayout>
 

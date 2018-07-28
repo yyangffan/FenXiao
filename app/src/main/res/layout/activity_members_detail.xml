@@ -38,14 +38,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/telephone_llayout_id"
         android:background="@color/colorgraynessb"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_35"
-            android:background="@color/colorred"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/gray_c"
             android:gravity="center">
 
             <LinearLayout
@@ -68,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/sum_5"
                     android:text="@string/login_fanhui"
-                    android:textColor="@color/colorwhites"/>
+                    android:textColor="@color/title_tv_color"/>
             </LinearLayout>
 
 
@@ -80,7 +81,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/mine_name24"
-                android:textColor="@color/colorwhites"
+                android:textColor="@color/title_tv_color"
                 android:textSize="@dimen/sum_20"/>
 
         </LinearLayout>
@@ -88,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorred"
+            android:background="@color/gray_c"
             android:orientation="vertical"
             android:paddingBottom="@dimen/sum_20"
             android:paddingTop="@dimen/sum_20">
@@ -113,7 +114,7 @@
                 android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:text="张三"
-                android:textColor="@color/colorwhites"/>
+                android:textColor="@color/title_tv_color"/>
 
             <TextView
                 android:id="@+id/members_tier_id"
@@ -126,7 +127,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="铜1"
-                android:textColor="@color/colorwhites"/>
+                android:textColor="@color/title_tv_color"/>
 
         </LinearLayout>
 

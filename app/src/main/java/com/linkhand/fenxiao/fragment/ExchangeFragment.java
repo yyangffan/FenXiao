@@ -30,6 +30,7 @@ import com.linkhand.fenxiao.activity.currency.PostedActivity;
 import com.linkhand.fenxiao.activity.login.LoginActivity;
 import com.linkhand.fenxiao.activity.mine.SetPwdActivity;
 import com.linkhand.fenxiao.adapter.currency.CurrencyAdapter;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogLashSum;
 import com.linkhand.fenxiao.dialog.MyDialogPay;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
@@ -82,6 +83,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
     String Mater_name = "母币";//母币名称
     String Son_name = "子币";//子币名称
     private String isWhat = "2";
+    public String mUserReal;
 
 
     @Override
@@ -110,6 +112,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
         mTabLayout.addTab(mTabLayout.newTab().setText("兑换列表"));
         mTabLayout.addTab(mTabLayout.newTab().setText("发布列表"));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -147,6 +150,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.currency_posted_id://发布
+                mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
                 onRelease();//发布
                 break;
             case R.id.exchange_mine_jilu://我的记录
@@ -166,6 +170,10 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             if (mUserIsVip.equals("0")) {//是否vip  0否  1是
                 onPrompt();//提示信息
             } else {
+                if (mUserReal.equals("0")) {//是否认证  0否  1是
+                    onApprove();
+                    return;
+                }
                 Intent intent = new Intent(ExchangeFragment.this.getActivity(), PostedActivity.class);
                 startActivity(intent);
             }
@@ -508,6 +516,10 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         dialog.show();
 //        Toast.makeText(ExchangeFragment.this.getActivity(), "请先购买vip!", Toast.LENGTH_SHORT).show();
     }
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this.getActivity());
+        dialog.show();
+    }
 
     @Override
     public void onProvinceItemClicks(TextView mContent, final List<Map<String, Object>> list) {
@@ -520,6 +532,11 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
                     if (mUserIsVip.equals("0")) {//是否vip  0否  1是
                         onPrompt();//提示信息
                     } else {
+                        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         final String curr_id = (String) list.get(0).get("curr_id");//子母币id
                         String curr_son_money = (String) list.get(0).get("curr_son_money");//子币单价
                         String curr_mater_num = (String) list.get(0).get("curr_mater_num");//剩余(发布)母币

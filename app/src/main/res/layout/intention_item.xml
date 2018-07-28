@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/intention_item_tu"
-            android:background="@color/gray_translucent"
+            android:background="#88323232"
             android:padding="@dimen/sum_5">
 
             <TextView

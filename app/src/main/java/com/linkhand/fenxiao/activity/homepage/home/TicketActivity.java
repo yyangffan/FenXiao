@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
-import com.linkhand.fenxiao.adapter.home.OpenGroupAdapter;
+import com.linkhand.fenxiao.adapter.TuanGRcAdapter;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
-import com.linkhand.fenxiao.info.callback.HomeInfo;
+import com.linkhand.fenxiao.fragment.DividerGridItemDecoration;
+import com.linkhand.fenxiao.utils.ToastUtil;
+import com.linkhand.fenxiao.utils.util.OnItemClickListener;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,36 +38,54 @@ import retrofit2.Response;
  @time: 2018/4/21 15:58
  @变更历史:
  ********************************************************************/
-public class TicketActivity extends BaseActicity implements HomeInfo {
+public class TicketActivity extends BaseActicity {
 
     @Bind(R.id.open_group_return_id)
     LinearLayout mReturn;
-    @Bind(R.id.open_group_lv_id)
-    ListView mListView;
     @Bind(R.id.activity_ticket)
     LinearLayout mTicket;
     SharedPreferences preferences;
-    SharedPreferences.Editor editor;
     String mUserId;//个人id
-    OpenGroupAdapter mAdapter;
-    private List<GroupListFeng.InfoBean> list;
+    @Bind(R.id.ticket_recy)
+    RecyclerView mTicketRecy;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
+
+    private List<GroupListFeng.InfoBean> mInfoBeanList;
+    private TuanGRcAdapter mTuanGRcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
         ButterKnife.bind(this);
+        ininEver();
         initView();
         onMessage();
     }
 
+    public void ininEver() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mTicketRecy.setLayoutManager(gridLayoutManager);
+        mTicketRecy.addItemDecoration(new DividerGridItemDecoration(this, R.drawable.gray_juxing));
+        mInfoBeanList = new ArrayList<>();
+        mTuanGRcAdapter = new TuanGRcAdapter(this, mInfoBeanList);
+        mTicketRecy.setAdapter(mTuanGRcAdapter);
+        mTuanGRcAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(int position) {
+                String id = mInfoBeanList.get(position).getGood_id();//(商品id)
+                Intent intent = new Intent(TicketActivity.this, DetailPageActivity.class);
+                intent.putExtra("good_id", id);
+                startActivity(intent);
+            }
+        });
+    }
+
     public void initView() {
-        list = new ArrayList<>();
-        mAdapter = new OpenGroupAdapter(TicketActivity.this, list);
-        mListView.setAdapter(mAdapter);
-        mAdapter.setHomeInfo(TicketActivity.this);
         preferences = TicketActivity.this.getSharedPreferences("user", Context.MODE_PRIVATE);
-        editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");
     }
 
@@ -86,33 +107,18 @@ public class TicketActivity extends BaseActicity implements HomeInfo {
             public void onResponse(Call<GroupListFeng> call, Response<GroupListFeng> response) {
                 GroupListFeng pcfeng = response.body();
                 int code = pcfeng.getCode();
+                mInfoBeanList.clear();
                 if (code == 100) {
-                    list.clear();
-                    List<GroupListFeng.InfoBean> beanList = pcfeng.getInfo();
-                    list.addAll(beanList);
-                    mAdapter.notifyDataSetChanged();
-                }else {
+                    mInfoBeanList.addAll(pcfeng.getInfo());
+                } else {
                     Toast.makeText(TicketActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mTuanGRcAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<GroupListFeng> call, Throwable t) {
-
-            }
-        });
-    }
-
-
-    @Override
-    public void onItemClicks(RelativeLayout mRelativeLayout, final List<Map<String, Object>> list) {
-        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = (String) list.get(0).get("id");//(商品id)
-                Intent intent = new Intent(TicketActivity.this, DetailPageActivity.class);
-                intent.putExtra("good_id", id);
-                startActivity(intent);
+                ToastUtil.showToast(TicketActivity.this, "网络异常");
             }
         });
     }

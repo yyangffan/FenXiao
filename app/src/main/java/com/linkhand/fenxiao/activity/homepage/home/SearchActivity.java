@@ -5,26 +5,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.adapter.TuanGRcAdapter;
 import com.linkhand.fenxiao.adapter.home.IntentionAdapter;
-import com.linkhand.fenxiao.adapter.home.OpenGroupAdapter;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
 import com.linkhand.fenxiao.feng.home.IntentionGoods;
+import com.linkhand.fenxiao.fragment.DividerGridItemDecoration;
 import com.linkhand.fenxiao.info.callback.DetailsInfo;
-import com.linkhand.fenxiao.info.callback.HomeInfo;
+import com.linkhand.fenxiao.utils.ToastUtil;
+import com.linkhand.fenxiao.utils.util.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SearchActivity extends BaseActicity implements View.OnClickListener, DetailsInfo, HomeInfo {
+public class SearchActivity extends BaseActicity implements View.OnClickListener, DetailsInfo {
 
     @Bind(R.id.fenxiao_return_id)
     LinearLayout mReturn;
@@ -50,24 +55,63 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
     TextView mSearchTvSearch;
     @Bind(R.id.check_class_id)
     EditText mCheckClassId;
+    @Bind(R.id.search_recy)
+    RecyclerView mSearchRecy;
 
     private int type = 0;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
 
-    OpenGroupAdapter mAdapter;/*普通商品*/
     IntentionAdapter mAdapter_yixiang;/*意向商品*/
-    private List<GroupListFeng.InfoBean> mBeanList;
     private List<IntentionGoods.InfoBean> mMBean;
+
+    private List<GroupListFeng.InfoBean> mInfoBeanList;
+    private TuanGRcAdapter mTuanGRcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        initEver();
         initView();
-//        StatusBarUtils.setWindowStatusBarColor(this, R.color.colorwhites);//状态栏
+    }
+
+    public void initEver() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mSearchRecy.setLayoutManager(gridLayoutManager);
+        mSearchRecy.addItemDecoration(new DividerGridItemDecoration(this, R.drawable.gray_juxing));
+        mInfoBeanList = new ArrayList<>();
+        mTuanGRcAdapter = new TuanGRcAdapter(this, mInfoBeanList);
+        mSearchRecy.setAdapter(mTuanGRcAdapter);
+        mTuanGRcAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(int position) {
+                String id = mInfoBeanList.get(position).getGood_id();//(商品id)
+                Intent intent = new Intent(SearchActivity.this, DetailPageActivity.class);
+                intent.putExtra("good_id", id);
+                startActivity(intent);
+            }
+        });
+        mMBean = new ArrayList<>();
+        mAdapter_yixiang = new IntentionAdapter(this, mMBean);
+        mSearchLv.setAdapter(mAdapter_yixiang);
+        mAdapter_yixiang.setOnItemClicks(SearchActivity.this);
+        mCheckClassId.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //先隐藏键盘
+                    ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    gotoSearch();
+                }
+                return false;
+            }
+        });
     }
 
     public void initView() {
@@ -111,13 +155,11 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     if (type == 0) {
-                        mBeanList = new ArrayList<>();
-                        mAdapter = new OpenGroupAdapter(SearchActivity.this, mBeanList);
-                        mSearchLv.setAdapter(mAdapter);
+                        mSearchRecy.setVisibility(View.GONE);
+                        mSearchLv.setVisibility(View.GONE);
                     } else if (type == 1) {
-                        mMBean = new ArrayList<>();
-                        mAdapter_yixiang = new IntentionAdapter(SearchActivity.this, mMBean);
-                        mSearchLv.setAdapter(mAdapter_yixiang);
+                        mSearchRecy.setVisibility(View.GONE);
+                        mSearchLv.setVisibility(View.GONE);
                     }
                 }
 
@@ -150,8 +192,12 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
             return;
         }
         if (type == 0) {//普通商品
+            mSearchRecy.setVisibility(View.VISIBLE);
+            mSearchLv.setVisibility(View.GONE);
             onMessage(search_content);
         } else if (type == 1) {//意向商品
+            mSearchRecy.setVisibility(View.GONE);
+            mSearchLv.setVisibility(View.VISIBLE);
             onMessage_yx(search_content);
         }
     }
@@ -166,22 +212,18 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
             public void onResponse(Call<GroupListFeng> call, Response<GroupListFeng> response) {
                 GroupListFeng pcfeng = response.body();
                 int code = pcfeng.getCode();
+                mInfoBeanList.clear();
                 if (code == 100) {
-                    mBeanList = pcfeng.getInfo();
-                    mAdapter = new OpenGroupAdapter(SearchActivity.this, mBeanList);
-                    mSearchLv.setAdapter(mAdapter);
-                    mAdapter.setOnItemClicks(SearchActivity.this);
+                    mInfoBeanList.addAll(pcfeng.getInfo());
                 } else {
-                    mBeanList = new ArrayList<>();
-                    mAdapter = new OpenGroupAdapter(SearchActivity.this, mBeanList);
-                    mSearchLv.setAdapter(mAdapter);
                     Toast.makeText(SearchActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mTuanGRcAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<GroupListFeng> call, Throwable t) {
-
+                ToastUtil.showToast(SearchActivity.this,"网络异常");
             }
         });
     }
@@ -197,22 +239,18 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
             public void onResponse(Call<IntentionGoods> call, Response<IntentionGoods> response) {
                 IntentionGoods pcfeng = response.body();
                 int code = pcfeng.getCode();
+                mMBean.clear();
                 if (code == 100) {
-                    mMBean = pcfeng.getInfo();
-                    mAdapter_yixiang = new IntentionAdapter(SearchActivity.this, mMBean);
-                    mSearchLv.setAdapter(mAdapter_yixiang);
-                    mAdapter_yixiang.setOnItemClicks(SearchActivity.this);
+                    mMBean.addAll(pcfeng.getInfo());
                 } else {
-                    mMBean = new ArrayList<>();
-                    mAdapter_yixiang = new IntentionAdapter(SearchActivity.this, mMBean);
-                    mSearchLv.setAdapter(mAdapter_yixiang);
-//                    Toast.makeText(IntentionActivity.this, "xx", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mAdapter_yixiang.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<IntentionGoods> call, Throwable t) {
-
+                ToastUtil.showToast(SearchActivity.this,"网络异常");
             }
         });
     }
@@ -305,19 +343,5 @@ public class SearchActivity extends BaseActicity implements View.OnClickListener
                 }
             }
         });
-    }
-
-    @Override
-    public void onItemClicks(RelativeLayout mRelativeLayout, final List<Map<String, Object>> list) {
-        mRelativeLayout.setOnClickListener(new View.OnClickListener() {//详情页
-            @Override
-            public void onClick(View v) {
-                String id = list.get(0).get("id").toString();//商品id
-                Intent intent = new Intent(SearchActivity.this, DetailPageActivity.class);
-                intent.putExtra("good_id", id);
-                startActivity(intent);
-            }
-        });
-
     }
 }

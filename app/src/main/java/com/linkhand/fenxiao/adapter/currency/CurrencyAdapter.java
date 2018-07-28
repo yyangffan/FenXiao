@@ -14,7 +14,6 @@ import com.linkhand.fenxiao.feng.zimu.AllCoinFeng;
 import com.linkhand.fenxiao.fragment.ExchangeFragment;
 import com.linkhand.fenxiao.info.callback.ProvinceInfo;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,12 +81,6 @@ public class CurrencyAdapter extends BaseAdapter {
             String curr_state = child.getCurr_state();//状态  1未出售
             String curr_id = child.getCurr_id();//子母币id
 
-            //截取小数后一位
-            double d = Double.parseDouble(curr_son_money);
-            DecimalFormat df = new DecimalFormat("#.0");
-            String str = df.format(d);
-
-
             if (user_id.equals("0")) {//发布者id  0为官方
                 holder.mIsOneself.setText("官方出售");
             } else {
@@ -99,7 +92,7 @@ public class CurrencyAdapter extends BaseAdapter {
             String Mater_name = preferences.getString("Mater_name", "母币");//母币名称
             String Son_name = preferences.getString("Son_name", "子币");//子币名称
             mUserId = preferences.getString("user_id", "");
-            holder.mNumberSell.setText(str + Son_name + "/" + Mater_name + "单价");
+            holder.mNumberSell.setText(curr_son_money + Son_name + "/" + Mater_name + "单价");
             holder.mSurplus.setText("剩余" + (int) Double.parseDouble(curr_mater_num) + Mater_name);
             if(user_id.equals(mUserId)){
                 holder.mCurrency.setText("撤销");
@@ -110,7 +103,7 @@ public class CurrencyAdapter extends BaseAdapter {
             List<Map<String, Object>> list = new ArrayList<>();
             Map<String, Object> map = new HashMap<>();
             map.put("curr_id", curr_id);//子母币id
-            map.put("curr_son_money", str);//子币价钱
+            map.put("curr_son_money", curr_son_money);//子币价钱
             map.put("curr_mater_num", curr_mater_num);//剩余(发布)母币
             map.put("user_id", user_id);//发布者id  0为官方
             list.add(map);

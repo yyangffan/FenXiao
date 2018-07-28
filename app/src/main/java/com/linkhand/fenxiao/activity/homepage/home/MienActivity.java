@@ -14,6 +14,7 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.home.MienAdapter;
 import com.linkhand.fenxiao.bean.MienBean;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +34,8 @@ public class MienActivity extends BaseActicity {
     LinearLayout mReturn;
     @Bind(R.id.open_group_lv_id)
     ListView mListView;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
@@ -49,6 +52,8 @@ public class MienActivity extends BaseActicity {
     }
 
     public void initView() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
         mList = new ArrayList<>();
         mAdapter = new MienAdapter(MienActivity.this, mList);
         mListView.setAdapter(mAdapter);

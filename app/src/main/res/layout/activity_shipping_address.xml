@@ -11,8 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         >
 
         <LinearLayout
@@ -44,7 +45,7 @@
             android:layout_centerInParent="true"
             android:layout_weight="1"
             android:text="新增收货地址"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </RelativeLayout>
@@ -225,8 +226,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:gravity="center">
 
         <LinearLayout
@@ -258,7 +260,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/HomePage_name70"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>

@@ -42,4 +42,6 @@
     <dimen name="y100">100px</dimen>
     <dimen name="x20">15px</dimen>
     <dimen name="x1">1px</dimen>
+    <dimen name="title_bar_height">38dp</dimen><!--所有标题栏的高度-->
+
 </resources>

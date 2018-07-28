@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:background="@color/colorgraynessb"
               android:orientation="vertical">
 
@@ -14,102 +14,107 @@
         android:padding="@dimen/sum_10">
 
         <ImageView
-            android:layout_marginTop="@dimen/sum_10"
             android:id="@+id/order_iv_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@drawable/address"/>
 
         <TextView
-            android:textColor="@color/colorblack"
             android:id="@+id/order_username_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
             android:layout_toRightOf="@+id/order_iv_item_id"
-            android:text="名称"/>
+            android:text="名称"
+            android:textColor="@color/colorblack"/>
 
         <TextView
-            android:textColor="@color/colorblack"
             android:id="@+id/address_item_number_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
             android:layout_toRightOf="@+id/order_username_item_id"
-            android:text="10000000000"/>
+            android:text="10000000000"
+            android:textColor="@color/colorblack"/>
 
         <TextView
-            android:textColor="@color/colorblack"
             android:id="@+id/order_tv_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/order_username_item_id"
+            android:layout_alignBottom="@+id/address_item_id"
+            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/sum_10"
-            android:layout_marginTop="@dimen/sum_10"
+            android:layout_marginTop="@dimen/sum_5"
             android:layout_toRightOf="@+id/order_iv_item_id"
-            android:text="@string/HomePage_name38"/>
+            android:text="@string/HomePage_name38"
+            android:textColor="@color/colorblack"/>
 
         <TextView
-            android:layout_marginRight="40dp"
-            android:textColor="@color/colorblack"
             android:id="@+id/address_item_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/order_username_item_id"
-            android:layout_marginTop="@dimen/sum_10"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="@dimen/sum_5"
             android:layout_toRightOf="@+id/order_tv_item_id"
-            android:text="河北省河北省河北省河北河北河北省河北省河北省河北省"/>
+            android:text="河北省河北省河北省河"
+            android:textColor="@color/colorblack"/>
 
         <TextView
-            android:layout_marginTop="@dimen/sum_10"
-            android:gravity="center_vertical"
             android:id="@+id/address_item_tu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/sum_10"
             android:text="@string/HomePage_name54"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_50"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/sum_1"
         android:background="@color/colorwhites"
         android:gravity="center_vertical">
-<LinearLayout
-    android:id="@+id/address_item_llayout"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:gravity="center_vertical"
-    android:layout_height="match_parent">
-    <ImageView
-        android:scaleType="fitXY"
-        android:id="@+id/address_xiao_tu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/sum_10"
-        android:src="@drawable/marquee"/>
 
-    <TextView
-        android:gravity="center_vertical"
-        android:id="@+id/adress_content_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/sum_10"
-        android:text="@string/HomePage_name51"/>
+        <LinearLayout
+            android:id="@+id/address_item_llayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/address_xiao_tu"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:scaleType="fitXY"
+                android:src="@drawable/marquee"/>
+
+            <TextView
+                android:id="@+id/adress_content_id"
+                android:layout_width="match_parent"
+                android:padding="7dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sum_10"
+                android:gravity="center_vertical"
+                android:text="@string/HomePage_name51"/>
+
+        </LinearLayout>
 
 
         <View
             android:layout_width="@dimen/sum_1"
             android:layout_height="match_parent"
-            android:background="@color/colorgraynessb"></View>
+            android:background="@color/colorgraynessb"/>
 
         <TextView
             android:id="@+id/address_tv_id"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
@@ -118,20 +123,21 @@
         <View
             android:layout_width="@dimen/sum_1"
             android:layout_height="match_parent"
-            android:background="@color/colorgraynessb"></View>
+            android:background="@color/colorgraynessb"/>
 
         <TextView
             android:id="@+id/address_tv_id2"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
             android:text="@string/HomePage_name53"/>
     </LinearLayout>
-<View
-    android:background="@color/colorgraynessb"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/sum_10"></View>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sum_10"
+        android:background="@color/colorgraynessb"/>
 
 </LinearLayout>

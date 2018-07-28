@@ -7,11 +7,14 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,22 +32,22 @@ import com.linkhand.fenxiao.activity.homepage.home.SearchActivity;
 import com.linkhand.fenxiao.activity.homepage.home.TicketActivity;
 import com.linkhand.fenxiao.activity.homepage.home.VIPDetailPageActivity;
 import com.linkhand.fenxiao.activity.news.NewsActivity;
-import com.linkhand.fenxiao.adapter.HomePageFragmentAdapter;
 import com.linkhand.fenxiao.adapter.HomePageVipGoodsAdapter;
+import com.linkhand.fenxiao.adapter.HomeRecyAdapter;
 import com.linkhand.fenxiao.dialog.MyDialog;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogLogin;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.feng.home.HomeMessageBean;
 import com.linkhand.fenxiao.feng.home.MineGongGBean;
-import com.linkhand.fenxiao.feng.home.NewRecommendedVipGoods;
 import com.linkhand.fenxiao.feng.home.RecommendedGoods;
 import com.linkhand.fenxiao.feng.home.SlideshowFeng;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.HomeInfo;
 import com.linkhand.fenxiao.info.callback.HomeVipInfo;
 import com.linkhand.fenxiao.utils.MyImageLoader;
-import com.linkhand.fenxiao.utils.MyListView;
+import com.linkhand.fenxiao.utils.MyRecycleView;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.views.vertical_view.MarqueeView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -85,44 +88,83 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     LinearLayout mInvite;//邀请好友
     LinearLayout mTicket;//返券专区
     RelativeLayout mMien;//企业风采
-    RelativeLayout mNews;//消息通知
+    FrameLayout mNews;//消息通知
     LinearLayout mSearch;//搜索
-    MyListView mListView;//普通
-    MyListView mVipListView;//vip
     @Bind(R.id.qyfc_red)
     TextView mQyfcRed;
     @Bind(R.id.home_page_marquee)
     MarqueeView mHomePageMarquee;
-    private TextView mtv_red;
+    @Bind(R.id.home_recy_tuijian)
+    MyRecycleView mHomeRecyTuijian;
 
+    private TextView mtv_red;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
     InfoData service; //接口的实现类
-    HomePageFragmentAdapter mAdapter;
     HomePageVipGoodsAdapter mVipAdapter;
     int mIsOne = 0;//获取是否第一次进首页instructions须知  1是提示完了
     RefreshLayout refreshLayout;//上下拉
     String mUserIsVip; //是否vip  0否  1是
     private List<String> mGongGstrs;
 
+    private HomeRecyAdapter mHomeRecyAdapter;
+    private List<RecommendedGoods.InfoBean> beanList;
+    public String mUserReal;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
         ButterKnife.bind(this, v);
+        initEver();
         initRetrofit();//初始化retrofit
         init(v);
         onUpDowns();//上下拉
         onClicks();
         slideshow();//获取轮播图
-        onVipMessage();//vip购买
+//        onVipMessage();//vip购买
         onMessage();
         onAnnouncement();//平台须知
         getHaveMsg();//是否有未读消息
         getGongG();//获取要显示的公告
         return v;
     }
+
+    public void initEver() {
+        beanList = new ArrayList<>();
+        mHomeRecyAdapter = new HomeRecyAdapter(this.getActivity(), beanList);
+        StaggeredGridLayoutManager recyclerViewLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                };/*这个是瀑布流 ，没有用到*/
+        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 2){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mHomeRecyTuijian.setLayoutManager(manager);
+        mHomeRecyTuijian.addItemDecoration(new DividerGridItemDecoration(this.getActivity(),R.drawable.gray_juxing));
+        mHomeRecyTuijian.setAdapter(mHomeRecyAdapter);
+        mHomeRecyAdapter.setOnItemClickListener(new HomeRecyAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(int position) {
+                if (mUserId.equals("")) {
+                    onIsLogin();//登录注册去
+                } else {
+                    String id = beanList.get(position).getGood_id();
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), DetailPageActivity.class);
+                    intent.putExtra("good_id", id);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
 
     public void init(View v) {
         mGongGstrs = new ArrayList<>();
@@ -133,19 +175,16 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         mTicket = (LinearLayout) v.findViewById(R.id.ticket_llayout_id);//返券专区
         mMien = (RelativeLayout) v.findViewById(R.id.mien_llayout_id);//企业风采
         mSearch = (LinearLayout) v.findViewById(R.id.home_search_id);//搜索
-        mVipListView = (MyListView) v.findViewById(R.id.home_listviewvip_id);
         mtv_red = (TextView) v.findViewById(R.id.xiaoxi_red);
-        mVipListView.setFocusable(false);
-        mListView = (MyListView) v.findViewById(R.id.home_listview_id);
-        mListView.setFocusable(false);
 
-        mNews = (RelativeLayout) v.findViewById(R.id.fenxiao_news_ll_id);//消息通知
+        mNews = (FrameLayout) v.findViewById(R.id.fenxiao_news_ll_id);//消息通知
         refreshLayout = (RefreshLayout) v.findViewById(R.id.refreshLayout);
 
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");//获取个人id
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
         //获取是否第一次进首页instructions须知  1是提示完了
         mIsOne = preferences.getInt("instructions", 0);
         mBanner.setOnBannerListener(new OnBannerListener() {
@@ -179,6 +218,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 HomePageFragment.this.startActivity(new Intent(HomePageFragment.this.getActivity(), HomeGongGActivity.class));
             }
         });
+
     }
 
     public void onClicks() {
@@ -215,13 +255,9 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
-                    if (mUserIsVip.equals("1")) {//是否vip  0否  1是
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), OpenGroupActivity.class);
-                        intent.putExtra("is_type", "2");
-                        startActivity(intent);
-                    } else if (mUserIsVip.equals("0")) {
-                        onIsLoginVip();//购买vip
-                    }
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), OpenGroupActivity.class);
+                    intent.putExtra("is_type", "2");
+                    startActivity(intent);
                 }
                 break;
 
@@ -229,12 +265,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
-                    if (mUserIsVip.equals("1")) {//是否vip  0否  1是
-                        Intent intent = new Intent(HomePageFragment.this.getActivity(), TicketActivity.class);
-                        startActivity(intent);
-                    } else if (mUserIsVip.equals("0")) {
-                        onIsLoginVip();//购买vip
-                    }
+                    Intent intent = new Intent(HomePageFragment.this.getActivity(), TicketActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.mien_llayout_id://企业风采
@@ -254,10 +286,15 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                 }
                 break;
             case R.id.home_search_id://搜索
+                mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
                 if (mUserId.equals("")) {
                     onIsLogin();//登录注册去
                 } else {
                     if (mUserIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         Intent intent = new Intent(HomePageFragment.this.getActivity(), SearchActivity.class);
                         startActivity(intent);
                     } else if (mUserIsVip.equals("0")) {
@@ -265,8 +302,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
                 break;
-
-
         }
     }
 
@@ -296,8 +331,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                         mHomePageMarquee.startWithList(mGongGstrs, R.anim.anim_bottom_in, R.anim.anim_top_out);
                     }
                 }
-
-
             }
 
             @Override
@@ -309,40 +342,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    //vip
-    public void onVipMessage() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("user_id", mUserId);//-------------------------------------------------
-        Call<NewRecommendedVipGoods> call = service.getNewVipRecommended(map);
-        call.enqueue(new Callback<NewRecommendedVipGoods>() {
-            @Override
-            public void onResponse(Call<NewRecommendedVipGoods> call, Response<NewRecommendedVipGoods> response) {
-                NewRecommendedVipGoods pcfeng = response.body();
-                Log.e("yh", pcfeng + "--");
-                int code = pcfeng.getCode();
-                String success = pcfeng.getSuccess();
-                if (code == 100) {
-//                    Toast.makeText(HomePageFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
-                    List<NewRecommendedVipGoods.InfoBean> mBean = pcfeng.getInfo();
-                    mVipAdapter = new HomePageVipGoodsAdapter(HomePageFragment.this.getActivity(), mBean);
-                    mVipListView.setAdapter(mVipAdapter);
-                    mVipAdapter.setOnVipItemClicks(HomePageFragment.this);
-
-
-                } else {
-//                    Toast.makeText(HomePageFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<NewRecommendedVipGoods> call, Throwable t) {
-
-            }
-        });
-
-    }
-
     public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         Call<RecommendedGoods> call = service.getRecommended(map);
@@ -350,23 +349,20 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onResponse(Call<RecommendedGoods> call, Response<RecommendedGoods> response) {
                 RecommendedGoods pcfeng = response.body();
-                Log.e("yh", "pcfeng--" + pcfeng);
                 int code = pcfeng.getCode();
+                beanList.clear();
                 if (code == 100) {
-                    List<RecommendedGoods.InfoBean> beanList = pcfeng.getInfo();
-                    mAdapter = new HomePageFragmentAdapter(HomePageFragment.this.getActivity(), beanList);
-                    mListView.setAdapter(mAdapter);
-                    mAdapter.setOnItemClicks(HomePageFragment.this);
-
+                    beanList.addAll(pcfeng.getInfo());
                 } else {
-//                    Toast.makeText(HomePageFragment.this.getActivity(), "xx", Toast.LENGTH_SHORT).show();
+//                    ToastUtil.showToast(HomePageFragment.this.getActivity(),pcfeng.getSuccess());
                 }
+                mHomeRecyAdapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onFailure(Call<RecommendedGoods> call, Throwable t) {
-
+                ToastUtil.showToast(HomePageFragment.this.getActivity(),"网络异常");
             }
         });
     }
@@ -473,6 +469,11 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     public void onIsLoginVip() {//购买vip
         MyDialogVip dialog = new MyDialogVip(getActivity());
 //        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
+        dialog.show();
+    }
+
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this.getActivity());
         dialog.show();
     }
 
@@ -616,7 +617,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
     public void onStart() {
         super.onStart();
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
-        onVipMessage();//vip购买
+//        onVipMessage();//vip购买
         onMessage();
     }
 
@@ -626,7 +627,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         //获取是否第一次进首页instructions须知  1是提示完了
         mIsOne = preferences.getInt("instructions", 0);
-        onVipMessage();//vip购买
+//        onVipMessage();//vip购买
         onMessage();
         getHaveMsg();
     }

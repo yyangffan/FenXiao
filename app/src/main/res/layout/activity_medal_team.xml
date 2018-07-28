@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorwhites"
+        android:background="@color/gray_c"
         android:visibility="gone"
         >
 
@@ -52,8 +52,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_35"
-            android:background="@color/colorred"
+            android:layout_height="@dimen/title_bar_height"
+            android:background="@color/gray_c"
             android:gravity="center">
 
             <LinearLayout
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/sum_5"
                     android:text="@string/login_fanhui"
-                    android:textColor="@color/colorwhites"/>
+                    android:textColor="@color/title_tv_color"/>
             </LinearLayout>
 
 
@@ -88,7 +88,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/mine_name12"
-                android:textColor="@color/colorwhites"
+                android:textColor="@color/title_tv_color"
                 android:textSize="@dimen/sum_20"/>
 
         </LinearLayout>
@@ -96,7 +96,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorred"
+            android:background="@color/gray_c"
             android:orientation="vertical"
             android:paddingBottom="@dimen/sum_10"
             android:paddingTop="@dimen/sum_10">
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/roundImageView_id"
-                    android:textColor="@color/colorwhites"/>
+                    android:textColor="@color/title_tv_color"/>
 
                 <TextView
                     android:id="@+id/team_level_id"
@@ -133,7 +133,7 @@
                     android:layout_marginLeft="@dimen/sum_40"
                     android:layout_toRightOf="@+id/mine_position_id"
                     android:text="铜1"
-                    android:textColor="@color/colorwhites"
+                    android:textColor="@color/title_tv_color"
                     android:visibility="gone"/>
 
             </LinearLayout>
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/sum_10"
                         android:text="@string/mine_name19"
-                        android:textColor="@color/colorwhites"/>
+                        android:textColor="@color/title_tv_color"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -179,6 +179,7 @@
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
+            android:layout_marginTop="@dimen/sum_1"
             android:id="@+id/mine_tabLayout_id2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.IntentionActivity;
@@ -119,10 +120,9 @@ public class IntentionAdapter extends BaseAdapter {
 
             } else {
                 thumb = C.TU + thumb;
-//                Log.e("yh", "thumb--" + thumb);
-                Glide.with(context)
-                        .load(thumb)
-                        .into(holder.mTu);
+                RequestOptions requestOption=new RequestOptions();
+                requestOption.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+                Glide.with(context).load(thumb).apply(requestOption).into(holder.mTu);
             }
 
             List<Map<String, Object>> lists = new ArrayList<>();

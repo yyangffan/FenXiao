@@ -149,7 +149,11 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
                     mLists = new ArrayList<SortModel>();
                     for (int i = 0; i < beanList.size(); i++) {
                         SortModel sortModels = new SortModel();
-                        sortModels.setSelects("2");//1 对勾  2选择
+                        if(!addressId.equals("")&&beanList.get(i).getSite_id().equals(addressId)){
+                            sortModels.setSelects("1");
+                        }else {
+                            sortModels.setSelects("2");//1 对勾  2选择
+                        }
                         sortModels.setSite_city1(beanList.get(i).getSite_city1());//省
                         sortModels.setSite_city2(beanList.get(i).getSite_city2());//市
                         sortModels.setSite_city3(beanList.get(i).getSite_city3());//区

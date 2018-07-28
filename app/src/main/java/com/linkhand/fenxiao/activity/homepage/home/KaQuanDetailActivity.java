@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.KaQuanDetailBean;
 import com.linkhand.fenxiao.utils.MyImageLoader;
@@ -91,6 +92,10 @@ public class KaQuanDetailActivity extends BaseActicity {
                 this.finish();
                 break;
             case R.id.vip_detail_use:
+                if (mUserReal.equals("0")) {//是否认证  0否  1是
+                    onApprove();
+                    return;
+                }
                 showPassDialog();
                 break;
         }
@@ -216,6 +221,10 @@ public class KaQuanDetailActivity extends BaseActicity {
         mBanner.isAutoPlay(true);
         mBanner.setDelayTime(2000);
         mBanner.start();
+    }
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this);
+        dialog.show();
     }
 
 }

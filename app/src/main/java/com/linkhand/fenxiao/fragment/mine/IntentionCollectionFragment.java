@@ -19,6 +19,7 @@ import com.linkhand.fenxiao.BaseFragment;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.InDetailsActivity;
+import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.mine.InCollectionFeng;
 import com.linkhand.fenxiao.info.InfoData;
@@ -184,8 +185,14 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
         mTextView.setOnClickListener(new View.OnClickListener() {//取消收藏
             @Override
             public void onClick(View v) {
-                String good_id = (String) list.get(0).get("good_id");//意向id
-                CancelCollection(good_id);//取消收藏
+                final String good_id = (String) list.get(0).get("good_id");//意向id
+                new ShowRemindDialog().showRemind(IntentionCollectionFragment.this.getActivity(), "确定", "取消", "", "确认取消收藏?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                    @Override
+                    public void OnSureClickListener() {
+                        CancelCollection(good_id);//取消收藏
+                    }
+                });
+
             }
         });
 

@@ -3,6 +3,7 @@ package com.linkhand.fenxiao.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Build;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -22,6 +23,8 @@ public class StatusBarUtils {
                 window.setStatusBarColor(activity.getResources().getColor(colorResId));
                 //底部导航栏
                 //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
+                /*设置导航栏字体颜色为暗色*/
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,6 +40,7 @@ public class StatusBarUtils {
 
                 //底部导航栏
                 //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
+
             }
         } catch (Exception e) {
             e.printStackTrace();

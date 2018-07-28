@@ -11,6 +11,7 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.GongGRecyAdapter;
 import com.linkhand.fenxiao.feng.home.MineGongGBean;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,8 @@ public class HomeGongGActivity extends BaseActicity {
     LinearLayout mGonggReturnId4;
     @Bind(R.id.gongg_recy)
     RecyclerView mGonggRecy;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
 
     private List<MineGongGBean.InfoBean> mInfoBeanList;
     private GongGRecyAdapter mGongGRecyAdapter;
@@ -52,6 +55,8 @@ public class HomeGongGActivity extends BaseActicity {
     }
 
     public void initEver() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
         mInfoBeanList = new ArrayList<>();
         mGongGRecyAdapter = new GongGRecyAdapter(this, mInfoBeanList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

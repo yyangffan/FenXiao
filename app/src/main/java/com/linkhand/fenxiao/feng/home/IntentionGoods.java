@@ -16,6 +16,15 @@ public class IntentionGoods {
 
     private int code;
     private List<InfoBean> info;
+    private String success;
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
 
     public int getCode() {
         return code;

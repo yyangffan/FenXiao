@@ -66,14 +66,14 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
             mZi = intent.getStringExtra("zi");
             mMother = intent.getStringExtra("mother");
         }
-        Mater_name = preferences.getString("Mater_name", "母币");//母币名称
-        Son_name = preferences.getString("Son_name", "子币");//子币名称
         mSonNumberId.setText(mZi);
         mMotherNumberId.setText(mMother);
         mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id4);
         mReturn = (LinearLayout) findViewById(R.id.allmembers_return_id2);
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
+        Mater_name = preferences.getString("Mater_name", "母币");//母币名称
+        Son_name = preferences.getString("Son_name", "子币");//子币名称
         mList = new ArrayList<>();
         mList.add(new RechargeFragment());//充值
         mList.add(new RegistrationFragment());//提现

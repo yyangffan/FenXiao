@@ -21,7 +21,7 @@
         <LinearLayout
             android:id="@+id/upgrade_share"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -35,6 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:layout_marginTop="@dimen/sum_3"
                 android:text="@string/HomePage_name89"/>
         </LinearLayout>
@@ -42,7 +43,7 @@
         <LinearLayout
             android:id="@+id/detail_collect_llayout_id"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -58,6 +59,7 @@
                 android:id="@+id/upgrade_tv_shoucang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:layout_marginTop="@dimen/sum_3"
                 android:text="@string/HomePage_name90"/>
         </LinearLayout>
@@ -70,7 +72,8 @@
             android:layout_weight="2"
             android:background="@color/coloryellows2"
             android:gravity="center"
-            android:padding="@dimen/sum_10"
+            android:padding="@dimen/sum_12"
+            android:textSize="16sp"
             android:text="@string/HomePage_name23"
             android:textColor="@color/colorwhites"/>
 
@@ -80,8 +83,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/colorred"
+            android:textSize="16sp"
             android:gravity="center"
-            android:padding="@dimen/sum_10"
             android:text="@string/HomePage_name24"
             android:textColor="@color/colorwhites"/>
     </LinearLayout>
@@ -89,8 +92,9 @@
     <LinearLayout
         android:id="@+id/upgrade_top_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:gravity="center">
 
         <LinearLayout
@@ -121,7 +125,7 @@
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_5"
             android:text="@string/HomePage_name12"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>
@@ -152,7 +156,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_150"
+                    android:layout_height="@dimen/sum_dialog_300"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"
@@ -296,6 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:textColor="@color/black"
                         android:text="@string/HomePage_name87"
                         android:textSize="@dimen/sum_16"/>
 
@@ -329,7 +334,7 @@
                     android:background="@android:color/white"
                     app:tabIndicatorColor="@color/colorred"
                     app:tabSelectedTextColor="@color/colorred"
-                    app:tabTextColor="@color/transparence50"/>
+                    app:tabTextColor="@color/black"/>
 
                 <TextView
                     android:layout_width="match_parent"

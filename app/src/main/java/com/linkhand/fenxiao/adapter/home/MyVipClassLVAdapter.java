@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.library.flowlayout.FlowLayoutManager;
+import com.library.flowlayout.NestedRecyclerView;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.VIPDetailPageActivity;
 import com.linkhand.fenxiao.feng.home.MyGoodsFeng;
 import com.linkhand.fenxiao.feng.home.VipGoodsDetailsFeng;
+import com.linkhand.fenxiao.guige.VipNewAdapter;
 import com.linkhand.fenxiao.info.callback.LeftLVIn;
 import com.linkhand.fenxiao.utils.NoScrollGridView;
 
@@ -60,6 +63,8 @@ public class MyVipClassLVAdapter extends BaseAdapter {
 
             holder.mTextView = (TextView) convertView.findViewById(R.id.right_title_id);//小标题
             holder.mGridView = (NoScrollGridView) convertView.findViewById(R.id.right_gv_id);
+            holder.mNestedRecyclerView = (NestedRecyclerView) convertView.findViewById(R.id.des);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
@@ -69,15 +74,16 @@ public class MyVipClassLVAdapter extends BaseAdapter {
                 VipGoodsDetailsFeng.InfoBean.SpeciBean speciBean = BeanList.get(position);
                 String cat_name = speciBean.getSpeci_name();//类型
                 holder.mTextView.setText(cat_name);
-            }
-            if (holder.mGridView != null) {
-                VipGoodsDetailsFeng.InfoBean.SpeciBean speciBean = BeanList.get(position);
                 VipDetailPageAdapter gridViewAdapter = new VipDetailPageAdapter(context, speciBean, mLeftLVIn,position,myList);
                 holder.mGridView.setAdapter(gridViewAdapter);
+
+                FlowLayoutManager flowLayoutManager = new FlowLayoutManager();
+                holder.mNestedRecyclerView.setLayoutManager(flowLayoutManager);
+                holder.mNestedRecyclerView.setAdapter(new VipNewAdapter(context, speciBean, mLeftLVIn, position, myList));
             }
         }
 
-        convertView.setTag(holder);
+
         return convertView;
     }
 
@@ -93,6 +99,7 @@ public class MyVipClassLVAdapter extends BaseAdapter {
     class ViewHolder {
         TextView mTextView;//小标题
         NoScrollGridView mGridView;
+        NestedRecyclerView mNestedRecyclerView;
     }
 
 }

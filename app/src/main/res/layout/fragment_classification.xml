@@ -8,8 +8,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:gravity="center">
 
         <ImageView
@@ -31,7 +32,7 @@
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_5"
             android:text="@string/classification_name"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>
@@ -60,10 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
             android:background="@null"
+            android:imeOptions="actionSearch"
             android:ellipsize="end"
             android:hint="@string/classification_name2"
-            android:maxLength="12"
             android:maxLines="1"
+            android:inputType="text"
             android:textColor="@color/colorblack"
             android:textColorHint="@color/colorgraynessd"
             android:textSize="@dimen/sum_14"/>

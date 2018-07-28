@@ -10,8 +10,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:orientation="horizontal"
         >
 
@@ -32,8 +33,9 @@
             android:layout_weight="1"
             android:background="@drawable/btn_bg_three"
             android:ellipsize="end"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:hint="请输入要搜索的内容"
-            android:maxLength="12"
             android:maxLines="1"
             android:paddingBottom="@dimen/sum_5"
             android:paddingLeft="10dp"
@@ -51,7 +53,7 @@
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
             android:text="@string/HomePage_name95"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/title_tv_color"/>
     </LinearLayout>
 
     <LinearLayout

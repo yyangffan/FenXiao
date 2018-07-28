@@ -12,8 +12,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:layout_marginBottom="1dp"
+        android:background="@color/gray_c"
         android:gravity="center">
 
         <LinearLayout
@@ -48,10 +49,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/sum_10"
+                android:layout_marginRight="@dimen/sum_10"
                 android:background="@null"
                 android:ellipsize="end"
                 android:hint="@string/classification_name3"
-                android:maxLength="12"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/sum_5"
                 android:paddingTop="@dimen/sum_5"
@@ -70,7 +73,7 @@
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
             android:text="@string/HomePage_name95"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/title_tv_color"/>
     </LinearLayout>
 
     <android.support.design.widget.TabLayout
@@ -101,5 +104,14 @@
         android:id="@+id/search_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:background="@color/white"/>
 </LinearLayout>

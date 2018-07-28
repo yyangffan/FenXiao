@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.library.flowlayout.FlowLayoutManager;
+import com.library.flowlayout.NestedRecyclerView;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.DetailPageActivity;
 import com.linkhand.fenxiao.feng.home.GoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.MyGoodsFeng;
+import com.linkhand.fenxiao.guige.FlowAdapter;
 import com.linkhand.fenxiao.info.callback.LeftLVIn;
 import com.linkhand.fenxiao.utils.NoScrollGridView;
 
@@ -26,7 +29,7 @@ public class MyClassLVAdapter extends BaseAdapter {
     LeftLVIn mLeftLVIn;
     List<MyGoodsFeng> myList;
 
-    public MyClassLVAdapter(Context context, List<GoodsDetailsFeng.InfoBean.SpeciBean> BeanList,List<MyGoodsFeng> myList) {
+    public MyClassLVAdapter(Context context, List<GoodsDetailsFeng.InfoBean.SpeciBean> BeanList, List<MyGoodsFeng> myList) {
         this.context = context;
         this.BeanList = BeanList;
         this.myList = myList;
@@ -59,6 +62,8 @@ public class MyClassLVAdapter extends BaseAdapter {
 
             holder.mTextView = (TextView) convertView.findViewById(R.id.right_title_id);//小标题
             holder.mGridView = (NoScrollGridView) convertView.findViewById(R.id.right_gv_id);
+            holder.mNestedRecyclerView = (NestedRecyclerView) convertView.findViewById(R.id.des);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
@@ -68,12 +73,16 @@ public class MyClassLVAdapter extends BaseAdapter {
                 GoodsDetailsFeng.InfoBean.SpeciBean speciBean = BeanList.get(position);
                 String cat_name = speciBean.getSpeci_name();//类型
                 holder.mTextView.setText(cat_name);
-                DetailPageAdapter gridViewAdapter = new DetailPageAdapter(context, speciBean, mLeftLVIn,position,myList);
+                DetailPageAdapter gridViewAdapter = new DetailPageAdapter(context, speciBean, mLeftLVIn, position, myList);
                 holder.mGridView.setAdapter(gridViewAdapter);
+
+                FlowLayoutManager flowLayoutManager = new FlowLayoutManager();
+                holder.mNestedRecyclerView.setLayoutManager(flowLayoutManager);
+                holder.mNestedRecyclerView.setAdapter(new FlowAdapter(context, speciBean, mLeftLVIn, position, myList));
+
             }
         }
 
-        convertView.setTag(holder);
         return convertView;
     }
 
@@ -89,6 +98,7 @@ public class MyClassLVAdapter extends BaseAdapter {
     class ViewHolder {
         TextView mTextView;//小标题
         NoScrollGridView mGridView;
+        NestedRecyclerView mNestedRecyclerView;
     }
 
 }

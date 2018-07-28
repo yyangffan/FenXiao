@@ -75,7 +75,7 @@
                 android:padding="3dp"
                 android:text=""
                 android:textColor="@color/gray_translucent"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 />
 
 

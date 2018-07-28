@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -29,20 +31,26 @@ import com.linkhand.fenxiao.adapter.home.MyVipClassLVAdapter;
 import com.linkhand.fenxiao.adapter.home.ParameterAdapter;
 import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyPayWap;
+import com.linkhand.fenxiao.dialog.MyViewPagDialog;
 import com.linkhand.fenxiao.feng.home.MyGoodsFeng;
 import com.linkhand.fenxiao.feng.home.VipGoodsDetailsFeng;
+import com.linkhand.fenxiao.feng.home.VipMoneyBean;
 import com.linkhand.fenxiao.feng.home.VipXiaDanResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.LeftLVIn;
 import com.linkhand.fenxiao.utils.MyImageLoader;
 import com.linkhand.fenxiao.utils.MyListView;
+import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.views.MyWevClient;
+import com.luck.picture.lib.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.umeng.socialize.UMShareAPI;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,8 +106,8 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
     PopupWindow popupWindow;
     LinearLayout return_id1;//退出加入购物车的dialog
     TextView mPopPurchasing;//popupWindow的立刻购买
+    SmartRefreshLayout mSmartRefreshLayout;
     TextView mSingle_rmb;//弹窗单价
-    LinearLayout mTypesLayout;//总类别
     MyListView mAllListView;//总类别
     TextView mColorTv;//请选择颜色
     ImageView mFigure;//小图片
@@ -109,6 +117,9 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
     MyVipClassLVAdapter mListViewAdapter;
     private String vip_speci_vals = "";
     private String mVip_order_id = "";
+    private String guige_imgv = "";
+    private List<Map<String, Object>> mMapList;
+    private TextView mMtv_guigeXz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,11 +167,11 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
                 if (mUserIsVip.equals("1")) {
                     Toast.makeText(this, "当前已是vip!", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    if (mUserReal.equals("0")) {//是否认证  0否  1是
-                        onApprove();//实名认证
-                        return;
-                    }
+                } else {/*2018.7.26去掉购买vip商品时的实名认证*/
+//                    if (mUserReal.equals("0")) {//是否认证  0否  1是
+//                        onApprove();
+//                        return;
+//                    }
                 }
                 onShoppings();//立刻购买popupWindow
                 break;
@@ -175,6 +186,13 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
 
     /*获取vip支付订单号*/
     public void getVipDingdan() {
+        if (vip_speci_vals != null && vip_speci_vals.equals("")) {
+            ToastUtil.showToast(VIPDetailPageActivity.this, "请选择商品规格");
+            return;
+        } else if (vip_speci_vals == null) {
+            ToastUtil.showToast(VIPDetailPageActivity.this, "请选择商品规格");
+            return;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("vip_id", mVipId);
@@ -256,13 +274,16 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
         mPopPurchasing = (TextView) vu.findViewById(R.id.detail_purchasing_id2);
         mPopPurchasing.setOnClickListener(VIPDetailPageActivity.this);
         RelativeLayout number = (RelativeLayout) vu.findViewById(R.id.number_rlayout_id);
-        number.setVisibility(View.GONE);
+//        number.setVisibility(View.GONE);
         mSingle_rmb = (TextView) vu.findViewById(R.id.single_rmb);//弹窗单价
-        mTypesLayout = (LinearLayout) vu.findViewById(R.id.home_type_llayout_id);//总类别
         mAllListView = (MyListView) vu.findViewById(R.id.home_type_listview_id);//总类别
         mAllListView.setFocusable(false);
         mColorTv = (TextView) vu.findViewById(R.id.dialog_tvcolor_id);//请选择颜色
         mFigure = (ImageView) vu.findViewById(R.id.merchandise_tu_id);//小图片
+        mMtv_guigeXz = (TextView) vu.findViewById(R.id.shopping_qingxuzn);
+        mSmartRefreshLayout = (SmartRefreshLayout) vu.findViewById(R.id.smartRefresh);
+        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setEnableLoadmore(false);
         mPopPurchasing.setText("立刻购买");
         popupWindow = new PopupWindow(vu);
 //        int width =mSchool.getWidth();
@@ -293,14 +314,40 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
             List<VipGoodsDetailsFeng.InfoBean.ImgBean> imgBeen = bean.getImg();
             if (imgBeen.size() != 0) {
                 String thumb = C.TU + imgBeen.get(0).getVimg_url();
+                guige_imgv = thumb;
+                RoundedCorners roundedCorners= new RoundedCorners(10);
+                RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300,300);
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 Glide.with(VIPDetailPageActivity.this)
                         .load(thumb)
+                        .apply(requestOptions)
                         .into(mFigure);
 
             }
             speciBeanList = bean.getSpeci();
             setData(speciBeanList);
         }
+
+        mFigure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<View> mlist = new ArrayList<>();
+                List<String> mdizhi = new ArrayList<>();
+                if (guige_imgv.equals("")) {
+                    mdizhi.add(C.TU + bean.getImg().get(0).getVimg_url());
+                    PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
+                    Glide.with(VIPDetailPageActivity.this).load(C.TU + bean.getImg().get(0).getVimg_url()).into(photoView);
+                    mlist.add(photoView);
+                } else {
+                    mdizhi.add(guige_imgv);
+                    PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
+                    Glide.with(VIPDetailPageActivity.this).load(guige_imgv).into(photoView);
+                    mlist.add(photoView);
+                }
+                MyViewPagDialog myViewPagDialog = new MyViewPagDialog(VIPDetailPageActivity.this, mlist, mdizhi, 0);
+                myViewPagDialog.show();
+            }
+        });
 
     }
 
@@ -309,14 +356,22 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
             myList = new ArrayList<>();
             for (int i = 0; i < speciBeanList.size(); i++) {
                 myMap = new MyGoodsFeng();
-                myMap.setMyid(speciBeanList.get(i).getSpeci_vals().get(0).getVsp_id());
-                myMap.setMyname(speciBeanList.get(i).getSpeci_vals().get(0).getVsp_value());
+                /*去掉默认选中规格*/
+//                myMap.setMyid(speciBeanList.get(i).getSpeci_vals().get(0).getVsp_id());
+//                myMap.setMyname(speciBeanList.get(i).getSpeci_vals().get(0).getVsp_value());
+                myMap.setMyid("");
+                myMap.setMyname("");
                 myMap.setMyallname(speciBeanList.get(i).getSpeci_name());
                 String thumb = speciBeanList.get(i).getSpeci_vals().get(0).getVsp_img() + "";
                 if (!thumb.equals("")) {
                     thumb = C.TU + thumb;
+                    guige_imgv = thumb;
+                    RoundedCorners roundedCorners= new RoundedCorners(10);
+                    RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300,300);
+                    requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                     Glide.with(VIPDetailPageActivity.this)
                             .load(thumb)
+                            .apply(requestOptions)
                             .into(mFigure);
                 }
                 myList.add(myMap);
@@ -327,7 +382,7 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
             mListViewAdapter.setOnItems(VIPDetailPageActivity.this);
 //        mAdapterRight.notifyDataSetChanged();
         }
-//        goodsRMB();//商品价格
+        goodsRMB();//商品价格
     }
 
 
@@ -344,11 +399,15 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
     }
 
     public void onRoastingTu(List<VipGoodsDetailsFeng.InfoBean.ImgBean> imgs) {//轮播图
+        mMapList = new ArrayList<>();
         list = new ArrayList<>();
         titleList = new ArrayList<>();
         for (int i = 0; i < imgs.size(); i++) {
             Uri uri = Uri.parse(C.TU + imgs.get(i).getVimg_url());
             list.add(uri);
+            Map<String, Object> map = new HashMap<>();
+            map.put("image", C.TU + imgs.get(i).getVimg_url());
+            mMapList.add(map);
 //            titleList.add(titles[i]);
         }
         //设置banner样式
@@ -370,6 +429,21 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
         mBanner.setDelayTime(2000);
         //banner设置方法全部调用完毕时最后调用
         mBanner.start();
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                List<View> mlist = new ArrayList<>();
+                List<String> mdizhi = new ArrayList<>();
+                for (Map<String, Object> map : mMapList) {
+                    PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
+                    Glide.with(VIPDetailPageActivity.this).load(map.get("image")).into(photoView);
+                    mlist.add(photoView);
+                    mdizhi.add((String) map.get("image"));
+                }
+                MyViewPagDialog myViewPagDialog = new MyViewPagDialog(VIPDetailPageActivity.this, mlist, mdizhi, position);
+                myViewPagDialog.show();
+            }
+        });
     }
 
     public void onApprove() {//实名认证
@@ -433,17 +507,73 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
                     vip_speci_vals = gsp_id;
                     if (!img.equals("")) {
                         String thumb = C.TU + img;
+                        guige_imgv = thumb;
 //                        Log.e("yh", "thumb--" + thumb);
+                        RoundedCorners roundedCorners= new RoundedCorners(10);
+                        RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300,300);
+                        requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                         Glide.with(VIPDetailPageActivity.this)
                                 .load(thumb)
+                                .apply(requestOptions)
                                 .into(mFigure);
                     }
 
                     myList.get(place).setMyid(gsp_id);
                     myList.get(place).setMyname(gsp_value);
                     mListViewAdapter.notifyDataSetChanged();
-//                    goodsRMB();//商品价格
+                    goodsRMB();//商品价格
                 }
+            }
+        });
+    }
+    public void goodsRMB() {//商品价格
+        String specId = "";//选中的规格id
+        String guige = "";//规格显示
+        if (speciBeanList != null & speciBeanList.size() != 0) {
+            if (myList != null) {
+                for (int i = 0; i < myList.size(); i++) {
+                    if (specId.equals("")) {
+                        specId = myList.get(i).getMyid();
+                        guige = myList.get(i).getMyname();
+                    } else {
+                        specId = specId + "," + myList.get(i).getMyid();
+                        if (!myList.get(i).getMyid().equals("")) {
+                            guige = guige + "," + myList.get(i).getMyname();
+                        }
+                    }
+                }
+                Log.e("yh", "specId--" + specId);
+            }
+        }
+        if(!guige.equals("")) {
+            mMtv_guigeXz.setText("已选择:" + guige);
+        }
+        onGoodsRMB(specId);//商品价格
+    }
+    public void onGoodsRMB(String specId) {//商品价格
+        Map<String, Object> map = new HashMap<>();
+        map.put("vip_id", mVipId);//商品id
+        map.put("vip_speci_vals", specId);//所选规格id 用，隔开
+        Call<VipMoneyBean> call = service.getVipMoney(map);
+        call.enqueue(new Callback<VipMoneyBean>() {
+            @Override
+            public void onResponse(Call<VipMoneyBean> call, Response<VipMoneyBean> response) {
+                VipMoneyBean pcfeng = response.body();
+                Log.e("yh", "pcfeng--" + pcfeng);
+                int code = pcfeng.getCode();
+                String success = pcfeng.getSuccess();
+                if (code == 100) {
+                    String all_money = pcfeng.getAll_money();
+                    mSingle_rmb.setText("¥" + all_money);
+                } else {
+                    Toast.makeText(VIPDetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<VipMoneyBean> call, Throwable t) {
+
             }
         });
     }

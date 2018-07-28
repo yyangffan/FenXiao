@@ -107,6 +107,9 @@ public class HomePageActivity extends BaseActicity {
                     switch (checkedId) {
                         case R.id.homepage_rbtwo:
                             toChangeWghat(1);
+                            if(mClassificationFragment.mCheckClass!=null) {
+                                mClassificationFragment.mCheckClass.setText("");
+                            }
                             break;
                         case R.id.homepage_rbthree:
                             toChangeWghat(2);
@@ -175,6 +178,9 @@ public class HomePageActivity extends BaseActicity {
         }
         if (mExchangeFragment != null) {
             mExchangeFragment.onRefresh();
+        }
+        if (mClassificationFragment != null && mClassificationFragment.mCheckClass != null) {
+            mClassificationFragment.mCheckClass.setText("");
         }
         editor.putString("what", "0");
         editor.commit();

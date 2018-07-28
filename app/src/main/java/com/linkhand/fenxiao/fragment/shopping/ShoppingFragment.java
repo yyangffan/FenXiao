@@ -30,6 +30,7 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.ShoppingInfo;
 import com.linkhand.fenxiao.utils.MyListView;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +73,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
     TextView mShoppingShixiaoNum;
     @Bind(R.id.shopping_title)
     TextView mShoppingTitle;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
 
     boolean mBoolean = false;
     List<Map<String, Object>> beanList;    //测试
@@ -123,6 +126,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
 
 
     public void initView() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");

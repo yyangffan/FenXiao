@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.bean.MienBean;
@@ -77,13 +78,14 @@ public class MienAdapter extends BaseAdapter {
             holder.mTitle.setText(title);//标题
             holder.mRen.setText(ren + "人");//人
             holder.mTime.setText(time==null||time.equals("")?"": DateUtil.getStrTime(time));//时间
-            Glide.with(context).load(thumb).into(holder.mImg);
+            RequestOptions requestOptions=new RequestOptions();
+            requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+            Glide.with(context).load(thumb).apply(requestOptions).into(holder.mImg);
             String is_have = mChild.getIs_have();
             if(is_have.equals("0")){
                 holder.mLike.setImageResource(R.drawable.heart_gray);
             }else {
                 holder.mLike.setImageResource((R.drawable.heart_red));
-
             }
 
         }

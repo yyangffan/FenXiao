@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:paddingBottom="10dp"
         android:maxLines="1"
         android:text="小标题"/>
 
@@ -24,8 +25,13 @@
         android:horizontalSpacing="5dp"
         android:numColumns="2"
         android:stretchMode="columnWidth"
+        android:visibility="gone"
         android:verticalSpacing="5dp"
-        >
+        />
+    <com.library.flowlayout.NestedRecyclerView
+        android:id="@+id/des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"/>
 
-    </com.linkhand.fenxiao.utils.NoScrollGridView>
 </LinearLayout>

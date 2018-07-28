@@ -9,10 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -43,6 +45,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 /**
  * 分类
  * A simple {@link Fragment} subclass.
@@ -50,7 +54,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ClassificationFragment extends BaseFragment implements View.OnClickListener {
     ListView mLeftListView;//左
     FrameLayout mRightListView;//右
-    EditText mCheckClass;//搜索内容
+    public EditText mCheckClass;//搜索内容
     ImageView mSearchClass;//搜索
 
     private List<Category> itemList = new ArrayList<Category>();
@@ -99,6 +103,21 @@ public class ClassificationFragment extends BaseFragment implements View.OnClick
         mSearchClass = (ImageView) v.findViewById(R.id.search_class_id);
         mLeftListView = (ListView) v.findViewById(R.id.fenlei_lv_id);
         mRightListView = (FrameLayout) v.findViewById(R.id.fenlei_flayout_id);
+        mCheckClass.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //先隐藏键盘
+                    ((InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getActivity().getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    onSearch();
+                }
+                return false;
+            }
+        });
+
     }
 
     public void onClicks() {

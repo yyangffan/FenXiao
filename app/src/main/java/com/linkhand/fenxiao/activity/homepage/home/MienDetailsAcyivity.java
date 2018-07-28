@@ -16,6 +16,7 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.bean.MienDainZanBean;
 import com.linkhand.fenxiao.bean.MienDetailBean;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.utils.DateUtil;
@@ -91,6 +92,10 @@ public class MienDetailsAcyivity extends BaseActicity {
                 break;
             case R.id.llayout:
                 if (mUserIsVip.equals("1")) {
+                    if (mUserReal.equals("0")) {//是否认证  0否  1是
+                        onApprove();
+                        return;
+                    }
                     Dianzan();
                 } else if (mUserIsVip.equals("0")) {
                     onIsLoginVip();
@@ -177,6 +182,9 @@ public class MienDetailsAcyivity extends BaseActicity {
         MyDialogVip dialog = new MyDialogVip(this);
         dialog.show();
     }
-
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this);
+        dialog.show();
+    }
 
 }

@@ -23,7 +23,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="标题"
-            android:textColor="@color/transparence50"
+            android:textColor="@color/black"
             />
 
 
@@ -88,6 +88,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginLeft="@dimen/sum_10"
             android:layout_toRightOf="@+id/allorder_item_tuid"
+            android:textSize="12sp"
             android:text="@string/mine_name35"/>
     <!--这个View才是真正用来显示规格的-->
         <TextView
@@ -97,6 +98,7 @@
             android:layout_alignBottom="@+id/allorder_item_tv_id"
             android:layout_toLeftOf="@+id/allorder_item_number_id"
             android:layout_toRightOf="@+id/allorder_item_tv_id"
+            android:textSize="12sp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:layout_below="@+id/allorder_item_title"

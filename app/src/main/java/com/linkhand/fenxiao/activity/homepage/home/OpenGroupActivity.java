@@ -2,26 +2,31 @@ package com.linkhand.fenxiao.activity.homepage.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
-import com.linkhand.fenxiao.adapter.home.OpenGroupAdapter;
+import com.linkhand.fenxiao.adapter.TuanGRcAdapter;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
+import com.linkhand.fenxiao.fragment.DividerGridItemDecoration;
 import com.linkhand.fenxiao.info.InfoData;
-import com.linkhand.fenxiao.info.callback.HomeInfo;
+import com.linkhand.fenxiao.utils.ToastUtil;
+import com.linkhand.fenxiao.utils.util.OnItemClickListener;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +42,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OpenGroupActivity extends BaseActicity implements View.OnClickListener, HomeInfo {
+public class OpenGroupActivity extends BaseActicity implements View.OnClickListener {
 
     @Bind(R.id.open_group_return_id)
     LinearLayout mReturn;//返回
@@ -45,28 +50,70 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
     ImageView mSearch;//关键字搜索
     @Bind(R.id.check_class_id3)
     EditText mCheck;
-    @Bind(R.id.open_group_lv_id)
-    ListView mListView;
     @Bind(R.id.open_title)
     TextView mOpenTitle;
+    @Bind(R.id.open_group_recy)
+    RecyclerView mOpenGroupRecy;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
 
     InfoData service;
-    OpenGroupAdapter mAdapter;
     String mClassify = "";//分类id
     String mBrand = "";//品牌id
     String mKeyword = "";//搜索关键字
 
     private String mIs_type = "";
 
+    private List<GroupListFeng.InfoBean> mInfoBeanList;
+    private TuanGRcAdapter mTuanGRcAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_group);
         ButterKnife.bind(this);
+        initEver();
         initView();
         initRetrofit();
         onGuangBiao();//隐藏光标
         onMessage();
+    }
+
+    public void initEver() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mOpenGroupRecy.setLayoutManager(gridLayoutManager);
+        mOpenGroupRecy.addItemDecoration(new DividerGridItemDecoration(this, R.drawable.gray_juxing));
+        mInfoBeanList = new ArrayList<>();
+        mTuanGRcAdapter = new TuanGRcAdapter(this, mInfoBeanList);
+        mOpenGroupRecy.setAdapter(mTuanGRcAdapter);
+        mTuanGRcAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClickListener(int position) {
+                String id = mInfoBeanList.get(position).getGood_id();//(商品id)
+                Intent intent = new Intent(OpenGroupActivity.this, DetailPageActivity.class);
+                intent.putExtra("good_id", id);
+                startActivity(intent);
+            }
+        });
+
+        mCheck.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //先隐藏键盘
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    onMessage();
+                }
+                return false;
+            }
+        });
+
     }
 
     public void initView() {
@@ -124,13 +171,13 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.search_class_id2://关键字搜索
-                mKeyword = mCheck.getText() + "";//搜索关键字(赋值)
                 onMessage();
                 break;
         }
     }
 
     public void onMessage() {
+        mKeyword = mCheck.getText() + "";//搜索关键字(赋值)
         Map<String, Object> map = new HashMap<>();
         if (!mClassify.equals("")) {
             map.put("cate_id", mClassify);//分类id (可为空)
@@ -152,21 +199,18 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
             public void onResponse(Call<GroupListFeng> call, Response<GroupListFeng> response) {
                 GroupListFeng pcfeng = response.body();
                 int code = pcfeng.getCode();
+                mInfoBeanList.clear();
                 if (code == 100) {
-                    List<GroupListFeng.InfoBean> beanList = pcfeng.getInfo();
-                    mAdapter = new OpenGroupAdapter(OpenGroupActivity.this, beanList);
-                    mListView.setAdapter(mAdapter);
-                    mAdapter.setOnItemClicks(OpenGroupActivity.this);
+                    mInfoBeanList.addAll(pcfeng.getInfo());
                 } else {
-                    mAdapter = new OpenGroupAdapter(OpenGroupActivity.this, new ArrayList<GroupListFeng.InfoBean>());
-                    mListView.setAdapter(mAdapter);
                     Toast.makeText(OpenGroupActivity.this, pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mTuanGRcAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<GroupListFeng> call, Throwable t) {
-
+                ToastUtil.showToast(OpenGroupActivity.this, "网络异常");
             }
         });
     }
@@ -199,19 +243,6 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
                 .build();
         //创建一个接口的实现类
         service = retrofit.create(InfoData.class);
-    }
-
-    @Override
-    public void onItemClicks(RelativeLayout mRelativeLayout, final List<Map<String, Object>> list) {
-        mRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = (String) list.get(0).get("id");//(商品id)
-                Intent intent = new Intent(OpenGroupActivity.this, DetailPageActivity.class);
-                intent.putExtra("good_id", id);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

@@ -41,5 +41,5 @@
         app:pivBorderWidth="3px"
         app:pivPasswordColor="@color/black"
         app:pivPasswordLength="6"
-        app:pivPasswordWidth="2dp"/>
+        app:pivPasswordWidth="5dp"/>
 </LinearLayout>

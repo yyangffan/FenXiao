@@ -20,6 +20,7 @@ import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.DetailPageActivity;
 import com.linkhand.fenxiao.adapter.mine.GroupCollectionAdapter;
+import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.mine.CollectionFeng;
 import com.linkhand.fenxiao.info.InfoData;
@@ -182,8 +183,13 @@ public class BulkCollectionFragment extends BaseFragment  implements  Collection
         mTextView.setOnClickListener(new View.OnClickListener() {//取消收藏
             @Override
             public void onClick(View v) {
-                String good_id = (String) list.get(0).get("good_id");//商品id
-                CancelCollection(good_id);//取消收藏
+                final String good_id = (String) list.get(0).get("good_id");//商品id
+                new ShowRemindDialog().showRemind(BulkCollectionFragment.this.getActivity(), "确定", "取消", "", "确认取消收藏?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                    @Override
+                    public void OnSureClickListener() {
+                        CancelCollection(good_id);//取消收藏
+                    }
+                });
             }
         });
 

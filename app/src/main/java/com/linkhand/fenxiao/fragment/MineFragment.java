@@ -32,6 +32,7 @@ import com.linkhand.fenxiao.activity.mine.MedalTeamActivity;
 import com.linkhand.fenxiao.activity.mine.MyOrderActivity;
 import com.linkhand.fenxiao.activity.mine.PersonalDataActivity;
 import com.linkhand.fenxiao.activity.mine.SetUpTheActivity;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.feng.ReturnFeng;
@@ -45,6 +46,7 @@ import com.linkhand.fenxiao.utils.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
 import java.util.HashMap;
@@ -137,10 +139,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     TextView mMineTvSix;
     @Bind(R.id.mine_llayout_id5)
     RelativeLayout mMineLlayoutId5;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
 
     String Mater_name = "母币";//母币名称
     String Son_name = "子币";//子币名称
     private String imgv_url = "";
+    public String mUserReal;
     private static final String TAG = "MineFragment";
 
     @Override
@@ -156,6 +161,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void init(View v) {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
         mMyOrder = (LinearLayout) v.findViewById(R.id.mine_myorder_id);//我的订单
         mTeam = (LinearLayout) v.findViewById(R.id.mine_team_id);//我的团队
         mInvite = (LinearLayout) v.findViewById(R.id.mine_invite_llayout_id);//邀请好友
@@ -174,6 +181,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         editor.remove("isTitles").commit();//判断订单标题是否隐藏  0不隐藏（单个订单）  1隐藏（全部订单）
         //获取个人id
         mUserId = preferences.getString("user_id", "");
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
         Log.e("yh", "mUserId--" + mUserId);
         //获取子母币名称
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
@@ -211,12 +219,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Bundle bundle = new Bundle();
+        mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
         switch (v.getId()) {
             case R.id.mine_myorder_id://我的订单
                 if (mUserId.equals("")) {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         //判断订单标题是否隐藏  0不隐藏（单个订单）  1隐藏（全部订单）
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 0);
@@ -240,6 +253,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         intent = new Intent(MineFragment.this.getActivity(), MedalTeamActivity.class);
                         startActivity(intent);
                     } else {
@@ -252,6 +269,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         intent = new Intent(MineFragment.this.getActivity(), InviteActivity.class);
                         startActivity(intent);
                     } else {
@@ -264,6 +285,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 2);
                         editor.commit();
@@ -279,6 +304,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 3);
                         editor.commit();
@@ -295,6 +324,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 4);
                         editor.commit();
@@ -311,6 +344,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 5);
                         editor.commit();
@@ -328,6 +365,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(intent);
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         intent = new Intent(MineFragment.this.getActivity(), IsRechargeActivity.class);
                         intent.putExtra("zi", mZiRmb.getText().toString() + mZiText.getText().toString());
                         intent.putExtra("mother", mMuRmb.getText().toString() + mMuText.getText().toString());
@@ -351,6 +392,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         intent = new Intent(MineFragment.this.getActivity(), AllCollectionActivity.class);
                         startActivity(intent);
                     } else {
@@ -385,6 +430,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     onLogin();//去登陆
                 } else {
                     if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
                         editor.putInt("isTitles", 1);
                         editor.putInt("isClick", 1);
                         editor.commit();
@@ -426,8 +475,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 toSignIn();
                 break;
             case R.id.mine_llayout_id5://退货界面
-                intent = new Intent(MineFragment.this.getActivity(), TuihActivity.class);
-                startActivity(intent);
+                if (mUserId.equals("")) {
+                    onLogin();//去登陆
+                } else {
+                    if (userIsVip.equals("1")) {//是否vip  0否  1是
+                        if (mUserReal.equals("0")) {//是否认证  0否  1是
+                            onApprove();
+                            return;
+                        }
+                        intent = new Intent(MineFragment.this.getActivity(), TuihActivity.class);
+                        startActivity(intent);
+                    } else {
+                        onPrompt();//提示信息
+                    }
+                }
                 break;
         }
     }
@@ -706,6 +767,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     public void onPrompt() {//提示信息
         MyDialogVip dialog = new MyDialogVip(getActivity());
+        dialog.show();
+    }
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this.getActivity());
         dialog.show();
     }
 

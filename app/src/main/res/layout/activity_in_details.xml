@@ -36,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="留言"/>
+                android:text="留言"
+                android:textSize="12sp"/>
         </LinearLayout>
 
 
@@ -58,13 +59,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/HomePage_name89"/>
+                android:text="@string/HomePage_name89"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detail_collect_llayout_id"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -81,27 +83,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/HomePage_name90"/>
+                android:text="@string/HomePage_name90"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/detail_purchasing_id"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:background="@color/colorred"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="12dp"
             android:text="@string/HomePage_name69"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/colorwhites"
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/detail_ll_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
+        android:layout_height="@dimen/title_bar_height"
         android:layout_alignParentTop="true"
-        android:background="@color/colorred"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -129,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/HomePage_name12"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </RelativeLayout>
@@ -149,7 +154,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           >
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -222,21 +227,15 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/indetails_name_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorwhites"
-                    android:padding="@dimen/sum_10">
-
-                    <TextView
-                        android:id="@+id/indetails_name_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="xxxxxxxx"
-                        android:textColor="@color/colorblack"
-                        android:textSize="16sp"/>
-
-                </LinearLayout>
+                    android:padding="@dimen/sum_10"
+                    android:text="xxxxxxxx"
+                    android:textColor="@color/colorblack"
+                    android:textSize="16sp"/>
 
                 <View
                     android:layout_width="match_parent"

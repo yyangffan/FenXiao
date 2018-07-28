@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
@@ -36,6 +36,7 @@ import com.linkhand.fenxiao.adapter.home.MyClassLVAdapter;
 import com.linkhand.fenxiao.adapter.home.ParameterAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
 import com.linkhand.fenxiao.dialog.DialogUpgradeVIP;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.MyViewPagDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
@@ -97,6 +98,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     View vu;
     PopupWindow popupWindow;
     LinearLayout return_id1;//退出加入购物车的dialog
+    private SmartRefreshLayout mSmartRefreshLayout;
     @Bind(R.id.wv)
     WebView mWv;
     @Bind(R.id.tabLayout_id)
@@ -116,7 +118,6 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     TextView mSingle_rmb;//弹窗单价
     int number = 1;
     String mUserId;//个人id
-    LinearLayout mTypesLayout;//总类别
     MyListView mAllListView;//总类别
     MyClassLVAdapter mListViewAdapter;
     DetailPageAdapter adapter;
@@ -173,6 +174,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     private List<Map<String, Object>> mMapList;
     private String guige_imgv = "";
     String mUserIsVip; //是否vip  0否  1是
+    private TextView mMtv_guigeXz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,7 +213,12 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         editor.remove("addressId").commit();
         mPingList = new ArrayList<>();
         mGradeAdapter = new GradeRecyAdapter(this, mPingList);
-        LinearLayoutManager lineaManager = new LinearLayoutManager(this);
+        LinearLayoutManager lineaManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         lineaManager.setOrientation(LinearLayoutManager.VERTICAL);
         mUpgradeRecy.setLayoutManager(lineaManager);
         mUpgradeRecy.setAdapter(mGradeAdapter);
@@ -274,6 +281,10 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     public void onClick(View v) {
         if (mUserIsVip.equals("0")) {//是否vip  0否  1是
             onIsLoginVip();//购买vip
+            return;
+        }
+        if (mUserReal.equals("0")) {//是否认证  0否  1是
+            onApprove();
             return;
         }
         switch (v.getId()) {
@@ -345,7 +356,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
     public void onIsLoginVip() {//购买vip
         MyDialogVip dialog = new MyDialogVip(this);
-//        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
+        dialog.show();
+    }
+
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this);
         dialog.show();
     }
 
@@ -396,6 +411,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         number = 1;
         vu = LayoutInflater.from(this).inflate(R.layout.activity_dialog_merchandise, null);
         return_id1 = (LinearLayout) vu.findViewById(R.id.return_id1);
+        mSmartRefreshLayout = (SmartRefreshLayout) vu.findViewById(R.id.smartRefresh);
+        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setEnableLoadmore(false);
         mtv_xiangou = (TextView) vu.findViewById(R.id.detail_bottom_xiangou);
         return_id1.setOnClickListener(DetailPageActivity.this);
         mPopPurchasing = (TextView) vu.findViewById(R.id.detail_purchasing_id2);
@@ -410,11 +428,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         mJian.setOnClickListener(DetailPageActivity.this);//减
         mNumber = (TextView) vu.findViewById(R.id.detail_number_id);//数
         mSingle_rmb = (TextView) vu.findViewById(R.id.single_rmb);//弹窗单价
-        mTypesLayout = (LinearLayout) vu.findViewById(R.id.home_type_llayout_id);//总类别
         mAllListView = (MyListView) vu.findViewById(R.id.home_type_listview_id);//总类别
         mAllListView.setFocusable(false);
         mColorTv = (TextView) vu.findViewById(R.id.dialog_tvcolor_id);//请选择颜色
         mFigure = (ImageView) vu.findViewById(R.id.merchandise_tu_id);//小图片
+        mMtv_guigeXz = (TextView) vu.findViewById(R.id.shopping_qingxuzn);
         if (isPass == 1) {//1 加入购物车    2立刻购买
             mPopPurchasing.setText("加入购物车");
         } else if (isPass == 2) {
@@ -426,12 +444,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         popupWindow.setWidth(width);
         popupWindow.setHeight(height);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setFocusable(true);//必须写
 
         setBackgroundAlpha(0.5f);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setBackgroundDrawable(null);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -441,6 +456,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             }
         });
         popupWindow.showAtLocation(vu, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.setOutsideTouchable(true);
 
         if (bean != null) {
             List<GoodsDetailsFeng.InfoBean.ImgBean> imgBeen = bean.getImg();
@@ -448,7 +464,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 String thumb = C.TU + imgBeen.get(0).getImg_url();
                 guige_imgv = thumb;
 //                        Log.e("yh", "thumb--" + thumb);
-                RequestOptions requestOptions = new RequestOptions();
+
+                RoundedCorners roundedCorners = new RoundedCorners(10);
+                RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
                 requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 Glide.with(DetailPageActivity.this)
                         .load(thumb)
@@ -516,7 +534,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     thumb = C.TU + thumb;
                     guige_imgv = thumb;
 //                        Log.e("yh", "thumb--" + thumb);
-                    RequestOptions requestOptions = new RequestOptions();
+                    RoundedCorners roundedCorners = new RoundedCorners(10);
+                    RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
                     requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                     Glide.with(DetailPageActivity.this)
                             .load(thumb)
@@ -535,17 +554,25 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
     public void goodsRMB() {//商品价格
         String specId = "";//选中的规格id
+        String guige = "";//规格显示
         if (speciBeanList != null & speciBeanList.size() != 0) {
             if (myList != null) {
                 for (int i = 0; i < myList.size(); i++) {
                     if (specId.equals("")) {
                         specId = myList.get(i).getMyid();
+                        guige = myList.get(i).getMyname();
                     } else {
                         specId = specId + "," + myList.get(i).getMyid();
+                        if (!myList.get(i).getMyid().equals("")) {
+                            guige = guige + "," + myList.get(i).getMyname();
+                        }
                     }
                 }
                 Log.e("yh", "specId--" + specId);
             }
+        }
+        if(!guige.equals("")) {
+            mMtv_guigeXz.setText("已选择:" + guige);
         }
         onGoodsRMB(specId);//商品价格
     }
@@ -738,6 +765,13 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     }
 
     public void xiadan(String goodsid, String specId, String nums) {
+        if (speciBeanList != null) {
+            String[] split = specId.split(",");
+            if (split.length != speciBeanList.size()) {
+                ToastUtil.showToast(this, "请选择商品规格");
+                return;
+            }
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("good_id", goodsid);//商品id
         map.put("speci_vals", specId);//所选规格id 用,隔开
@@ -774,7 +808,13 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
 
     public void onAddCart(String specId) {//加入购物车
-        Log.e("yh", "加入购物车--" + "--mUserId--" + mUserId + "--商品id--" + mMoodId + "--所选规格id--" + specId + "--数量--" + mNumber.getText().toString());
+        if (speciBeanList != null) {
+            String[] split = specId.split(",");
+            if (split.length != speciBeanList.size()) {
+                ToastUtil.showToast(this, "请选择商品规格");
+                return;
+            }
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("good_id", mMoodId);//商品id
@@ -981,7 +1021,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                         String thumb = C.TU + img;
                         guige_imgv = C.TU + img;
 //                        Log.e("yh", "thumb--" + thumb);
-                        RequestOptions requestOptions = new RequestOptions();
+                        RoundedCorners roundedCorners = new RoundedCorners(10);
+                        RequestOptions requestOptions = RequestOptions.bitmapTransform(roundedCorners).override(300, 300);
                         requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                         Glide.with(DetailPageActivity.this)
                                 .load(thumb)

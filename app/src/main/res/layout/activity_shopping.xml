@@ -12,8 +12,9 @@
     <LinearLayout
         android:id="@+id/shopping_title_llayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sum_35"
-        android:background="@color/colorred"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:gravity="center">
 
         <LinearLayout
@@ -45,7 +46,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/mine_name40"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>

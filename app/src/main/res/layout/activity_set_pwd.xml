@@ -14,7 +14,8 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
-        android:background="@color/colorred"
+        android:background="@color/gray_c"
+        android:layout_marginBottom="1dp"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/sum_5"
                 android:text="@string/login_fanhui"
-                android:textColor="@color/colorwhites"/>
+                android:textColor="@color/title_tv_color"/>
         </LinearLayout>
 
 
@@ -51,7 +52,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="设置密码"
-            android:textColor="@color/colorwhites"
+            android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>

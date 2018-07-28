@@ -26,6 +26,7 @@ import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.GradeRecyAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
+import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.MyViewPagDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
@@ -163,7 +164,12 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
         mPingList = new ArrayList<>();
         mGradeAdapter = new GradeRecyAdapter(this, mPingList);
-        LinearLayoutManager lineaManager = new LinearLayoutManager(this);
+        LinearLayoutManager lineaManager = new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         lineaManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDetailsRecy.setLayoutManager(lineaManager);
         mDetailsRecy.setAdapter(mGradeAdapter);
@@ -209,6 +215,10 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         MyDialogVip dialog = new MyDialogVip(this);
         dialog.show();
     }
+    public void onApprove() {//实名认证
+        MyDialogApprove dialog = new MyDialogApprove(this);
+        dialog.show();
+    }
 
     public void onClicks() {
         mPurchasing.setOnClickListener(this);//立刻购买
@@ -228,6 +238,10 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     public void onClick(View v) {
         if (mUserIsVip.equals("0")) {
             onIsLoginVip();//购买vip
+            return;
+        }
+        if (mUserReal.equals("0")) {//是否认证  0否  1是
+            onApprove();
             return;
         }
         switch (v.getId()) {

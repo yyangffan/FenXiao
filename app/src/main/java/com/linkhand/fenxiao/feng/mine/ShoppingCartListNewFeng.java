@@ -19,8 +19,8 @@ public class ShoppingCartListNewFeng {
 
     private int code;
     private int cart_count;
-    private int allmater;
-    private int allson;
+    private String allmater;
+    private String  allson;
     private List<InfoBean> info;
     private List<NotCartBean> not_cart;
 
@@ -40,19 +40,19 @@ public class ShoppingCartListNewFeng {
         this.cart_count = cart_count;
     }
 
-    public int getAllmater() {
+    public String getAllmater() {
         return allmater;
     }
 
-    public void setAllmater(int allmater) {
+    public void setAllmater(String allmater) {
         this.allmater = allmater;
     }
 
-    public int getAllson() {
+    public String getAllson() {
         return allson;
     }
 
-    public void setAllson(int allson) {
+    public void setAllson(String allson) {
         this.allson = allson;
     }
 
