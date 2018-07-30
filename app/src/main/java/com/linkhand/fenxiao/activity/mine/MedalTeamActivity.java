@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -191,10 +192,9 @@ public class MedalTeamActivity extends BaseActicity implements View.OnClickListe
 
                     } else {
                         thumb = C.TU + thumb;
-//                Log.e("yh","thumb--"+thumb);
-                        Glide.with(MedalTeamActivity.this)
-                                .load(thumb)
-                                .into(mThumb);
+                        RequestOptions requestOptions=new RequestOptions();
+                        requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
+                        Glide.with(MedalTeamActivity.this).load(thumb).apply(requestOptions).into(mThumb);
                     }
 
                     List<String> tabName = infoBean.getGrpname();

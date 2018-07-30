@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -632,9 +633,11 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
             public void OnBannerClick(int position) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 for (Map<String, Object> map : mMapList) {
                     PhotoView photoView = new PhotoView(InDetailsActivity.this);
-                    Glide.with(InDetailsActivity.this).load(map.get("image")).into(photoView);
+                    Glide.with(InDetailsActivity.this).load(map.get("image")).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                     mdizhi.add((String) map.get("image"));
                 }

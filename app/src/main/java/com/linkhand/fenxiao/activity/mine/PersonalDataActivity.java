@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.BuildConfig;
 import com.linkhand.fenxiao.C;
@@ -542,11 +543,10 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
 
                     } else {
                         thumb = C.TU + thumb;
-//                        Log.e("yh", "thumb--" + thumb);
                         if (PersonalDataActivity.this != null) {
-                            Glide.with(PersonalDataActivity.this)
-                                    .load(thumb)
-                                    .into(mCiv);
+                            RequestOptions requestOptions=new RequestOptions();
+                            requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
+                            Glide.with(PersonalDataActivity.this).load(thumb).apply(requestOptions).into(mCiv);
                         }
                     }
 

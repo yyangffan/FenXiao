@@ -487,15 +487,17 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             public void onClick(View v) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 if (guige_imgv.equals("")) {
                     mdizhi.add(C.TU + bean.getImg().get(0).getImg_url());
                     PhotoView photoView = new PhotoView(DetailPageActivity.this);
-                    Glide.with(DetailPageActivity.this).load(C.TU + bean.getImg().get(0).getImg_url()).into(photoView);
+                    Glide.with(DetailPageActivity.this).load(C.TU + bean.getImg().get(0).getImg_url()).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                 } else {
                     mdizhi.add(guige_imgv);
                     PhotoView photoView = new PhotoView(DetailPageActivity.this);
-                    Glide.with(DetailPageActivity.this).load(guige_imgv).into(photoView);
+                    Glide.with(DetailPageActivity.this).load(guige_imgv).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                 }
                 MyViewPagDialog myViewPagDialog = new MyViewPagDialog(DetailPageActivity.this, mlist, mdizhi, 0);
@@ -959,9 +961,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             public void OnBannerClick(int position) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 for (Map<String, Object> map : mMapList) {
                     PhotoView photoView = new PhotoView(DetailPageActivity.this);
-                    Glide.with(DetailPageActivity.this).load(map.get("image")).into(photoView);
+                    Glide.with(DetailPageActivity.this).load(map.get("image")).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                     mdizhi.add((String) map.get("image"));
                 }

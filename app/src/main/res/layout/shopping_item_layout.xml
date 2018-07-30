@@ -83,12 +83,12 @@
                 android:id="@+id/shopping_item_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/shopping_item_zirmb"
+                android:layout_above="@+id/shopping_item_delete"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/shopping_item_title"
+                android:layout_marginRight="@dimen/sum_5"
                 android:layout_marginLeft="@dimen/sum_5"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/sum_14"/>
+              />
 
             <TextView
                 android:id="@+id/shopping_item_zirmb"
@@ -140,8 +140,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/sum_5"
                 android:layout_marginLeft="@dimen/sum_10"
-                android:layout_marginRight="@dimen/sum_10"
                 android:layout_marginTop="@dimen/sum_5"
+                android:layout_marginRight="@dimen/sum_5"
                 android:gravity="center"
                 android:scaleType="fitXY"
                 android:src="@drawable/delete_img"/>

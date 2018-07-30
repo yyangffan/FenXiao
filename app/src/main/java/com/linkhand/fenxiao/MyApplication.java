@@ -14,6 +14,8 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.yanzhenjie.nohttp.InitializationConfig;
+import com.yanzhenjie.nohttp.NoHttp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,8 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        InitializationConfig config = InitializationConfig.newBuilder(this).connectionTimeout(30 * 1000).readTimeout(30 * 1000).retry(10).build();
+        NoHttp.initialize(config);
         //解析html(图文)初始化
         initImageLoader(this);
 //        //友盟分享

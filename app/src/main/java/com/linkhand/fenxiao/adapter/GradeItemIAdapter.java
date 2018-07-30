@@ -37,11 +37,27 @@ public class GradeItemIAdapter extends RecyclerView.Adapter<GradeItemIAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder vh, int position) {
+    public void onBindViewHolder(ViewHolder vh, final int position) {
         String bean = mLists.get(position);
-        RequestOptions requestOptions=new RequestOptions();
+        final RequestOptions requestOptions=new RequestOptions();
         requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
         Glide.with(mContext).load(C.TU + bean).apply(requestOptions).into(vh.mimgv);
+//        vh.mimgv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                List<View> mlist = new ArrayList<>();
+//                List<String> mdizhi = new ArrayList<>();
+//                for (String str : mLists) {
+//                    PhotoView photoView = new PhotoView(mContext);
+//                    Glide.with(mContext).load(C.TU +str).apply(requestOptions).into(photoView);
+//                    mlist.add(photoView);
+//                    mdizhi.add(C.TU +str);
+//                }
+//                MyViewPagDialog myViewPagDialog = new MyViewPagDialog(mContext, mlist, mdizhi, position);
+//                myViewPagDialog.show();
+//            }
+//        });
 
     }
 

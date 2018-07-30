@@ -168,12 +168,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sum_1"
                     android:background="@color/colorwhites"
-                    android:padding="@dimen/sum_10">
+                    android:paddingTop="@dimen/sum_5"
+                    android:paddingBottom="@dimen/sum_5"
+                    android:paddingRight="@dimen/sum_10"
+                    android:paddingLeft="@dimen/sum_10"
+                    >
 
                     <TextView
                         android:id="@+id/Details_title_id"
                         android:layout_width="wrap_content"
+                        android:paddingBottom="5dp"
                         android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:text="xxxxxxx"
                         android:textColor="@color/black"/>
 
@@ -247,7 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/Details_fuhao_id"
-                        android:layout_marginTop="@dimen/sum_5"
+                        android:layout_marginTop="2dp"
                         android:layout_toLeftOf="@+id/order_sum_id"
                         android:text="@string/HomePage_name86"/>
 
@@ -256,7 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/Details_tv_id"
-                        android:layout_marginTop="@dimen/sum_5"
+                        android:layout_marginTop="2dp"
                         android:layout_toLeftOf="@+id/order_kucun"
                         android:text="xx件"/>
 
@@ -277,7 +284,7 @@
                         android:layout_above="@+id/Details_tv_id"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/btn_bg_rounded_greytwo"
-                        android:padding="@dimen/sum_7"
+                        android:padding="@dimen/sum_5"
                         android:text=""
                         android:textColor="@color/white"
                         android:textSize="14sp"/>

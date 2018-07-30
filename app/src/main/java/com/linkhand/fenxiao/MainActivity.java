@@ -15,6 +15,7 @@ import com.linkhand.fenxiao.activity.homepage.HomePageActivity;
 import com.linkhand.fenxiao.dialog.MvpAdapter;
 import com.linkhand.fenxiao.feng.home.YDBean;
 import com.linkhand.fenxiao.utils.ToastUtil;
+import com.linkhand.fenxiao.utils.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +57,27 @@ public class MainActivity extends BaseActicity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initEver();
+        checkUpdate();
+
+    }
+
+    public void checkUpdate() {
+        UpdateManager updateManager = new UpdateManager(this, false);
+        updateManager.checkUpdate();
+        updateManager.setOnCancelClickListener(new UpdateManager.OnCancelClickListener() {
+            @Override
+            public void OnCancelClickListener() {
+                MainActivity.this.finish();
+            }
+        });
+        updateManager.setIsUpDateListener(new UpdateManager.IsUpDateListener() {
+            @Override
+            public void IsUpDateListener(boolean isUpdate) {
+                if (!isUpdate) {
+                    initEver();
+                }
+            }
+        });
     }
 
     /*获取引导页*/
@@ -159,5 +180,10 @@ public class MainActivity extends BaseActicity {
         mMvpAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        checkUpdate();
+    }
 
 }

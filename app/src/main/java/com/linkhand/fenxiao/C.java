@@ -10,4 +10,5 @@ public class C {
 
     public static final String UPDATETU = "user/save_head_img";//修改头像
     public static final String COMMENT = "evaluate/add_evaluate";//评论
+    public static final String UPDATE=HOSTIP+"config/get_app_key";
 }

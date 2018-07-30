@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseFragment;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -604,7 +605,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 Log.e(TAG, pcfeng + "--");
                 int code = pcfeng.getCode();
                 if (code == 100) {
-                    Glide.with(MineFragment.this.getActivity()).load(imgv_url).into(mImg);
+                    RequestOptions requestOptions=new RequestOptions();
+                    requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
+                    Glide.with(MineFragment.this.getActivity()).load(imgv_url).apply(requestOptions).into(mImg);
                     onMessage();
                     Log.e(TAG, "yes");
                 } else {
@@ -689,7 +692,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     if (thumb != null && !thumb.equals("")) {
                         if (mImg != null) {
                             thumb = C.TU + thumb;
-                            Glide.with(MineFragment.this.getActivity()).load(thumb).into(mImg);
+                            RequestOptions requestOptions=new RequestOptions();
+                            requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
+                            Glide.with(MineFragment.this.getActivity()).load(thumb).apply(requestOptions).into(mImg);
                         }
                     }
                     String fk_cou = mBean.getFk_cou();//待付款数量

@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
@@ -196,7 +197,9 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
             VipLvResponse.InfoBean info = bean.getInfo();
             danhao = info.getVip_order_id() + "";
             mStatus = info.getVip_order_status();// 1.待付款   2.待发货    3.待收货    4.完成（已升级vip）
-            Glide.with(this).load(C.TU + info.getVimg_url()).into(mMyvipImgv);
+            RequestOptions requestOptions=new RequestOptions();
+            requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+            Glide.with(this).load(C.TU + info.getVimg_url()).apply(requestOptions).into(mMyvipImgv);
             mMyvipTitle.setText(info.getVip_good_name());
             mMyvipMoney.setText(info.getVip_order_money());
             mMyvipState.setText(info.getStatus_str());

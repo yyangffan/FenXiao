@@ -21,6 +21,8 @@
         android:layout_height="20dp"
         android:layout_gravity="center"
         android:ellipsize="end"
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
         android:gravity="center"
         android:maxLines="1"
         android:text="标题"

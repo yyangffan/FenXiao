@@ -46,6 +46,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -269,7 +270,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
                 if (!(s.toString() + "").equals("")) {
                     int content = parseInt(s.toString());
                     mdouble = content * Double.parseDouble(str);
-                    sum.setText("需支付" + mdouble + Son_name);
+                    sum.setText("需支付" + new DecimalFormat("0.00").format(mdouble) + Son_name);
                 } else {
                     sum.setText("需支付0.0" + Son_name);
                 }
@@ -310,7 +311,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         TextView confirm = (TextView) dialog.findViewById(R.id.dialog_confirm_id);//确定
         TextView ziName = (TextView) dialog.findViewById(R.id.zi_text_id);//子币名称
         ziName.setText(Son_name + "？");
-        pay.setText(mdouble + "");
+        pay.setText(new DecimalFormat("0.00").format(mdouble));
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

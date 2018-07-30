@@ -24,7 +24,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
-        android:text="@string/mialog_name16"
+        android:text="该操作需要进行实名认证"
         android:textColor="@color/gray_text"/>
 
 

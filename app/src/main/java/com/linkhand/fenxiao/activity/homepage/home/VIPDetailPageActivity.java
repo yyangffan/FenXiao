@@ -333,15 +333,17 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
             public void onClick(View v) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 if (guige_imgv.equals("")) {
                     mdizhi.add(C.TU + bean.getImg().get(0).getVimg_url());
                     PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
-                    Glide.with(VIPDetailPageActivity.this).load(C.TU + bean.getImg().get(0).getVimg_url()).into(photoView);
+                    Glide.with(VIPDetailPageActivity.this).load(C.TU + bean.getImg().get(0).getVimg_url()).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                 } else {
                     mdizhi.add(guige_imgv);
                     PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
-                    Glide.with(VIPDetailPageActivity.this).load(guige_imgv).into(photoView);
+                    Glide.with(VIPDetailPageActivity.this).load(guige_imgv).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                 }
                 MyViewPagDialog myViewPagDialog = new MyViewPagDialog(VIPDetailPageActivity.this, mlist, mdizhi, 0);
@@ -434,9 +436,11 @@ public class VIPDetailPageActivity extends BaseActicity implements View.OnClickL
             public void OnBannerClick(int position) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 for (Map<String, Object> map : mMapList) {
                     PhotoView photoView = new PhotoView(VIPDetailPageActivity.this);
-                    Glide.with(VIPDetailPageActivity.this).load(map.get("image")).into(photoView);
+                    Glide.with(VIPDetailPageActivity.this).load(map.get("image")).apply(requestOptions).into(photoView);
                     mlist.add(photoView);
                     mdizhi.add((String) map.get("image"));
                 }

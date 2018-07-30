@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.mine.TwoDeckFragment;
@@ -92,8 +93,11 @@ public class TwoDeckFragmentAdapter extends BaseAdapter {
             if (thumb.equals("") | thumb.equals("null")) {
             } else {
                 thumb = C.TU + thumb;
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
                 Glide.with(context)
                         .load(thumb)
+                        .apply(requestOptions)
                         .into(holder.mTu);
             }
             if (user_referr1.equals("")) {

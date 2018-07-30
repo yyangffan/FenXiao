@@ -60,6 +60,8 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
     SharedPreferences.Editor editor;
     private String mQq = "";
     private String mTel = "";
+    private String versionName;
+    private int appVersionCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +76,34 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         getData();
+        getVersion();
     }
 
     public void onClicks() {
-        mSetBanben.setOnClickListener(this);
         mReturnIdOne.setOnClickListener(this);//返回
         mReturnIdTwo.setOnClickListener(this);//退出登录
         mPhone.setOnClickListener(this);//客服电话
         mUpdatePsw.setOnClickListener(this);//修改支付密码
         mSetupOnline.setOnClickListener(this);//在线客服
         mSetupChangeLoginPwd.setOnClickListener(this);//修改登录密码
+    }
+
+    /**
+     * 获取当前版本号
+     */
+    public void getVersion() {
+
+        // 获取当前版本信息
+        try {
+            PackageInfo packageInfo = this.getPackageManager()
+                    .getPackageInfo(this.getPackageName(),
+                            PackageManager.GET_CONFIGURATIONS);
+            versionName = packageInfo.versionName;
+            appVersionCode = packageInfo.versionCode;
+            mSetBanben.setText(versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -112,9 +132,6 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
             case R.id.setupthe_update_psw://修改支付密码
                 intent = new Intent(this, SetPwdActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.set_banben:
-
                 break;
             case R.id.setup_online:
                 if (isQQClientAvailable(this)) {

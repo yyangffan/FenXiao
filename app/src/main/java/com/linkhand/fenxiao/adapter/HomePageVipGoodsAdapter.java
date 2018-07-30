@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.AllVipGoodsActivity;
@@ -99,8 +100,9 @@ public class HomePageVipGoodsAdapter extends BaseAdapter {
             if (thumb.equals("") | thumb.equals("null")) {
             } else {
                 thumb = C.TU + thumb;
-//                Log.e("yh","thumb--"+thumb);
-                Glide.with(context).load(thumb).into(holder.mTu);
+                RequestOptions requestOptions=new RequestOptions();
+                requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
+                Glide.with(context).load(thumb).apply(requestOptions).into(holder.mTu);
             }
             List<Map<String, Object>> list = new ArrayList<>();
             Map<String, Object> map = new HashMap<>();
