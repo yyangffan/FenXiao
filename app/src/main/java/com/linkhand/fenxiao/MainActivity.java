@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.linkhand.fenxiao.activity.homepage.HomePageActivity;
 import com.linkhand.fenxiao.dialog.MvpAdapter;
+import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.feng.home.YDBean;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.UpdateManager;
@@ -20,6 +21,7 @@ import com.linkhand.fenxiao.utils.UpdateManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,7 +60,7 @@ public class MainActivity extends BaseActicity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         checkUpdate();
-
+        getMastSon();
     }
 
     public void checkUpdate() {
@@ -136,6 +138,35 @@ public class MainActivity extends BaseActicity {
         finish();
     }
 
+    public void getMastSon() {
+        Map<String, Object> map = new HashMap<>();
+        Call<AllConfigFeng> call = service.getAllConfig(map);
+        call.enqueue(new Callback<AllConfigFeng>() {
+            @Override
+            public void onResponse(Call<AllConfigFeng> call, Response<AllConfigFeng> response) {
+                AllConfigFeng pcfeng = response.body();
+                int code = pcfeng.getCode();
+                if (code == 100) {
+                    AllConfigFeng.InfoBean bean = pcfeng.getInfo();
+                    String Mater_name = bean.getMater_name();//母币名称
+                    String Son_name = bean.getSon_name();//子币名称
+                    //存入子母币名称
+                    editor.putString("Mater_name", Mater_name);
+                    editor.putString("Son_name", Son_name);
+                    editor.commit();
+
+                } else {
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AllConfigFeng> call, Throwable t) {
+
+            }
+        });
+    }
+
     /*获取引导页图片*/
     public void getYinDao() {
         Call<YDBean> call = service.getPic(new HashMap<String, Object>());
@@ -159,6 +190,8 @@ public class MainActivity extends BaseActicity {
 
     /*设置数据*/
     public void setMsg(List<String> mStrings) {
+        mMainLl.removeAllViews();
+        mImageViews.clear();
         for (int i = 0; i < mStrings.size(); i++) {
             ImageView imageView = new ImageView(this);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);

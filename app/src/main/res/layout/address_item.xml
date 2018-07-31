@@ -92,7 +92,7 @@
                 android:layout_height="13dp"
                 android:layout_marginLeft="@dimen/sum_10"
                 android:scaleType="fitXY"
-                android:src="@drawable/marquee"/>
+                android:src="@drawable/ovaltwo"/>
 
             <TextView
                 android:id="@+id/adress_content_id"

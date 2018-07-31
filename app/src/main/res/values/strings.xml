@@ -6,7 +6,7 @@
     <string name="login_wangjimima">忘记密码?</string>
     <string name="login_denglu">登录</string>
     <string name="login_zhuce">注册</string>
-    <string name="login_fanhui">返回</string>
+    <string name="login_fanhui"></string><!--为标题栏的返回(去掉所有返回文字)-->
 
     <string name="login_zhuce_shoujihao">请输入注册的手机号</string>
     <string name="login_zhuce_psw">请输入密码</string>
@@ -15,7 +15,7 @@
     <string name="login_zhuce_yanzhengma">请输入验证码</string>
     <string name="login_zhuce_takeyanzhengma">获取验证码</string>
     <string name="login_zhuce_xieyione">注册成功表示您已同意</string>
-    <string name="login_zhuce_xieyitwo">《注册协议》</string>
+    <string name="login_zhuce_xieyitwo">《友趣团购注册协议》</string>
     <string name="login_zhuce_xieyithree">相关协议</string>
     <string name="login_zhuce_gotozhuce">去登录</string>
 
