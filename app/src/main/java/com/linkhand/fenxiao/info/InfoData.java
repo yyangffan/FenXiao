@@ -6,6 +6,7 @@ import com.linkhand.fenxiao.bean.MienBean;
 import com.linkhand.fenxiao.bean.MienDainZanBean;
 import com.linkhand.fenxiao.bean.MienDetailBean;
 import com.linkhand.fenxiao.bean.PinglunBean;
+import com.linkhand.fenxiao.bean.ShareBean;
 import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.fenlei.LeftClassFeng;
@@ -106,12 +107,12 @@ public interface InfoData {
     //意向商品分享
     @FormUrlEncoded
     @POST("idea/share_idea")
-    Call<HttpResponse> getShareIdea(@FieldMap Map<String, Object> map);
+    Call<ShareBean> getShareIdea(@FieldMap Map<String, Object> map);
 
     //普通商品商品分享
     @FormUrlEncoded
     @POST("product/share_pro")
-    Call<HttpResponse> getSharePro(@FieldMap Map<String, Object> map);
+    Call<ShareBean> getSharePro(@FieldMap Map<String, Object> map);
 
     //收藏商品
     @FormUrlEncoded

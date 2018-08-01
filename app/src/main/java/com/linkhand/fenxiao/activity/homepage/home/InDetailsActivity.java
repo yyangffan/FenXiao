@@ -27,6 +27,7 @@ import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.GradeRecyAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
+import com.linkhand.fenxiao.bean.ShareBean;
 import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.MyViewPagDialog;
@@ -116,7 +117,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
     private DisplayImageOptions options;
     private String mShare_url = "";
-
+    private String share_title = "";
+    private String share_content = "";
 
     private GradeRecyAdapter mGradeAdapter;
     private List<PinglunBean.InfoBean> mPingList;
@@ -165,7 +167,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
 
         mPingList = new ArrayList<>();
         mGradeAdapter = new GradeRecyAdapter(this, mPingList);
-        LinearLayoutManager lineaManager = new LinearLayoutManager(this){
+        LinearLayoutManager lineaManager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -216,6 +218,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         MyDialogVip dialog = new MyDialogVip(this);
         dialog.show();
     }
+
     public void onApprove() {//实名认证
         MyDialogApprove dialog = new MyDialogApprove(this);
         dialog.show();
@@ -400,18 +403,20 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         });
         Map<String, Object> share_map = new HashMap<>();
         share_map.put("idea_id", mMoodId);
-        Call<HttpResponse> share_call = service.getShareIdea(share_map);
-        share_call.enqueue(new Callback<HttpResponse>() {
+        Call<ShareBean> share_call = service.getShareIdea(share_map);
+        share_call.enqueue(new Callback<ShareBean>() {
             @Override
-            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
-                HttpResponse httpResponse = response.body();
+            public void onResponse(Call<ShareBean> call, Response<ShareBean> response) {
+                ShareBean httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    mShare_url = httpResponse.getInfo();
+                    mShare_url = httpResponse.getInfo().getLink();
+                    share_title=httpResponse.getInfo().getTitle();
+                    share_content=httpResponse.getInfo().getDesc();
                 }
             }
 
             @Override
-            public void onFailure(Call<HttpResponse> call, Throwable t) {
+            public void onFailure(Call<ShareBean> call, Throwable t) {
 
             }
         });
@@ -591,7 +596,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     public void onShare() {//分享
         if (!mShare_url.equals("")) {
             //this  连接地址   标题  内容     网络图片路径     本地缩略图路径    不用面板要打开的地方
-            ShareUtils.shareWeb(InDetailsActivity.this, mShare_url, "友趣团购", "", "", R.mipmap.logo, SHARE_MEDIA.QQ);
+            ShareUtils.shareWeb(InDetailsActivity.this, mShare_url, share_title, share_content, "", R.mipmap.logo, SHARE_MEDIA.QQ);
         } else {
 
         }
@@ -633,7 +638,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
             public void OnBannerClick(int position) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
-                RequestOptions requestOptions=new RequestOptions();
+                RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 for (Map<String, Object> map : mMapList) {
                     PhotoView photoView = new PhotoView(InDetailsActivity.this);

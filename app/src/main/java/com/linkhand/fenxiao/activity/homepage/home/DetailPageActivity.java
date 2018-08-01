@@ -35,6 +35,7 @@ import com.linkhand.fenxiao.adapter.home.GoodsDetailsAdapter;
 import com.linkhand.fenxiao.adapter.home.MyClassLVAdapter;
 import com.linkhand.fenxiao.adapter.home.ParameterAdapter;
 import com.linkhand.fenxiao.bean.PinglunBean;
+import com.linkhand.fenxiao.bean.ShareBean;
 import com.linkhand.fenxiao.dialog.DialogUpgradeVIP;
 import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
@@ -43,7 +44,6 @@ import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.fenlei.Category;
 import com.linkhand.fenxiao.feng.home.GoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.GoodsRMBFeng;
-import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.MyGoodsFeng;
 import com.linkhand.fenxiao.feng.home.OrderInfoResponse;
 import com.linkhand.fenxiao.info.InfoData;
@@ -168,6 +168,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     String Mater_name = "母币";//母币名称
     String Son_name = "子币";//子币名称
     private String mShare_url = "";
+    private String share_title="";
+    private String share_content="";
     private int page = 0;
     private GradeRecyAdapter mGradeAdapter;
     private List<PinglunBean.InfoBean> mPingList;
@@ -686,18 +688,20 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         });
         Map<String, Object> detail_map = new HashMap<>();
         detail_map.put("good_id", mMoodId);
-        Call<HttpResponse> detail_call = service.getSharePro(detail_map);
-        detail_call.enqueue(new Callback<HttpResponse>() {
+        Call<ShareBean> detail_call = service.getSharePro(detail_map);
+        detail_call.enqueue(new Callback<ShareBean>() {
             @Override
-            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
-                HttpResponse httpResponse = response.body();
+            public void onResponse(Call<ShareBean> call, Response<ShareBean> response) {
+                ShareBean httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    mShare_url = httpResponse.getInfo();
+                    mShare_url = httpResponse.getInfo().getLink();
+                    share_title=httpResponse.getInfo().getTitle();
+                    share_content=httpResponse.getInfo().getDesc();
                 }
             }
 
             @Override
-            public void onFailure(Call<HttpResponse> call, Throwable t) {
+            public void onFailure(Call<ShareBean> call, Throwable t) {
 
             }
         });
@@ -912,7 +916,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     public void onShare() {//分享
         if (!mShare_url.equals("")) {
             //this  连接地址   标题  内容     网络图片路径     本地缩略图路径    不用面板要打开的地方
-            ShareUtils.shareWeb(DetailPageActivity.this, mShare_url, "友趣团购", "", "", R.mipmap.logo, SHARE_MEDIA.QQ);
+            ShareUtils.shareWeb(DetailPageActivity.this, mShare_url, share_title, share_content, "", R.mipmap.logo, SHARE_MEDIA.QQ);
         } else {
 
         }

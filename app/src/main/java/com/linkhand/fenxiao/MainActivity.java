@@ -60,7 +60,6 @@ public class MainActivity extends BaseActicity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         checkUpdate();
-        getMastSon();
     }
 
     public void checkUpdate() {
@@ -127,6 +126,7 @@ public class MainActivity extends BaseActicity {
             }
         });
         getYinDao();
+        getMastSon();
     }
 
 
