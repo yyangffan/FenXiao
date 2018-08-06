@@ -250,9 +250,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
                 DingDanResponse feng = response.body();
-                Log.e("yh", feng + "");
                 int code = feng.getCode();
-                String success = feng.getSuccess();
                 if (code == 100) {
                     if (isPass == 0) {//0正常查   1更新数据
                         mListBean.clear();
@@ -265,6 +263,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
                 } else {
                     mListBean.clear();
                     mAdapter.notifyDataSetChanged();
+                    ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(),feng.getSuccess());
                 }
             }
 

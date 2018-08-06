@@ -132,7 +132,6 @@
                         android:layout_marginBottom="0dp"
                         android:layout_marginLeft="0dp"
                         android:layout_marginRight="0dp"
-                        android:background="#EDEDED"
                         android:orientation="horizontal"
                         imagecontrol:layout_constraintBottom_toBottomOf="parent"
                         imagecontrol:layout_constraintLeft_toLeftOf="parent"
@@ -168,7 +167,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/white"/>
+                            android:background="@color/colorgraynessb"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_two"
@@ -201,7 +200,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/white"/>
+                            android:background="@color/colorgraynessb"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_three"
@@ -234,7 +233,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/white"/>
+                            android:background="@color/colorgraynessb"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_four"
@@ -268,6 +267,7 @@
                     android:id="@+id/mine_myorder_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
                     android:padding="@dimen/sum_7">
@@ -277,6 +277,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
+                        android:textColor="@color/black"
                         android:text="@string/mine_name4"/>
 
                     <TextView
@@ -329,9 +330,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -377,9 +378,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -425,9 +426,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -474,9 +475,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -522,9 +523,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -570,9 +571,9 @@
                                 android:layout_height="15dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="12dp"
-                                android:background="@drawable/circle_white"
+                                android:background="@drawable/circle_rered"
                                 android:gravity="center"
-                                android:textColor="@color/colorred"
+                                android:textColor="@color/white"
                                 android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -600,18 +601,19 @@
                     android:layout_marginTop="@dimen/sum_10"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10"
+                    >
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/sum_3"
                         android:src="@drawable/perfect_data"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name10"
@@ -633,7 +635,9 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -643,7 +647,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name11"
@@ -665,7 +668,9 @@
                     android:layout_marginTop="@dimen/sum_1"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -675,7 +680,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name12"
@@ -696,7 +700,9 @@
                     android:layout_marginTop="@dimen/sum_1"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -706,7 +712,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name38"
@@ -727,7 +732,9 @@
                     android:layout_marginTop="@dimen/sum_10"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -737,7 +744,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name13"
@@ -759,18 +765,18 @@
                     android:layout_marginTop="@dimen/sum_10"
                     android:background="@color/colorwhites"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/sum_7">
+                    android:paddingTop="@dimen/sum_10"
+                    android:paddingBottom="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/sum_3"
                         android:src="@drawable/invite"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/sum_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/mine_name14"

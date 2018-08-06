@@ -40,7 +40,7 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
     TextView mConfirm;//确认
     LinearLayout mReturn;//返回
     @Bind(R.id.phone_number_id)
-    EditText mPhoneNumber;//手机号
+    TextView mPhoneNumber;//手机号
     @Bind(R.id.paw_id)
     EditText mPaw;//密码
     @Bind(R.id.new_psw_id)
@@ -81,7 +81,6 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
         if (mIsWhat != null && mIsWhat.equals("change")) {
             mFenxiaoTitleId2.setText("修改登录密码");
             mPhoneNumber.setText(mPhone);
-            mPhoneNumber.setEnabled(false);
         }
 
         mConfirm = (TextView) findViewById(R.id.fenxiao_psw_confirm_id);

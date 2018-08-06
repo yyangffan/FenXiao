@@ -61,7 +61,9 @@ public class CurrencyAdapter extends BaseAdapter {
             convertView = LayoutInflater.from
                     (this.context).inflate(R.layout.currency_item, null, false);
             holder.mTu = (ImageView) convertView.findViewById(R.id.currency_iv_id);//图
-            holder.mNumberSell = (TextView) convertView.findViewById(R.id.currency_sell_id);//卖的价钱
+            holder.mNumberSell = (TextView) convertView.findViewById(R.id.currency_sell_id);//
+            holder.mNumberZi = (TextView) convertView.findViewById(R.id.currency_zi);//
+            holder.mNumberMoney = (TextView) convertView.findViewById(R.id.currency_money);//卖的价钱
             holder.mCurrency = (TextView) convertView.findViewById(R.id.currency_tv_id);//兑换
             holder.mIsOneself = (TextView) convertView.findViewById(R.id.currency_ismy_id);//个人出售，官方出售
             holder.mSurplus = (TextView) convertView.findViewById(R.id.surplus_rmb_id);//剩余
@@ -92,11 +94,13 @@ public class CurrencyAdapter extends BaseAdapter {
             String Mater_name = preferences.getString("Mater_name", "母币");//母币名称
             String Son_name = preferences.getString("Son_name", "子币");//子币名称
             mUserId = preferences.getString("user_id", "");
-            holder.mNumberSell.setText(curr_son_money + Son_name + "/" + Mater_name + "单价");
+            holder.mNumberMoney.setText(curr_son_money);
+            holder.mNumberZi.setText(Son_name);
+            holder.mNumberSell.setText("/" + Mater_name + "单价");
             holder.mSurplus.setText("剩余" + (int) Double.parseDouble(curr_mater_num) + Mater_name);
-            if(user_id.equals(mUserId)){
+            if (user_id.equals(mUserId)) {
                 holder.mCurrency.setText("撤销");
-            }else {
+            } else {
                 holder.mCurrency.setText("兑换");
             }
 
@@ -119,7 +123,9 @@ public class CurrencyAdapter extends BaseAdapter {
 
     private class ViewHolder {
         ImageView mTu;
-        TextView mNumberSell;//卖的价钱
+        TextView mNumberSell;//
+        TextView mNumberZi;//
+        TextView mNumberMoney;//卖的价钱
         TextView mCurrency;//兑换
         TextView mSurplus;//剩余xx母币
         TextView mIsOneself;//个人出售，官方出售

@@ -31,11 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/sum_10"
-            android:layout_marginRight="@dimen/sum_10"
+            android:layout_marginLeft="@dimen/sum_5"
+            android:layout_marginRight="@dimen/sum_5"
             android:background="@drawable/circle_top_gray"
             android:gravity="center"
-            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="5dp"
             android:text="失\n效"
             android:textColor="@color/white"
             android:visibility="gone"/>
@@ -86,9 +89,9 @@
                 android:layout_above="@+id/shopping_item_delete"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/shopping_item_title"
-                android:layout_marginRight="@dimen/sum_5"
                 android:layout_marginLeft="@dimen/sum_5"
-              />
+                android:layout_marginRight="@dimen/sum_5"
+                />
 
             <TextView
                 android:id="@+id/shopping_item_zirmb"
@@ -140,8 +143,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/sum_5"
                 android:layout_marginLeft="@dimen/sum_10"
-                android:layout_marginTop="@dimen/sum_5"
                 android:layout_marginRight="@dimen/sum_5"
+                android:layout_marginTop="@dimen/sum_5"
                 android:gravity="center"
                 android:scaleType="fitXY"
                 android:src="@drawable/delete_img"/>
@@ -197,10 +200,13 @@
 
             <Button
                 android:id="@+id/detail_addition_id"
-                android:layout_width="@dimen/sum_40"
-                android:layout_height="@dimen/sum_40"
+                android:layout_width="@dimen/sum_30"
+                android:layout_height="@dimen/sum_30"
+                android:layout_marginRight="5dp"
+                android:background="@color/colorgraynessb"
                 android:text="—"
-                android:textColor="@color/transparence50"/>
+                android:textColor="@color/transparence50"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
@@ -211,7 +217,8 @@
             android:background="@color/colorgraynessb"
             android:gravity="center"
             android:text="@string/HomePage_name34"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
 
         <LinearLayout
             android:id="@+id/detail_additionll_id"
@@ -222,8 +229,10 @@
 
             <Button
                 android:id="@+id/detail_subtraction_id"
-                android:layout_width="@dimen/sum_40"
-                android:layout_height="@dimen/sum_40"
+                android:layout_width="@dimen/sum_30"
+                android:layout_height="@dimen/sum_30"
+                android:layout_marginLeft="5dp"
+                android:background="@color/colorgraynessb"
                 android:text="＋"
                 android:textColor="@color/transparence50"/>
         </LinearLayout>

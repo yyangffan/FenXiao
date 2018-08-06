@@ -103,7 +103,7 @@ public class GroupCollectionAdapter extends BaseAdapter {
             holder.mZiText.setText(Son_name);
             holder.mMuText.setText(Mater_name);
             holder.mTitle.setText(good_name);
-            holder.mMuRMB.setText( Math.floor((Double.parseDouble(mater_money)))+"");
+            holder.mMuRMB.setText("¥" + Math.floor((Double.parseDouble(mater_money)))+"");
             holder.mZiRMB.setText("¥" +  Math.floor((Double.parseDouble(son_money))));
             if (thumb.equals("") | thumb.equals("null")) {
 

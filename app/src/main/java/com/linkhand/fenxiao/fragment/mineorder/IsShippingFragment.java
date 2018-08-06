@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linkhand.fenxiao.BaseFragment;
 import com.linkhand.fenxiao.C;
@@ -165,7 +166,6 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
                 DingDanResponse feng = response.body();
-                Log.e("yh", feng + "");
                 int code = feng.getCode();
                 if (code == 100) {
                     mListBean = feng.getInfo();
@@ -176,7 +176,7 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
                     mAdapter.setOnDeliveryItemClicks(IsShippingFragment.this);
 
                 } else {
-//                    Toast.makeText(IsShippingFragment.this.getActivity(), success+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IsShippingFragment.this.getActivity(), feng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
             }
 

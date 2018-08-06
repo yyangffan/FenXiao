@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/order_merchandise_iv"
-            android:layout_width="@dimen/sum_100"
-            android:layout_height="@dimen/sum_70"
+            android:layout_width="@dimen/sum_80"
+            android:layout_height="@dimen/sum_80"
             android:scaleType="fitXY"
             android:src="@drawable/position_img"/>
 
@@ -27,44 +27,50 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="xx"
+            android:textColor="@color/black"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/order_merchandisermb_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/order_item_model_id"
+            android:layout_above="@+id/order_merchandisermb_zi"
             android:layout_alignParentRight="true"
             android:paddingRight="@dimen/sum_5"
             android:text="xxx"
+            android:textColor="@color/black"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/order_item_model_what"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/order_item_model_id"
+            android:layout_alignBottom="@+id/order_merchandisermb_id"
             android:layout_toLeftOf="@+id/order_merchandisermb_id"
             android:text="@string/HomePage_name5"
+            android:textColor="@color/black"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/order_merchandisermb_zi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/number_id"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/order_merchandisermb_id"
             android:paddingRight="@dimen/sum_5"
             android:text="xxx"
+            android:textColor="@color/black"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/order_son_what"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/order_merchandisermb_id"
+            android:layout_alignBottom="@+id/order_merchandisermb_zi"
             android:layout_toLeftOf="@+id/order_merchandisermb_zi"
             android:text="@string/HomePage_name5"
+            android:textColor="@color/black"
+
             android:textSize="14sp"/>
 
         <TextView
@@ -75,10 +81,11 @@
             android:layout_marginBottom="@dimen/sum_5"
             android:layout_marginLeft="@dimen/sum_10"
             android:layout_marginTop="@dimen/sum_5"
+            android:layout_toLeftOf="@+id/order_item_model_what"
             android:layout_toRightOf="@+id/order_merchandise_iv"
             android:ellipsize="end"
-            android:layout_toLeftOf="@+id/order_item_model_what"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:text="@string/HomePage_name91"
             android:textSize="14sp"/>
 
@@ -92,6 +99,7 @@
             android:layout_toRightOf="@+id/order_merchandise_iv"
             android:gravity="center_vertical"
             android:text="x1"
+            android:textColor="@color/black"
             android:textSize="14sp"
             />
         <!--<LinearLayout-->

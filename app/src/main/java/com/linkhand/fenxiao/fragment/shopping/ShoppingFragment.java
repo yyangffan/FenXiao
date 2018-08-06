@@ -82,8 +82,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
     SharedPreferences.Editor editor;
     String mUserId;//个人id
     //    List<ShoppingCartListFeng.InfoBean> beanLists;
-    int mRmbs = 0;//总母币
-    int mRmbszi = 0;//总子币
+    double mRmbs = 0;//总母币
+    double mRmbszi = 0;//总子币
     String defaultIs;
     InfoData service;
     Map<String, Object> map1;
@@ -168,7 +168,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 rigthDelete();
                 break;
             case R.id.shopping_tv_cancelAll://清空失效宝贝
-                new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "", "清空失效宝贝?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "", "清空失效宝贝?", R.drawable.delete_img, new ShowRemindDialog.OnTvClickListener() {
                     @Override
                     public void OnSureClickListener() {
                         cancelAll();
@@ -184,7 +184,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
         if (allCartId.equals("")) {
             ToastUtil.showToast(this.getActivity(), "请选择要删除的商品");
         } else {
-            new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "", "确定删除所选商品?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+            new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "", "确定删除所选商品?", R.drawable.delete_img, new ShowRemindDialog.OnTvClickListener() {
                 @Override
                 public void OnSureClickListener() {
                     onRemovePiLiang(allCartId);
@@ -340,8 +340,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 if (is_selected.equals("1")) {//1选中   2未选中
                     String mu = mInfoBeen.get(i).getCart_mater() + "";//母币
                     String zi = mInfoBeen.get(i).getCart_son() + "";//子币
-                    int ints = (int) Double.parseDouble(mu);
-                    int intszi = (int) Double.parseDouble(zi);
+                    double ints = Double.parseDouble(mu);
+                    double intszi =Double.parseDouble(zi);
                     mRmbs = mRmbs + ints;
                     mRmbszi = mRmbszi + intszi;
                 }
@@ -369,8 +369,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 mRmbszi = 0;
             }
         } else {
-            int ints = 0;
-            int intszi = 0;
+            double ints = 0;
+            double intszi = 0;
             mBoolean = true;
             if (mRbtn != null) {
                 mRbtn.setImageResource(R.drawable.ovalone);
@@ -384,8 +384,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                         list1.get(i).put("is_selected", "1");//1选中   2未选中
                         String mu = mInfoBeen.get(i).getCart_mater() + "";//母币
                         String zi = mInfoBeen.get(i).getCart_son() + "";//子币
-                        ints = (int) Double.parseDouble(mu);
-                        intszi = (int) Double.parseDouble(zi);
+                        ints = Double.parseDouble(mu);
+                        intszi = Double.parseDouble(zi);
                         mRmbs = mRmbs + ints;
                         mRmbszi = mRmbszi + intszi;
                     }
@@ -643,8 +643,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                         String mu = mInfoBeen.get(position).getCart_mater() + "";//母币
                         String zi = mInfoBeen.get(position).getCart_son() + "";//子币
 //                    int ints = Integer.parseInt(mu);
-                        int ints = (int) Double.parseDouble(mu);
-                        int intszi = (int) Double.parseDouble(zi);
+                        double ints = Double.parseDouble(mu);
+                        double intszi = Double.parseDouble(zi);
                         mRmbs = mRmbs - ints;
                         mRmbszi = mRmbszi - intszi;
                     } else if (is_selected.equals("2")) {
@@ -653,8 +653,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
 //                        String zi = beanLists.get(position).getCart_son() + "";//子币
                         String mu = mInfoBeen.get(position).getCart_mater() + "";//母币
                         String zi = mInfoBeen.get(position).getCart_son() + "";//子币
-                        int ints = (int) Double.parseDouble(mu);
-                        int intszi = (int) Double.parseDouble(zi);
+                        double ints =  Double.parseDouble(mu);
+                        double intszi =Double.parseDouble(zi);
                         mRmbs = mRmbs + ints;
                         mRmbszi = mRmbszi + intszi;
                     }
@@ -683,7 +683,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
         mImageView.setOnClickListener(new View.OnClickListener() {//删除
             @Override
             public void onClick(View v) {//删除
-                new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "提示", "确认删除该商品?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "取消", "提示", "确认删除该商品?", R.drawable.delete_img, new ShowRemindDialog.OnTvClickListener() {
                     @Override
                     public void OnSureClickListener() {
                         int position = (int) list.get(0).get("position");

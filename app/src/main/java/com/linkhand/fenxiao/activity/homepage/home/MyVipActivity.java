@@ -201,7 +201,7 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
             requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
             Glide.with(this).load(C.TU + info.getVimg_url()).apply(requestOptions).into(mMyvipImgv);
             mMyvipTitle.setText(info.getVip_good_name());
-            mMyvipMoney.setText(info.getVip_order_money());
+            mMyvipMoney.setText("¥" +info.getVip_order_money());
             mMyvipState.setText(info.getStatus_str());
             String guige = "";
             for (VipLvResponse.InfoBean.SpeciBean be : info.getSpeci()) {
@@ -218,11 +218,9 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
             }
             List<VipLvResponse.UsedataBean> usedata = bean.getUsedata();
             if (usedata.size() != 0) {
-                mMyVipLl.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
             } else {
                 if (page == 0 && !isSearch) {
-                    mMyVipLl.setVisibility(View.GONE);
                     mRefreshLayout.setVisibility(View.GONE);
                     return;
                 }

@@ -167,7 +167,7 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
                 requestPower();
                 break;
             case R.id.mine_llayout_name_id://昵称
-                onUpdateName(1);//1 修改昵称    2修改手机号  3修改身份证号码
+                onUpdateName(1,mTvName.getText().toString());//1 修改昵称    2修改手机号  3修改身份证号码
                 break;
             case R.id.mine_llayout_realname_id://修改真实姓名
 //                onUpdateName(4);//1 修改昵称    2修改手机号  3修改身份证号码  4修改真实姓名
@@ -179,7 +179,7 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
 //                onUpdateName(3);//1 修改昵称    2修改手机号  3修改身份证号码
                 break;
             case R.id.mine_llayout_wx_id://微信绑定
-                Toast.makeText(this, "微信绑定", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "微信绑定", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -198,13 +198,14 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
     }
 
 
-    public void onUpdateName(final int i) {//1 修改名称    2修改手机号  3修改身份证号码  4修改真实姓名
+    public void onUpdateName(final int i,String user_name) {//1 修改名称    2修改手机号  3修改身份证号码  4修改真实姓名
         final MyDialogPerfect dialog = new MyDialogPerfect(PersonalDataActivity.this, i);
 //        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
         dialog.show();
         TextView mDialogLogin = (TextView) dialog.findViewById(R.id.dialogvip_login_id);//取消
         TextView mRegistration = (TextView) dialog.findViewById(R.id.dialogvip_login_id2);//确定
         final EditText minput = (EditText) dialog.findViewById(R.id.dialog_input);
+        minput.setText(user_name);
         final EditText minputTwo = (EditText) dialog.findViewById(R.id.dialog_input_identity);//身份证号码
         mDialogLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -527,6 +528,9 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
                     }
                     if (mRealname != null) {
                         mRealname.setText(real_name);
+                    }
+                    if(mWxText!=null){
+                        mWxText.setText(mBean.getWx_name());
                     }
                     if (user_before_card != null && !user_before_card.equals("")) {
                         Glide.with(PersonalDataActivity.this).load(C.TU + user_before_card).into(mMineImgvOver);

@@ -183,10 +183,9 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
 
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        //获取个人id
+        editor.remove("addressId");/*只是在这里进行使用，所以每次需要清空它*/
+        editor.commit();
         mUserId = preferences.getString("user_id", "");
-        Log.e("yh", "mUserId--" + mUserId);
-        //获取子母币名称
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
 
@@ -247,6 +246,11 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
                 break;
             case R.id.order_address_id://地址
                 Intent intent = new Intent(ConfirmOrderActivity.this, AddressActivity.class);
+                String addressId = preferences.getString("addressId", "");
+                if(addressId.equals("")){
+                    addressId=sited_id;
+                }
+                intent.putExtra("addressId",addressId);
                 startActivity(intent);
                 break;
             case R.id.order_return_id://返回

@@ -12,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/gray_c"
         android:layout_marginBottom="1dp"
+        android:background="@color/gray_c"
         android:gravity="center">
 
         <LinearLayout
@@ -49,44 +49,21 @@
             android:text="@string/HomePage_name50"
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
+
         <TextView
-            android:layout_marginRight="@dimen/sum_10"
             android:id="@+id/insert_address_id"
-            android:gravity="center"
-            android:textColor="@color/title_tv_color"
-            android:text="@string/HomePage_name78"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/sum_10"
+            android:gravity="center"
+            android:text="@string/HomePage_name78"
+            android:textColor="@color/title_tv_color"/>
 
     </LinearLayout>
 
-    <ScrollView
+    <com.linkhand.fenxiao.utils.MyListView
+        android:id="@+id/address_listview_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.linkhand.fenxiao.utils.MyListView
-                android:divider="@null"
-                android:id="@+id/address_listview_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.linkhand.fenxiao.utils.MyListView>
-
-            <TextView
-                android:id="@+id/confirm_address"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sum_40"
-                android:layout_marginBottom="@dimen/sum_20"
-                android:layout_marginLeft="@dimen/sum_10"
-                android:layout_marginRight="@dimen/sum_10"
-                android:layout_marginTop="@dimen/sum_10"
-                android:background="@drawable/btn_bg_rounded_two"
-                android:text="@string/HomePage_name71"/>
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:divider="@null"/>
 </LinearLayout>

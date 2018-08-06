@@ -125,7 +125,7 @@
             android:paddingBottom="@dimen/sum_10"
             android:paddingLeft="@dimen/sum_12"
             android:paddingTop="@dimen/sum_10"
-            android:text="修改登录密码"/>
+            android:text="登录密码"/>
 
         <LinearLayout
             android:id="@+id/setupthe_update_psw"

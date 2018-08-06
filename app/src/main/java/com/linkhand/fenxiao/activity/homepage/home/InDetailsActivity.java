@@ -114,6 +114,10 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     List<String> titleList;
     @Bind(R.id.detail_tv_shoucang)
     TextView mDetailTvShoucang;
+    @Bind(R.id.detail_zi)
+    TextView mDetailZi;
+    @Bind(R.id.detail_mu)
+    TextView mDetailMu;
 
     private DisplayImageOptions options;
     private String mShare_url = "";
@@ -128,6 +132,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     String mUserIsVip; //是否vip  0否  1是
     private String mMoney_num;
     private List<Map<String, Object>> mMapList;
+    private String mMater_name;
+    private String mSon_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +160,11 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
         //获取个人id
         mUserId = preferences.getString("user_id", "");
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
+        mMater_name = preferences.getString("Mater_name", "母币");   //母币名称
+        mSon_name = preferences.getString("Son_name", "子币"); //子币名称
+        mDetailZi.setText(mSon_name);
+        mDetailMu.setText(mMater_name);
+
         mTabLayout.addTab(mTabLayout.newTab().setText("图文详情"));
         mTabLayout.addTab(mTabLayout.newTab().setText("留言"));
         //取得从上一个Activity当中传递过来的Intent对象
@@ -369,9 +380,11 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     if (house == 1) {//是否已收藏  1是  0否
                         mCollect.setImageResource(R.drawable.collection_two);
                         mDetailTvShoucang.setText("已收藏");
+                        mDetailTvShoucang.setTextColor(InDetailsActivity.this.getResources().getColor(R.color.coloryellows2));
                     } else if (house == 0) {
-                        mCollect.setImageResource(R.drawable.collection);
+                        mCollect.setImageResource(R.drawable.shoucang);
                         mDetailTvShoucang.setText("收藏");
+                        mDetailTvShoucang.setTextColor(InDetailsActivity.this.getResources().getColor(R.color.text_gray));
                     }
                     if (have == 1) {//是否已关注  1是  0否
                         mPurchasing.setText("取消订购");
@@ -410,8 +423,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 ShareBean httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
                     mShare_url = httpResponse.getInfo().getLink();
-                    share_title=httpResponse.getInfo().getTitle();
-                    share_content=httpResponse.getInfo().getDesc();
+                    share_title = httpResponse.getInfo().getTitle();
+                    share_content = httpResponse.getInfo().getDesc();
                 }
             }
 
@@ -549,6 +562,8 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                     house = 1;
                     mCollect.setImageResource(R.drawable.collection_two);
                     mDetailTvShoucang.setText("已收藏");
+                    mDetailTvShoucang.setTextColor(InDetailsActivity.this.getResources().getColor(R.color.coloryellows2));
+
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -578,8 +593,9 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
                 if (code == 100) {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                     house = 0;
-                    mCollect.setImageResource(R.drawable.collection);
+                    mCollect.setImageResource(R.drawable.shoucang);
                     mDetailTvShoucang.setText("收藏");
+                    mDetailTvShoucang.setTextColor(InDetailsActivity.this.getResources().getColor(R.color.text_gray));
                 } else {
                     Toast.makeText(InDetailsActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

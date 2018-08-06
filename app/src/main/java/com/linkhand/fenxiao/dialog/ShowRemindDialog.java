@@ -27,7 +27,7 @@ public class ShowRemindDialog {
     private OnTvCancelListener mCancelListener;
 
 
-    public ShowRemindDialog showRemind(Context context, String leftContent, String rightContent, String title, String content, int imgv_id, final OnTvClickListener listener) {
+    public ShowRemindDialog showRemind(Context context, String rightContent, String leftContent, String title, String content, int imgv_id, final OnTvClickListener listener) {
         final AlertDialog dialog = new AlertDialog.Builder(context).create();
         View dialogV = LayoutInflater.from(context).inflate(R.layout.dialog_remind, null);
         mDialog = (TextView) dialogV.findViewById(R.id.dialog_confirm_id);
@@ -42,8 +42,8 @@ public class ShowRemindDialog {
         mDialog.setVisibility(View.GONE);
         mLinearLayout.setVisibility(View.VISIBLE);
         mLayout_two.setVisibility(View.VISIBLE);
-        mtv_sure.setText(leftContent);
-        mtv_cancle.setText(rightContent);
+        mtv_sure.setText(rightContent);
+        mtv_cancle.setText(leftContent);
         mtv_title.setText(title);
         mtv_content.setText(content);
         mtv_sure.setOnClickListener(new View.OnClickListener() {

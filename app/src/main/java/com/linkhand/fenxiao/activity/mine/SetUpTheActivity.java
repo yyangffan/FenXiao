@@ -16,6 +16,7 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.login.LoginActivity;
 import com.linkhand.fenxiao.activity.login.RetrievePswActivity;
+import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.jpush.SetJPushAlias;
 import com.linkhand.fenxiao.utils.ToastUtil;
@@ -110,14 +111,7 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.setupthe_return_id3://退出登录
-                editor.remove("user_id").commit();
-                editor.remove("userIsVip").commit();
-                editor.remove("userReal").commit();
-                intent = new Intent(this, LoginActivity.class);//登录
-                startActivity(intent);
-                SetUpTheActivity.this.finish();
-                new SetJPushAlias("", SetUpTheActivity.this).cancleAlias();
-//                this.finish();
+                logout();
                 break;
             case R.id.setupthe_return_id2://返回
                 this.finish();
@@ -152,6 +146,22 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
                 break;
 
         }
+    }
+
+    public void logout() {
+        new ShowRemindDialog().showRemind(this, "确定", "取消", "提示", "退出登录？", R.drawable.logout, new ShowRemindDialog.OnTvClickListener() {
+            @Override
+            public void OnSureClickListener() {
+                editor.remove("user_id").commit();
+                editor.remove("userIsVip").commit();
+                editor.remove("userReal").commit();
+                intent = new Intent(SetUpTheActivity.this, LoginActivity.class);//登录
+                startActivity(intent);
+                SetUpTheActivity.this.finish();
+                new SetJPushAlias("", SetUpTheActivity.this).cancleAlias();
+//                this.finish();
+            }
+        });
     }
 
     /*获取到客服电话以及客服QQ*/

@@ -14,7 +14,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
         android:src="@drawable/delete_img"/>
 
@@ -27,14 +26,11 @@
         android:text="@string/mialog_name20"
         android:textColor="@color/gray_text"/>
 
-
-
-
     <View
         android:layout_width="300dp"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorgraynessb"></View>
+        android:background="@color/colorgraynessb"/>
 
     <LinearLayout
         android:layout_width="match_parent"

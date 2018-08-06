@@ -129,7 +129,7 @@ public class MineJlActivity extends BaseActicity {
 //            }
         } else if (mWhat.equals("3")) {
             mTabLayoutId.setVisibility(View.GONE);
-            mMineTitle.setText("充值/提现记录");
+            mMineTitle.setText("历史记录");
             getChongTiJl();
         }
 

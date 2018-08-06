@@ -9,12 +9,12 @@
     android:orientation="vertical"
     tools:context="com.linkhand.fenxiao.activity.news.NewsActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/gray_c"
         android:layout_marginBottom="1dp"
-        android:gravity="center">
+        android:background="@color/gray_c"
+        >
 
         <LinearLayout
             android:id="@+id/fenxiao_return_id4"
@@ -42,8 +42,9 @@
 
         <TextView
             android:id="@+id/fenxiao_title_id4"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/sum_50"
             android:layout_weight="1"
             android:gravity="center"
@@ -51,7 +52,17 @@
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/news_delete_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/sum_10"
+            android:textColor="@color/black"
+            android:text="清空消息"/>
+
+    </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"

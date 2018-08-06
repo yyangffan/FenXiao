@@ -146,7 +146,7 @@ public class All0rderFragmentAdapter extends BaseAdapter {
                 holder.mButton.setVisibility(View.VISIBLE);
                 holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("2")) {
-                holder.mIsOrder.setText("买家已付款");
+                holder.mIsOrder.setText("待发货");
                 holder.mButton.setVisibility(View.GONE);
                 holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("3")) {

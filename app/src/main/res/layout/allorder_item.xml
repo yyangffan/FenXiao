@@ -60,7 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/allorder_rmbtwo_id"
             android:layout_alignLeft="@+id/allorder_rmbtwo_id"
-            android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"

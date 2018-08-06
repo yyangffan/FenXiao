@@ -252,6 +252,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         editText = (EditText) dialog.findViewById(R.id.swop_et_id);//兑换母币数量
         final TextView sum = (TextView) dialog.findViewById(R.id.swop_sum_id);//需支付xx子币
         TextView confirm = (TextView) dialog.findViewById(R.id.swop_confirm_id);//确定
+        sum.setText("需支付0.0"+Son_name);
         editText.setHint("请输入兑换" + Mater_name + "数量");
         onGuangBiao();
         returns.setOnClickListener(new View.OnClickListener() {

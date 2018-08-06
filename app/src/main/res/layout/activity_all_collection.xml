@@ -61,7 +61,7 @@
         android:background="@android:color/white"
         app:tabIndicatorColor="@color/colorred"
         app:tabSelectedTextColor="@color/colorred"
-        app:tabTextColor="@color/colorblack"/>
+        app:tabTextColor="@color/text_gray"/>
 
     <FrameLayout
         android:id="@+id/mine_fragment_id"

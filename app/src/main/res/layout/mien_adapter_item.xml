@@ -15,6 +15,7 @@
         android:layout_toRightOf="@+id/mien_item_tuid"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="@color/black"
         android:text="标题标题标题标题标题标题标题"
         android:textSize="16sp"/>
 
@@ -41,20 +42,10 @@
         android:layout_toEndOf="@+id/mien_item_tu"/>
 
 
-    <TextView
-        android:id="@+id/mien_item_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mien_item_tuid"
-        android:layout_alignParentRight="true"
-        android:text="xxxx-xx-xx"
-        android:textColor="@color/gray_text"/>
-
-
     <ImageView
         android:id="@+id/mien_item_tuid"
-        android:layout_width="@dimen/sum_80"
-        android:layout_height="@dimen/sum_80"
+        android:layout_width="@dimen/sum_70"
+        android:layout_height="@dimen/sum_70"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"

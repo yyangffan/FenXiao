@@ -35,6 +35,7 @@
 
         <TextView
             android:id="@+id/config_notice_id"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
@@ -75,16 +76,18 @@
             android:id="@+id/dilaog_imgv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/sum_10"
             android:src="@drawable/money"/>
 
         <TextView
             android:id="@+id/dilaog_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"/>
+            android:textColor="@color/black"
+            android:padding="10dp"/>
 
         <View
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorgraynessb"/>
 
@@ -99,16 +102,17 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/dialog_login_id"
+            android:id="@+id/dialog_login_id2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="不同意"
             />
 
         <TextView
-            android:id="@+id/dialog_login_id2"
+            android:id="@+id/dialog_login_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

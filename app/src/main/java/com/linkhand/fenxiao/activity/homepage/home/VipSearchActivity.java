@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -50,8 +49,6 @@ import retrofit2.Response;
 
 public class VipSearchActivity extends BaseActicity implements ProvinceInfo, CityInfo, AreaInfo {
 
-    @Bind(R.id.imgv_search)
-    ImageView mImgvSearch;
     @Bind(R.id.edt_search)
     EditText mEdtSearch;
     @Bind(R.id.tv_search)
@@ -159,12 +156,9 @@ public class VipSearchActivity extends BaseActicity implements ProvinceInfo, Cit
 
     }
 
-    @OnClick({R.id.imgv_search, R.id.tv_search, R.id.my_vip_sheng, R.id.my_vip_shi, R.id.my_vip_qu})
+    @OnClick({ R.id.tv_search, R.id.my_vip_sheng, R.id.my_vip_shi, R.id.my_vip_qu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.imgv_search:
-                this.finish();
-                break;
             case R.id.tv_search:
                 String search_str = mEdtSearch.getText().toString();
                 if (search_str != null && search_str.length() == 0) {

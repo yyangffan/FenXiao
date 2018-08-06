@@ -15,7 +15,6 @@ import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.bean.MienBean;
 import com.linkhand.fenxiao.info.callback.MienInfo;
-import com.linkhand.fenxiao.utils.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,7 +61,6 @@ public class MienAdapter extends BaseAdapter {
             holder.mLike = (ImageView) convertView.findViewById(R.id.mien_item_tu);//点赞
             holder.mImg = (ImageView) convertView.findViewById(R.id.mien_item_tuid);//图
             holder.mRen = (TextView) convertView.findViewById(R.id.mien_item_ren);//人
-            holder.mTime = (TextView) convertView.findViewById(R.id.mien_item_time);//时间
             holder.mRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.all_rlayout_id);
             convertView.setTag(holder);
         } else {
@@ -77,7 +75,6 @@ public class MienAdapter extends BaseAdapter {
 
             holder.mTitle.setText(title);//标题
             holder.mRen.setText(ren + "人");//人
-            holder.mTime.setText(time==null||time.equals("")?"": DateUtil.getStrTime(time));//时间
             RequestOptions requestOptions=new RequestOptions();
             requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
             Glide.with(context).load(thumb).apply(requestOptions).into(holder.mImg);
@@ -111,7 +108,6 @@ public class MienAdapter extends BaseAdapter {
         ImageView mLike;//点赞
         ImageView mImg;//图
         TextView mRen;//人
-        TextView mTime;//时间
         RelativeLayout mRelativeLayout;
 
     }

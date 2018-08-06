@@ -112,47 +112,27 @@
                 imagecontrol:border_outside_color="#fff"
                 imagecontrol:border_thickness="1dp"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sum_10"
-                android:gravity="center_horizontal">
+               >
 
                 <TextView
                     android:id="@+id/team_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/roundImageView_id"
+                    android:layout_centerInParent="true"
                     android:textColor="@color/title_tv_color"/>
 
                 <TextView
                     android:id="@+id/team_level_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/roundImageView_id"
                     android:layout_marginLeft="@dimen/sum_40"
-                    android:layout_toRightOf="@+id/mine_position_id"
                     android:text="铜1"
                     android:textColor="@color/title_tv_color"
                     android:visibility="gone"/>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sum_10"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/mine_position_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:gravity="center_horizontal"
-                    android:textColor="@color/colorwhites"
-                    android:textSize="12sp"/>
-
                 <LinearLayout
                     android:id="@+id/details_ids"
                     android:layout_width="wrap_content"
@@ -173,9 +153,8 @@
                         android:layout_marginRight="@dimen/sum_10"
                         android:src="@drawable/return_right_two"/>
                 </LinearLayout>
+
             </RelativeLayout>
-
-
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
@@ -187,7 +166,7 @@
             android:background="@android:color/white"
             app:tabIndicatorColor="@color/colorred"
             app:tabSelectedTextColor="@color/colorred"
-            app:tabTextColor="@color/colorblack"/>
+            app:tabTextColor="@color/text_gray"/>
 
 
         <FrameLayout

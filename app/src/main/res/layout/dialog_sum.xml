@@ -49,7 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
         android:text="@string/mialog_name22"
         android:textColor="@color/colorred"/>

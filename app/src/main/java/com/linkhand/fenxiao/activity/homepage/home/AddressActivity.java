@@ -47,8 +47,6 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
     MyListView mListView;
     @Bind(R.id.insert_address_id)
     TextView mInsertAddress;
-    @Bind(R.id.confirm_address)
-    TextView mConfirmAddress;//确定
 
     InfoData service;
     SharedPreferences preferences;
@@ -105,12 +103,12 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
 
         //取得从上一个Activity当中传递过来的Intent对象
         Intent intent = getIntent();
+        addressId = intent.getStringExtra("addressId");
     }
 
     public void onClicks() {
         mReturn.setOnClickListener(this);
         mInsertAddress.setOnClickListener(this);
-        mConfirmAddress.setOnClickListener(this);
     }
 
     @Override
@@ -123,9 +121,6 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
             case R.id.insert_address_id://新增收货地址
                 Intent intent = new Intent(AddressActivity.this, ShippingAddressActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.confirm_address://确定收货地址
-                confim();//确认
                 break;
         }
     }
@@ -149,10 +144,11 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
                     mLists = new ArrayList<SortModel>();
                     for (int i = 0; i < beanList.size(); i++) {
                         SortModel sortModels = new SortModel();
+                        //1 选中  2不选中
                         if(!addressId.equals("")&&beanList.get(i).getSite_id().equals(addressId)){
                             sortModels.setSelects("1");
                         }else {
-                            sortModels.setSelects("2");//1 对勾  2选择
+                            sortModels.setSelects("2");
                         }
                         sortModels.setSite_city1(beanList.get(i).getSite_city1());//省
                         sortModels.setSite_city2(beanList.get(i).getSite_city2());//市
@@ -406,6 +402,7 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
                 addressId= namesList.get(position).getSite_id();//选中的地址id
                 Log.e("yh","position--" + position+ "--addressId选中的地址id--" + addressId);
                 mAdapter.notifyDataSetChanged();
+                confim();
             }
         });
         //默认

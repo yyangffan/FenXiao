@@ -80,6 +80,7 @@ public class PersonalMessageFeng {
          * fh_cou : 0
          * sh_cou : 0
          * pj_cou : 0
+         * wx_name
          */
 
         private String user_id;
@@ -121,6 +122,17 @@ public class PersonalMessageFeng {
         private String sh_cou;
         private String pj_cou;
         private String sign_in;
+
+        public String getWx_name() {
+            return wx_name;
+        }
+
+        public void setWx_name(String wx_name) {
+            this.wx_name = wx_name;
+        }
+
+        private String wx_name
+                ;
 
         public String getSign_in() {
             return sign_in;

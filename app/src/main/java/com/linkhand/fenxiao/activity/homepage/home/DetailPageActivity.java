@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -205,8 +207,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
-        mDetailsZibitext.setText(Son_name);//子币
-        mDetailsMutext.setText(Mater_name);//母币
+        mDetailsZibitext.setText(" "+Son_name);//子币
+        mDetailsMutext.setText(" "+Mater_name);//母币
         Intent intent = getIntent();
         if (intent != null) {
             mMoodId = intent.getStringExtra("good_id"); //商品id
@@ -448,7 +450,6 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         popupWindow.setHeight(height);
 
         setBackgroundAlpha(0.5f);
-        popupWindow.setBackgroundDrawable(null);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -457,8 +458,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 setBackgroundAlpha(1.0f);
             }
         });
-        popupWindow.showAtLocation(vu, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
+        popupWindow.showAtLocation(vu, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 
         if (bean != null) {
             List<GoodsDetailsFeng.InfoBean.ImgBean> imgBeen = bean.getImg();
@@ -596,10 +598,10 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 int code = pcfeng.getCode();
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
-                    int allMater = pcfeng.getAllmater();//总母币
-                    int allSon = pcfeng.getAllson();//总子币
-                    int oneMater = pcfeng.getOnemater();//单价母币（商品加规格）
-                    int oneSon = pcfeng.getOneson();//单价子币（商品加规格）
+                    String allMater = pcfeng.getAllmater();//总母币
+                    String allSon = pcfeng.getAllson();//总子币
+                    String oneMater = pcfeng.getOnemater();//单价母币（商品加规格）
+                    String oneSon = pcfeng.getOneson();//单价子币（商品加规格）
                     Log.e("yh", "总母币--" + allMater + "--总子币--" + allSon + "--单价母币--" + oneMater + "--单价子币--" + oneSon);
                     mSingle_rmb.setText("¥" + oneSon + Son_name + " " + oneMater + Mater_name);
                 } else {
@@ -610,7 +612,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
             @Override
             public void onFailure(Call<GoodsRMBFeng> call, Throwable t) {
-
+                ToastUtil.showToast(DetailPageActivity.this,"网络异常");
             }
         });
     }
@@ -643,9 +645,11 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     if (house == 1) {//是否已收藏 1为已收藏  0未收藏
                         mCollect.setImageResource(R.drawable.collection_two);
                         mUpgradeTvShoucang.setText("已收藏");
+                        mUpgradeTvShoucang.setTextColor(DetailPageActivity.this.getResources().getColor(R.color.coloryellows2));
                     } else if (house == 0) {
-                        mCollect.setImageResource(R.drawable.collection);
+                        mCollect.setImageResource(R.drawable.shoucang);
                         mUpgradeTvShoucang.setText("收藏");
+                        mUpgradeTvShoucang.setTextColor(DetailPageActivity.this.getResources().getColor(R.color.text_gray));
                     }
                     mGoodsTitle.setText(good_name);
                     mGoodsZiRMB.setText(money_son);
@@ -870,6 +874,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     house = 1;
                     mCollect.setImageResource(R.drawable.collection_two);
                     mUpgradeTvShoucang.setText("已收藏");
+                    mUpgradeTvShoucang.setTextColor(DetailPageActivity.this.getResources().getColor(R.color.coloryellows2));
+
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -899,8 +905,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 if (code == 100) {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                     house = 0;
-                    mCollect.setImageResource(R.drawable.collection);
+                    mCollect.setImageResource(R.drawable.shoucang);
                     mUpgradeTvShoucang.setText("收藏");
+                    mUpgradeTvShoucang.setTextColor(DetailPageActivity.this.getResources().getColor(R.color.text_gray));
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

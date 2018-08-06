@@ -16,6 +16,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorwhites"
         android:focusable="true"
+        android:weightSum="6"
         android:focusableInTouchMode="true">
 
         <LinearLayout
@@ -76,10 +77,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
-                android:src="@drawable/collection"/>
+                android:src="@drawable/shoucang"/>
 
             <TextView
                 android:id="@+id/detail_tv_shoucang"
+                android:textColor="@color/gray_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -91,7 +93,7 @@
             android:id="@+id/detail_purchasing_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:background="@color/colorred"
             android:gravity="center"
             android:padding="12dp"
@@ -133,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/HomePage_name12"
+            android:text="意向商品详情"
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
@@ -164,7 +166,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_200"
+                    android:layout_height="@dimen/sum_270"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"
@@ -180,6 +182,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16sp"
                         android:text="@string/HomePage_name5"
                         android:textColor="@color/colorwhites"/>
 
@@ -188,13 +191,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="xx"
+                        android:textSize="16sp"
                         android:textColor="@color/colorwhites"
-                        android:textSize="@dimen/sum_20"
                         />
 
                     <TextView
+                        android:id="@+id/detail_zi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16sp"
                         android:text="@string/mine_name2"
                         android:textColor="@color/colorwhites"
                         />
@@ -203,15 +208,18 @@
                         android:id="@+id/indetails_mu_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16sp"
                         android:layout_marginLeft="@dimen/sum_10"
                         android:text="xx"
                         android:textColor="@color/colorwhites"
                         />
 
                     <TextView
+                        android:id="@+id/detail_mu"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="16sp"
                         android:text="@string/mine_name3"
                         android:textColor="@color/colorwhites"
                         />
@@ -249,7 +257,7 @@
                     android:background="@android:color/white"
                     app:tabIndicatorColor="@color/colorred"
                     app:tabSelectedTextColor="@color/colorred"
-                    app:tabTextColor="@color/colorblack"/>
+                    app:tabTextColor="@color/gray_text"/>
 
                 <TextView
                     android:layout_width="match_parent"

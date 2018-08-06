@@ -52,7 +52,12 @@ public class GradeRecyAdapter extends RecyclerView.Adapter<GradeRecyAdapter.View
         if (bean.getEimg() != null && bean.getEimg().size() != 0) {
             vh.mrecy_item.setVisibility(View.VISIBLE);
             GradeItemIAdapter gradeItemIAdapter = new GradeItemIAdapter(mContext, bean.getEimg());
-            GridLayoutManager manager = new GridLayoutManager(mContext, 3);
+            GridLayoutManager manager = new GridLayoutManager(mContext, 3){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
             vh.mrecy_item.setLayoutManager(manager);
             vh.mrecy_item.setAdapter(gradeItemIAdapter);
         } else {

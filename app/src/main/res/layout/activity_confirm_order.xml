@@ -110,7 +110,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/order_username_id"
-                android:layout_marginLeft="@dimen/sum_5"
                 android:layout_marginTop="@dimen/sum_5"
                 android:layout_marginRight="@dimen/sum_5"
                 android:layout_toRightOf="@+id/order_tv_id"
@@ -273,7 +272,6 @@
     <LinearLayout
         android:id="@+id/order_llayout_id"
         android:layout_width="match_parent"
-
         android:layout_height="@dimen/sum_40"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
@@ -285,7 +283,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center">
 
             <TextView

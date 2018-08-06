@@ -17,10 +17,10 @@ public class GoodsRMBFeng {
 
     private int code;
     private String success;
-    private int allmater;
-    private int allson;
-    private int onemater;
-    private int oneson;
+    private String allmater;
+    private String allson;
+    private String onemater;
+    private String oneson;
 
     public int getCode() {
         return code;
@@ -38,35 +38,35 @@ public class GoodsRMBFeng {
         this.success = success;
     }
 
-    public int getAllmater() {
+    public String getAllmater() {
         return allmater;
     }
 
-    public void setAllmater(int allmater) {
+    public void setAllmater(String allmater) {
         this.allmater = allmater;
     }
 
-    public int getAllson() {
+    public String getAllson() {
         return allson;
     }
 
-    public void setAllson(int allson) {
+    public void setAllson(String allson) {
         this.allson = allson;
     }
 
-    public int getOnemater() {
+    public String getOnemater() {
         return onemater;
     }
 
-    public void setOnemater(int onemater) {
+    public void setOnemater(String onemater) {
         this.onemater = onemater;
     }
 
-    public int getOneson() {
+    public String getOneson() {
         return oneson;
     }
 
-    public void setOneson(int oneson) {
+    public void setOneson(String oneson) {
         this.oneson = oneson;
     }
 }

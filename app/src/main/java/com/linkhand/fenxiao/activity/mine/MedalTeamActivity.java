@@ -51,8 +51,6 @@ public class MedalTeamActivity extends BaseActicity implements View.OnClickListe
     TextView mTeamLevels;//层级（铜1）
     @Bind(R.id.details_ids)
     LinearLayout mDetails;//详情
-    @Bind(R.id.mine_position_id)
-    TextView mMinePositionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +185,6 @@ public class MedalTeamActivity extends BaseActicity implements View.OnClickListe
                     String team_level = userBean.getUser_grade();//团队层级
                     mTeamName.setText(user_name);
                     mTeamLevels.setText(team_level);
-                    mMinePositionId.setText(userBean.getRebate_str());
                     if (thumb.equals("") | thumb.equals("null")) {
 
                     } else {

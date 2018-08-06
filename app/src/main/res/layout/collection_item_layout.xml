@@ -16,7 +16,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="title"
-        android:textColor="@color/transparence50"
+        android:textColor="@color/black"
         android:textSize="14sp"/>
 
 
@@ -70,10 +70,10 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/btn_yuanjiao_oneone"
         android:gravity="center"
-        android:paddingBottom="@dimen/sum_5"
+        android:paddingBottom="4dp"
         android:paddingLeft="@dimen/sum_10"
         android:paddingRight="@dimen/sum_10"
-        android:paddingTop="@dimen/sum_5"
+        android:paddingTop="4dp"
         android:text="@string/mine_name39"
         android:textColor="@color/gray_text"/>
 

@@ -88,7 +88,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_dialog_300"
+                    android:layout_height="@dimen/sum_360"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"

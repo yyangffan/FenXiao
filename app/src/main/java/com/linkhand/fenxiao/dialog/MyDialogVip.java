@@ -14,6 +14,7 @@ import com.linkhand.fenxiao.activity.homepage.home.AllVipGoodsActivity;
 
 public class MyDialogVip extends Dialog implements View.OnClickListener {
     TextView mRegistration;//立即购买
+    TextView mTv_cancel;//取消
     ImageView mReturn;//关闭
     Context context;
     Intent intent;
@@ -34,6 +35,7 @@ public class MyDialogVip extends Dialog implements View.OnClickListener {
 
     public void init() {
         mRegistration = (TextView) findViewById(R.id.dialogvip_login_id2);
+        mTv_cancel = (TextView) findViewById(R.id.dialog_vip_cancel);
         mReturn = (ImageView) findViewById(R.id.dialogvip_return_id);
 
     }
@@ -41,6 +43,7 @@ public class MyDialogVip extends Dialog implements View.OnClickListener {
     public void onClicks() {
         mReturn.setOnClickListener(this);
         mRegistration.setOnClickListener(this);
+        mTv_cancel.setOnClickListener(this);
     }
 
     @Override
@@ -53,6 +56,7 @@ public class MyDialogVip extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.dialogvip_return_id://关闭
+            case R.id.dialog_vip_cancel://关闭
                 dismiss();
                 break;
         }

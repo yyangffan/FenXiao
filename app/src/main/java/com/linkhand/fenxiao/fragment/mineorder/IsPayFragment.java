@@ -168,7 +168,7 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
                         mAdapter = new All0rderFragmentAdapter(IsPayFragment.this.getActivity(), new ArrayList<DingDanResponse.InfoBean>());
                         mListView.setAdapter(mAdapter);
                     }
-//                    Toast.makeText(IsPayFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IsPayFragment.this.getActivity(), feng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
             }
 

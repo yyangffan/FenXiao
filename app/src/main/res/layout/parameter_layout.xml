@@ -11,8 +11,9 @@
     <TextView
         android:id="@+id/parameter_name_id"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/sum_60"
+        android:minWidth="@dimen/sum_70"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:text="xxxx"
         android:textColor="@color/gray_text"/>
 

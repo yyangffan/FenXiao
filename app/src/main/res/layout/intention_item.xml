@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/intention_item_tu"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_150"
+            android:layout_height="@dimen/sum_180"
             android:scaleType="fitXY"
 
             />
@@ -65,7 +65,11 @@
         android:background="@color/colorwhites"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/sum_10">
+        android:paddingLeft="@dimen/sum_10"
+        android:paddingRight="@dimen/sum_10"
+        android:paddingTop="@dimen/sum_5"
+        android:paddingBottom="@dimen/sum_5"
+        >
 
         <LinearLayout
 
@@ -84,7 +88,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sum_10"
+                android:layout_marginTop="@dimen/sum_5"
                 android:orientation="horizontal">
 
                 <TextView

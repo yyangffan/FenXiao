@@ -45,7 +45,7 @@ public class SetPwdActivity extends BaseActicity {
     @Bind(R.id.fenxiao_title_id2)
     TextView mFenxiaoTitleId2;
     @Bind(R.id.phone_number_id)
-    EditText mPhoneNumberId;
+    TextView mPhoneNumberId;
     @Bind(R.id.paw_id)
     EditText mPawId;
     @Bind(R.id.new_psw_id)
@@ -79,9 +79,8 @@ public class SetPwdActivity extends BaseActicity {
         editor = preferences.edit();
         mUserId = preferences.getString("user_id", "");
         mPhone = preferences.getString("phone", "");
-        mFenxiaoTitleId2.setText("设置密码");
+        mFenxiaoTitleId2.setText("修改支付密码");
         mPhoneNumberId.setText(mPhone);
-        mPhoneNumberId.setEnabled(false);
         mPawId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         mPawId.setInputType(InputType.TYPE_CLASS_NUMBER);
         mNewPswId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});

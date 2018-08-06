@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
-                android:src="@drawable/collection"/>
+                android:src="@drawable/shoucang"/>
 
             <TextView
                 android:id="@+id/upgrade_tv_shoucang"
@@ -156,7 +156,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_dialog_300"
+                    android:layout_height="@dimen/sum_360"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"
@@ -180,6 +180,7 @@
                         android:paddingBottom="5dp"
                         android:layout_height="wrap_content"
                         android:lines="1"
+                        android:textSize="16sp"
                         android:ellipsize="end"
                         android:text="xxxxxxx"
                         android:textColor="@color/black"/>
@@ -214,7 +215,7 @@
                         android:layout_toRightOf="@+id/Details_zirmb_id"
                         android:text="@string/home_item_name2"
                         android:textColor="@color/gray_translucent"
-                        android:textSize="12sp"/>
+                        android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/Details_f_id"
@@ -245,9 +246,8 @@
                         android:layout_toRightOf="@+id/Details_murmb_id"
                         android:text="@string/home_item_name3"
                         android:layout_marginBottom="2dp"
-
                         android:textColor="@color/gray_translucent"
-                        android:textSize="12sp"/>
+                        android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/Details_tv_id"
@@ -283,10 +283,9 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/Details_tv_id"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_bg_rounded_greytwo"
                         android:padding="@dimen/sum_5"
                         android:text=""
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorred"
                         android:textSize="14sp"/>
                 </RelativeLayout>
 
@@ -341,7 +340,7 @@
                     android:background="@android:color/white"
                     app:tabIndicatorColor="@color/colorred"
                     app:tabSelectedTextColor="@color/colorred"
-                    app:tabTextColor="@color/black"/>
+                    app:tabTextColor="@color/text_gray"/>
 
                 <TextView
                     android:layout_width="match_parent"
