@@ -4,6 +4,8 @@ package com.linkhand.fenxiao.fragment.mineorder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,12 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yydcdut.sdlv.Menu;
+import com.yydcdut.sdlv.MenuItem;
+import com.yydcdut.sdlv.SlideAndDragListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +64,7 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
     @Bind(R.id.mine_llayout_gone_id1)
     LinearLayout mMineLlayoutGoneId1;
     @Bind(R.id.isPay_listview_id)
-    ListView mListView;
+    SlideAndDragListView mListView;
     @Bind(R.id.iswait_ll)
     LinearLayout mIswaitLl;
 
@@ -69,6 +76,7 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
     List<DingDanResponse.InfoBean> mlistBean;
     @Bind(R.id.smartRefresh)
     SmartRefreshLayout mSmartRefresh;
+    public int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,29 +101,32 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
             mMineLlayoutGoneId1.setVisibility(View.GONE);
         }
         mlistBean = new ArrayList<>();
-//        Menu menu = new Menu(false, 0);//第1个参数表示滑动 item 是否能滑的过头 true 表示过头，false 表示不过头
-//        menu.addItem(new MenuItem.Builder().setWidth(200)
-//                .setBackground(new ColorDrawable(Color.RED))
-//                .setText("删除")
-//                .setDirection(MenuItem.DIRECTION_RIGHT)
-//                .setTextColor(Color.WHITE)
-//                .setTextSize(20)
-//                .build());
-//        mListView.setMenu(menu);
-//        mListView.setOnMenuItemClickListener(new SlideAndDragListView.OnMenuItemClickListener() {
-//            @Override
-//            public int onMenuItemClick(View v, final int itemPosition, int buttonPosition, int direction) {
-//                switch (direction) {
-//                    case MenuItem.DIRECTION_RIGHT:
-//                        userDelete(mlistBean.get(itemPosition).getOrder_id());
-//                        break;
-//                    default:
-//                        return Menu.ITEM_NOTHING;
-//                }
-//                return Menu.ITEM_NOTHING;
-//            }
-//        });
-        onMessage(0);
+        Menu menu = new Menu(false, 0);//第1个参数表示滑动 item 是否能滑的过头 true 表示过头，false 表示不过头
+        menu.addItem(new MenuItem.Builder().setWidth(200)
+                .setBackground(new ColorDrawable(Color.RED))
+                .setText("删除")
+                .setDirection(MenuItem.DIRECTION_RIGHT)
+                .setTextColor(Color.WHITE)
+                .setTextSize(20)
+                .build());
+        mListView.setMenu(menu);
+        mListView.setOnMenuItemClickListener(new SlideAndDragListView.OnMenuItemClickListener() {
+            @Override
+            public int onMenuItemClick(View v, final int itemPosition, int buttonPosition, int direction) {
+                switch (direction) {
+                    case MenuItem.DIRECTION_RIGHT:
+                        userDelete(mlistBean.get(itemPosition).getOrder_id());
+                        break;
+                    default:
+                        return Menu.ITEM_NOTHING;
+                }
+                return Menu.ITEM_NOTHING;
+            }
+        });
+        mAdapter = new All0rderFragmentAdapter(IsWaitFragment.this.getActivity(), mlistBean);
+        mListView.setAdapter(mAdapter);
+        mAdapter.setOnIsWait(IsWaitFragment.this);
+        onMessage();
         mIswaitLl.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -130,8 +141,20 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
                 startActivity(intent);
             }
         });
-        mSmartRefresh.setEnableLoadmore(false);
-        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
 
     }
 
@@ -145,7 +168,8 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    onMessage(0);
+                    page=0;
+                    onMessage();
                 }
                 ToastUtil.showToast(IsWaitFragment.this.getActivity(), httpResponse.getSuccess());
             }
@@ -167,45 +191,43 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
     }
 
 
-    public void onMessage(final int isPass) {
+    public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "0");
+        map.put("pag",page);
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefresh.finishRefresh();
+                mSmartRefresh.finishLoadmore();
                 DingDanResponse feng = response.body();
-                Log.e("yh", feng + "");
                 int code = feng.getCode();
                 String success = feng.getSuccess();
                 if (code == 100) {
-                    mlistBean.clear();
-                    mlistBean.addAll(feng.getInfo());
-                    if (isPass == 0) {//0正常查   1更新数据
-                        mAdapter = new All0rderFragmentAdapter(IsWaitFragment.this.getActivity(), mlistBean);
-                        if (mListView != null) {
-                            mListView.setAdapter(mAdapter);
+                    if (page == 0) {
+                        mlistBean.clear();
+                        mlistBean.addAll(feng.getInfo());
+                    }else {
+                        for(DingDanResponse.InfoBean infoBean:feng.getInfo()){
+                            mlistBean.add(infoBean);
                         }
-                        mAdapter.setOnIsWait(IsWaitFragment.this);
-                    } else if (isPass == 1) {
-                        mAdapter.setData(mlistBean);
-                        mAdapter.notifyDataSetChanged();
                     }
                 } else {
-                    mlistBean.clear();
-                    mAdapter = new All0rderFragmentAdapter(IsWaitFragment.this.getActivity(), mlistBean);
-                    if (mListView != null) {
-                        mListView.setAdapter(mAdapter);
+                    if(page==0) {
+                        mlistBean.clear();
                     }
-                    mAdapter.setOnIsWait(IsWaitFragment.this);
                     Toast.makeText(IsWaitFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
                 }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
-
+                mSmartRefresh.finishRefresh();
+                mSmartRefresh.finishLoadmore();
+                ToastUtil.showToast(IsWaitFragment.this.getActivity(), "网络异常");
             }
         });
     }
@@ -224,7 +246,8 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
                 String success = feng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(IsWaitFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
-                    onMessage(0);//0正常查   1更新数据
+                    page=0;
+                    onMessage();
                 } else {
                     Toast.makeText(IsWaitFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
                 }
@@ -273,4 +296,11 @@ public class IsWaitFragment extends Fragment implements AllOrderInfo {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
+    }
+
+
 }

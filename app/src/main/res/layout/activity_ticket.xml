@@ -9,17 +9,17 @@
     android:orientation="vertical"
     tools:context="com.linkhand.fenxiao.activity.homepage.home.TicketActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
         android:layout_marginBottom="10dp"
         android:background="@color/gray_c"
-        android:gravity="center">
+        >
 
         <LinearLayout
             android:id="@+id/open_group_return_id"
             android:layout_width="@dimen/sum_50"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="@dimen/sum_20"
@@ -36,23 +36,34 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/sum_50"
-            android:layout_weight="1"
-            android:gravity="center"
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_5"
             android:text="@string/HomePage_name93"
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imgv_what"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/query"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorgraynessb">
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"

@@ -145,6 +145,7 @@
         android:id="@+id/upgrade_smart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorgraynessb"
         android:layout_above="@+id/detail_llayout_id"
         android:layout_below="@+id/detail_ll_title"
         >
@@ -166,7 +167,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_270"
+                    android:layout_height="@dimen/y540"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"

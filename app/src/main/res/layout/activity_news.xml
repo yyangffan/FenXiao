@@ -52,20 +52,21 @@
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/news_delete_all"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="@dimen/sum_10"
-            android:textColor="@color/black"
-            android:text="清空消息"/>
+            android:paddingRight="17dp"
+            android:paddingLeft="17dp"
+            android:src="@drawable/add"/>
 
     </RelativeLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
+        android:background="@color/colorgraynessb"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

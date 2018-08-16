@@ -92,7 +92,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/sum_50"
                 android:gravity="center"
-                android:text="充值/提现"
+                android:text="充值"
                 android:textColor="@color/title_tv_color"
                 android:textSize="@dimen/sum_20"/>
 
@@ -112,6 +112,7 @@
             android:id="@+id/mine_tabLayout_id4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@android:color/white"
             app:tabIndicatorColor="@color/colorred"
             app:tabSelectedTextColor="@color/colorred"

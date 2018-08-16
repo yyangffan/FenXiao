@@ -64,7 +64,7 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
     @Bind(R.id.approve_number)
     EditText mApproveNumber;//身份证号码
     @Bind(R.id.approve_phone)
-    EditText mApprovePhone;//手机号
+    TextView mApprovePhone;//手机号
     @Bind(R.id.approve_verify)
     EditText mApproveVerify;//验证码
     @Bind(R.id.approve_send)
@@ -129,7 +129,7 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
                     Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (s.length() != 11) {
-                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请输入11位有效手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 getCode(s);
@@ -161,6 +161,8 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
 
         if (name.equals("") || number.equals("") || phone.equals("") || imgv_over.equals("") || imgv_bot.equals("")) {
             Toast.makeText(this, "请填全信息", Toast.LENGTH_SHORT).show();
+        } else if (phone.length() != 11) {
+            ToastUtil.showToast(this, "请输入11位有效手机号");
         } else {
             if (code == null || code.equals("")) {
                 Toast.makeText(this, "请填写验证码", Toast.LENGTH_SHORT).show();
@@ -259,7 +261,8 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
             public void onClick(View v) {
                 PictureSelector.create(ApproveActivity.this)
                         .openCamera(PictureMimeType.ofImage())
-                        .enableCrop(true)
+//                        .enableCrop(true)
+                        .enableCrop(false)
                         .showCropFrame(true)
                         .showCropGrid(true)
                         .freeStyleCropEnabled(true)
@@ -276,7 +279,8 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
                         .maxSelectNum(1)
                         .isCamera(false)
                         .selectionMode(PictureConfig.SINGLE)
-                        .enableCrop(true)
+//                        .enableCrop(true)
+                        .enableCrop(false)
                         .showCropFrame(true)
                         .showCropGrid(true)
                         .freeStyleCropEnabled(true)
@@ -303,7 +307,7 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
-                if(pcfeng.getCode()==100){
+                if (pcfeng.getCode() == 100) {
                     if (mRunning) {
                     } else {
                         downTimer.start();
@@ -365,18 +369,24 @@ public class ApproveActivity extends BaseActicity implements View.OnClickListene
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     if (isWhat == 0) {
-                        RequestOptions requestOptions=new RequestOptions();
+                        RequestOptions requestOptions = new RequestOptions();
                         requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
-                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvOver);
-                        imgv_over = selectList.get(0).getCutPath();
+                        /*去掉了裁剪*/
+//                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvOver);
+//                        imgv_over = selectList.get(0).getCutPath();
+                        Glide.with(ApproveActivity.this).load(selectList.get(0).getPath()).apply(requestOptions).into(mApporveImgvOver);
+                        imgv_over = selectList.get(0).getPath();
                         mApproveTvOver.setVisibility(View.GONE);
                         mApporveImgvOver.setVisibility(View.VISIBLE);
                         Log.e(TAG, "onActivityResult: " + imgv_over);
                     } else {
-                        RequestOptions requestOptions=new RequestOptions();
+                        RequestOptions requestOptions = new RequestOptions();
                         requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
-                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvBot);
-                        imgv_bot = selectList.get(0).getCutPath();
+                        /*去掉了裁剪*/
+//                        Glide.with(ApproveActivity.this).load(selectList.get(0).getCutPath()).apply(requestOptions).into(mApporveImgvBot);
+//                        imgv_bot = selectList.get(0).getCutPath();
+                        Glide.with(ApproveActivity.this).load(selectList.get(0).getPath()).apply(requestOptions).into(mApporveImgvBot);
+                        imgv_bot = selectList.get(0).getPath();
                         Log.e(TAG, "onActivityResult: " + imgv_bot);
                         mApproveTvBot.setVisibility(View.GONE);
                         mApporveImgvBot.setVisibility(View.VISIBLE);

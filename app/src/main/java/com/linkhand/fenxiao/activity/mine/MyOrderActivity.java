@@ -10,20 +10,30 @@ import android.widget.ImageView;
 
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.dialog.EveryDialog;
+import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.fragment.mineorder.All0rderFragment;
 import com.linkhand.fenxiao.fragment.mineorder.IsAppraiseFragment;
 import com.linkhand.fenxiao.fragment.mineorder.IsPayFragment;
 import com.linkhand.fenxiao.fragment.mineorder.IsShippingFragment;
 import com.linkhand.fenxiao.fragment.mineorder.IsTheGoodsFragment;
 import com.linkhand.fenxiao.fragment.mineorder.IsWaitFragment;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyOrderActivity extends BaseActicity implements View.OnClickListener {
     List<Fragment> mList;
     TabLayout mTabLayout;
     ImageView mReturn;//返回
+    ImageView mimgv_what;
     int mClick;//点击数
 
     SharedPreferences preferences;
@@ -43,6 +53,7 @@ public class MyOrderActivity extends BaseActicity implements View.OnClickListene
 
     public void init() {
         mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id);
+        mimgv_what = (ImageView) findViewById(R.id.imgv_what);
         mReturn = (ImageView) findViewById(R.id.mine_return_id);
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -66,6 +77,7 @@ public class MyOrderActivity extends BaseActicity implements View.OnClickListene
 
     public void onClicks() {
         mReturn.setOnClickListener(this);
+        mimgv_what.setOnClickListener(this);
     }
 
     @Override
@@ -74,12 +86,51 @@ public class MyOrderActivity extends BaseActicity implements View.OnClickListene
             case R.id.mine_return_id://返回
                 this.finish();
                 break;
+            case R.id.imgv_what:
+                getMessage();
+                break;
         }
+    }
+
+    /*获取说明内容*/
+    public void getMessage() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("get_type", "7");
+        Call<HttpResponse> call = service.getDescGet(map);
+        call.enqueue(new Callback<HttpResponse>() {
+            @Override
+            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
+                HttpResponse httpResponse = response.body();
+                if (httpResponse.getCode() == 100) {
+                    new EveryDialog().showRemind(MyOrderActivity.this, "（不在提示）", "确定", "说明", httpResponse.getInfo(), new EveryDialog.OnTvClickListener() {
+                        @Override
+                        public void OnSureClickListener() {
+                            editor.putBoolean("pintuan_show",false).commit();
+                        }
+                    });
+
+                } else {
+                    ToastUtil.showToast(MyOrderActivity.this, httpResponse.getSuccess());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HttpResponse> call, Throwable t) {
+                ToastUtil.showToast(MyOrderActivity.this, "网络异常");
+            }
+        });
     }
 
     public void onTabLayout() {
         //获取点击那个
         mClick = preferences.getInt("isClick", 0);
+        if(mClick==2){
+            if(preferences.getBoolean("pintuan_show",true)) {
+                getMessage();
+            }
+            mimgv_what.setVisibility(View.VISIBLE);
+        }
 //        if (mClick == 0) {//全部
         getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, mList.get(mClick)).commit();
         mTabLayout.getTabAt(mClick).select();
@@ -91,6 +142,14 @@ public class MyOrderActivity extends BaseActicity implements View.OnClickListene
                 //存入mAllPartTime判断点击哪个
                 editor.putInt("isClick", position);
                 editor.commit();
+                if(position==2){
+                    if(preferences.getBoolean("pintuan_show",true)) {
+                        getMessage();
+                    }
+                    mimgv_what.setVisibility(View.VISIBLE);
+                }else {
+                    mimgv_what.setVisibility(View.GONE);
+                }
                 getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, fragment).commit();
             }
 
@@ -110,12 +169,15 @@ public class MyOrderActivity extends BaseActicity implements View.OnClickListene
     protected void onRestart() {
         super.onRestart();
         if (mAll0rderFragment != null && mAll0rderFragment.isVisible()) {
+            mAll0rderFragment.page=0;
             mAll0rderFragment.onMessage();
         }
         if (mIsWaitFragment != null && mIsWaitFragment.isVisible()) {
-            mIsWaitFragment.onMessage(0);
+            mIsWaitFragment.page=0;
+            mIsWaitFragment.onMessage();
         }
         if (mIsAppraiseFragment != null && mIsAppraiseFragment.isVisible()) {
+            mIsAppraiseFragment.page=0;
             mIsAppraiseFragment.onMessage();
         }
     }

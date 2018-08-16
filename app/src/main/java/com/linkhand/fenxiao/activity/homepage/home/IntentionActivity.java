@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,12 +16,15 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.home.IntentionAdapter;
+import com.linkhand.fenxiao.dialog.EveryDialog;
 import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.feng.ReturnFeng;
+import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.IntentionGoods;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.DetailsInfo;
+import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
@@ -35,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class IntentionActivity extends BaseActicity implements DetailsInfo, View.OnClickListener {
+    ImageView mtv_what;
     ListView mListView;
     SmartRefreshLayout mSmartRefreshLayout;
     LinearLayout mReturn;//返回
@@ -53,9 +58,13 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         initRetrofit();
         onClicks();
         onMessage(0);//0正常查   1更新数据
+        if (preferences.getBoolean("yixiang_show", true)) {
+            getMessage();
+        }
     }
 
     public void init() {
+        mtv_what = (ImageView) findViewById(R.id.intention_tv_what);
         mListView = (ListView) findViewById(R.id.intention_lv_id);
         mSmartRefreshLayout = (SmartRefreshLayout) findViewById(R.id.smartRefresh);
         mSmartRefreshLayout.setEnableRefresh(false);
@@ -66,6 +75,7 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         mUserId = preferences.getString("user_id", "");
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         mReturn.setOnClickListener(this);
+        mtv_what.setOnClickListener(this);
     }
 
     public void onClicks() {
@@ -81,8 +91,42 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
             case R.id.intention_return_id:
                 this.finish();
                 break;
+            case R.id.intention_tv_what:/*弹出说明提示窗*/
+                getMessage();
+                break;
         }
     }
+
+    /*获取说明内容*/
+    public void getMessage() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("get_type", "5");
+        Call<HttpResponse> call = service.getDescGet(map);
+        call.enqueue(new Callback<HttpResponse>() {
+            @Override
+            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
+                HttpResponse httpResponse = response.body();
+                if (httpResponse.getCode() == 100) {
+                    new EveryDialog().showRemind(IntentionActivity.this, "（不在提示）", "确定", "说明", httpResponse.getInfo(), new EveryDialog.OnTvClickListener() {
+                        @Override
+                        public void OnSureClickListener() {
+                            editor.putBoolean("yixiang_show", false).commit();
+                        }
+                    });
+
+                } else {
+                    ToastUtil.showToast(IntentionActivity.this, httpResponse.getSuccess());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HttpResponse> call, Throwable t) {
+                ToastUtil.showToast(IntentionActivity.this, "网络异常");
+            }
+        });
+    }
+
 
     public void onMessage(final int isPass) {
         Map<String, Object> map = new HashMap<>();
@@ -191,6 +235,7 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
         MyDialogVip dialog = new MyDialogVip(this);
         dialog.show();
     }
+
     public void onApprove() {//实名认证
         MyDialogApprove dialog = new MyDialogApprove(this);
         dialog.show();
@@ -200,6 +245,12 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
     protected void onStart() {
         super.onStart();
         onMessage(0);//0正常查   1更新数据
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
     }
 
     @Override
@@ -231,7 +282,7 @@ public class IntentionActivity extends BaseActicity implements DetailsInfo, View
                     } else if (is_have.equals("0")) {
                         onOrder(idea_id);//立即订购
                     }
-                } else{
+                } else {
                     onIsLoginVip();//购买vip
                 }
             }

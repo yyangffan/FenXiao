@@ -104,6 +104,15 @@ public class LoginFeng {
         private String is_real;
         private String old_token;
         private String new_token;
+        private String user_pay_pwd;
+
+        public String getUser_pay_pwd() {
+            return user_pay_pwd;
+        }
+
+        public void setUser_pay_pwd(String user_pay_pwd) {
+            this.user_pay_pwd = user_pay_pwd;
+        }
 
         public String getNew_token() {
             return new_token;

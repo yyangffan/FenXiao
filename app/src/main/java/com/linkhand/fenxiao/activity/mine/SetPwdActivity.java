@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -83,8 +84,10 @@ public class SetPwdActivity extends BaseActicity {
         mPhoneNumberId.setText(mPhone);
         mPawId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         mPawId.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mPawId.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mNewPswId.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         mNewPswId.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mNewPswId.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
 
     @OnClick({R.id.fenxiao_return_id2, R.id.fenxiao_psw_confirm_id, R.id.send_sum_id})
@@ -198,6 +201,8 @@ public class SetPwdActivity extends BaseActicity {
                 int code = pcfeng.getCode();
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
+                    editor.putString("pay_pwd", "1"); /*密码设置成功*/
+                    editor.commit();
                     Toast.makeText(SetPwdActivity.this, success, Toast.LENGTH_SHORT).show();
                     SetPwdActivity.this.finish();
 //                    new ShowRemindDialog().showRemind(SetPwdActivity.this, "好的", "", "提示", success, R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {

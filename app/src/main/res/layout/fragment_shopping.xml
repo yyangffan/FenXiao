@@ -42,6 +42,7 @@
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorgraynessb"
         android:layout_above="@+id/shopping_return_id3"
         android:layout_below="@+id/shopping_title_llayout">
 
@@ -155,7 +156,7 @@
 
             <TextView
                 android:id="@+id/shopping_rmb_id"
-                android:minWidth="80dp"
+                android:minWidth="120dp"
                 android:gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

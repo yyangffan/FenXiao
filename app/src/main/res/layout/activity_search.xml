@@ -6,7 +6,7 @@
     android:id="@+id/activity_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_ffour"
+    android:background="@color/colorgraynessb"
     android:orientation="vertical"
     tools:context="com.linkhand.fenxiao.activity.homepage.home.SearchActivity">
 
@@ -113,5 +113,5 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:background="@color/white"/>
+       />
 </LinearLayout>

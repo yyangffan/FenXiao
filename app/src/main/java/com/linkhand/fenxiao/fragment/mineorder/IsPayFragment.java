@@ -29,6 +29,9 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,9 +59,10 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
     ImageView mReturn;//返回
     LinearLayout mLinearLayout;//标题
     LinearLayout mll;
-    SmartRefreshLayout mSmartRefreshLayout;
     InfoData service;
     private List<DingDanResponse.InfoBean> mListBean;
+    SmartRefreshLayout mSmartRefreshLayout;
+    private int page = 0;
 
 
     @Override
@@ -68,7 +72,7 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
         init(v);
         onClicks();
         initRetrofit();
-        onMessage(0);//0正常查   1更新数据
+        onMessage();
         return v;
     }
 
@@ -79,18 +83,16 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
         mLinearLayout = (LinearLayout) v.findViewById(R.id.mine_llayout_gone_id1);
         mReturn = (ImageView) v.findViewById(R.id.mine_return_id2);
         mll = (LinearLayout) v.findViewById(R.id.ispay_ll);
-        mSmartRefreshLayout= (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
+        mSmartRefreshLayout = (SmartRefreshLayout) v.findViewById(R.id.smartRefresh);
         preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        //存入返回判断  1不提示
-        editor.putString("keyDown", "1");
+        editor.putString("keyDown", "1");  //存入返回判断  1不提示
         editor.commit();
-        //获取个人id
         mUserId = preferences.getString("user_id", "");
-        Log.e("yh", "mUserId--" + mUserId);
-        //获取订单标题是否隐藏  0不隐藏（单个订单）  1隐藏（全部订单）
-        int mIsOk = preferences.getInt("isTitles", 0);
-        Log.e("yh", "mIsOk--" + mIsOk);
+        int mIsOk = preferences.getInt("isTitles", 0);  //获取订单标题是否隐藏  0不隐藏（单个订单）  1隐藏（全部订单）
+        mAdapter = new All0rderFragmentAdapter(IsPayFragment.this.getActivity(), mListBean);
+        mListView.setAdapter(mAdapter);
+        mAdapter.setOnGroupItemClicks(IsPayFragment.this);
         if (mIsOk == 1) {
             mLinearLayout.setVisibility(View.GONE);
         }
@@ -100,8 +102,20 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
                 return true;
             }
         });
-        mSmartRefreshLayout.setEnableLoadmore(false);
-        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
     }
 
     public void onClicks() {
@@ -127,7 +141,8 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    onMessage(0);
+                    page=0;
+                    onMessage();
                 }
                 ToastUtil.showToast(IsPayFragment.this.getActivity(), httpResponse.getSuccess());
             }
@@ -139,41 +154,41 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
         });
     }
 
-    public void onMessage(final int isPass) {
+    public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "1");
+        map.put("pag", page);
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 DingDanResponse feng = response.body();
-                Log.e("yh", feng + "");
                 int code = feng.getCode();
                 if (code == 100) {
-                    mListBean = feng.getInfo();
-                    if (isPass == 0) {//0正常查   1更新数据
-                        mAdapter = new All0rderFragmentAdapter(IsPayFragment.this.getActivity(), mListBean);
-                        if (mListView != null) {
-                            mListView.setAdapter(mAdapter);
+                    if (page == 0) {
+                        mListBean.clear();
+                        mListBean.addAll(feng.getInfo());
+                    } else {
+                        for (DingDanResponse.InfoBean infoBean : feng.getInfo()) {
+                            mListBean.add(infoBean);
                         }
-                        mAdapter.setOnGroupItemClicks(IsPayFragment.this);
-                    } else if (isPass == 1) {
-                        mAdapter.setData(mListBean);
-                        mAdapter.notifyDataSetChanged();
                     }
-
                 } else {
-                    if (mListView != null) {
-                        mAdapter = new All0rderFragmentAdapter(IsPayFragment.this.getActivity(), new ArrayList<DingDanResponse.InfoBean>());
-                        mListView.setAdapter(mAdapter);
+                    if (page == 0) {
+                        mListBean.clear();
                     }
                     Toast.makeText(IsPayFragment.this.getActivity(), feng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 ToastUtil.showToast(IsPayFragment.this.getActivity(), "网络异常");
             }
         });
@@ -195,7 +210,8 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
                 String success = feng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(IsPayFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
-                    onMessage(1);//0正常查   1更新数据
+                    page=0;
+                    onMessage();
                 } else {
                     Toast.makeText(IsPayFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
                 }
@@ -269,4 +285,10 @@ public class IsPayFragment extends BaseFragment implements View.OnClickListener,
             }
         });
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
+    }
+
 }

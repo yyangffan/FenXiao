@@ -85,8 +85,10 @@ public class CurrencyAdapter extends BaseAdapter {
 
             if (user_id.equals("0")) {//发布者id  0为官方
                 holder.mIsOneself.setText("官方出售");
+                holder.mSurplus.setVisibility(View.INVISIBLE);
             } else {
                 holder.mIsOneself.setText("个人：" + user_name);
+                holder.mSurplus.setVisibility(View.VISIBLE);
             }
             preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
             editor = preferences.edit();
@@ -97,7 +99,7 @@ public class CurrencyAdapter extends BaseAdapter {
             holder.mNumberMoney.setText(curr_son_money);
             holder.mNumberZi.setText(Son_name);
             holder.mNumberSell.setText("/" + Mater_name + "单价");
-            holder.mSurplus.setText("剩余" + (int) Double.parseDouble(curr_mater_num) + Mater_name);
+            holder.mSurplus.setText("剩余" + curr_mater_num + Mater_name);
             if (user_id.equals(mUserId)) {
                 holder.mCurrency.setText("撤销");
             } else {

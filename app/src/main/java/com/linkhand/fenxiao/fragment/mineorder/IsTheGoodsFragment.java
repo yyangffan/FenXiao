@@ -31,6 +31,9 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +66,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
     private AlertDialog mTh_dialog;
     private String order_id = "";//进行退货时的id
     SmartRefreshLayout mSmartRefreshLayout;
+    private int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +75,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
         init(v);
         onClicks();
         initRetrofit();
-        onMessage(0);//0正常查   1更新数据
+        onMessage();
         configReasonDialog();
         return v;
     }
@@ -136,8 +140,20 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
 //            }
 //        });
         mListView.setAdapter(mAdapter);
-        mSmartRefreshLayout.setEnableLoadmore(false);
-        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
     }
 
     /*删除订单*/
@@ -150,7 +166,8 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    onMessage(0);
+                    page=0;
+                    onMessage();
                 }
                 ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(), httpResponse.getSuccess());
             }
@@ -161,6 +178,7 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
             }
         });
     }
+
     public void onClicks() {
         mReturn.setOnClickListener(this);
     }
@@ -228,7 +246,8 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
-                    onMessage(0);
+                    page=0;
+                    onMessage();
                 }
                 ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(), httpResponse.getSuccess());
             }
@@ -240,35 +259,42 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
         });
     }
 
-    public void onMessage(final int isPass) {
+    public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "3");
+        map.put("pag",page);
 
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 DingDanResponse feng = response.body();
                 int code = feng.getCode();
                 if (code == 100) {
-                    if (isPass == 0) {//0正常查   1更新数据
+                    if(page==0) {
                         mListBean.clear();
                         mListBean.addAll(feng.getInfo());
-                        mAdapter.notifyDataSetChanged();
-                    } else if (isPass == 1) {
-                        mAdapter.setData(mListBean);
-                        mAdapter.notifyDataSetChanged();
+                    }else {
+                        for(DingDanResponse.InfoBean infoBean:feng.getInfo()){
+                            mListBean.add(infoBean);
+                        }
                     }
                 } else {
-                    mListBean.clear();
-                    mAdapter.notifyDataSetChanged();
-                    ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(),feng.getSuccess());
+                    if(page==0) {
+                        mListBean.clear();
+                    }
+                    ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(), feng.getSuccess());
                 }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 ToastUtil.showToast(IsTheGoodsFragment.this.getActivity(), "网络异常");
             }
         });
@@ -288,7 +314,8 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
                 String success = feng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(IsTheGoodsFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
-                    onMessage(0);//0正常查   1更新数据
+                    page=0;
+                    onMessage();
                 } else {
                     Toast.makeText(IsTheGoodsFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
                 }
@@ -362,6 +389,11 @@ public class IsTheGoodsFragment extends BaseFragment implements View.OnClickList
                 return false;
             }
         });
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
     }
 
 }

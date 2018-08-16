@@ -93,7 +93,16 @@ public class DingDanResponse {
         private int order_del;
         private int order_quit;
         private String img_url;
+        private String state_str;
         private List<SpeciBean> speci;
+
+        public String getState_str() {
+            return state_str;
+        }
+
+        public void setState_str(String state_str) {
+            this.state_str = state_str;
+        }
 
         public String getOrder_id() {
             return order_id;

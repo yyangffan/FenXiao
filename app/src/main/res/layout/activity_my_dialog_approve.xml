@@ -25,7 +25,7 @@
         android:paddingBottom="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
         android:text="该操作需要进行实名认证"
-        android:textColor="@color/gray_text"/>
+        android:textColor="@color/black"/>
 
 
     <View

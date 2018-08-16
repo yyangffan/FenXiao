@@ -8,14 +8,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +30,9 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -64,9 +65,8 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
     LinearLayout mll;
     InfoData service;
     private List<DingDanResponse.InfoBean> mListBean;
-    private AlertDialog mTh_dialog;
-    private String order_id = "";//进行退货时的id
     SmartRefreshLayout mSmartRefreshLayout;
+    public int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +76,6 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
         onClicks();
         initRetrofit();
         onMessage();
-        configReasonDialog();
         return v;
     }
 
@@ -133,15 +132,21 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
             }
         });
         mListView.setAdapter(mAdapter);
-        mAdapter.setOnTuiHListener(new All0rderFragmentAdapter.OnTuiHListener() {
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void OnTuiHListener(int position) {
-                mTh_dialog.show();
-                order_id = mListBean.get(position).getOrder_id();
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
             }
         });
-        mSmartRefreshLayout.setEnableLoadmore(false);
-        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
+
     }
 
     /*删除订单*/
@@ -154,6 +159,7 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
+                    page = 0;
                     onMessage();
                 }
                 ToastUtil.showToast(IsAppraiseFragment.this.getActivity(), httpResponse.getSuccess());
@@ -179,98 +185,45 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    public void configReasonDialog() {
-        mTh_dialog = new AlertDialog.Builder(this.getActivity()).create();
-        View v = LayoutInflater.from(this.getActivity()).inflate(R.layout.dialog_liuyan, null);
-
-        TextView mtv_title = (TextView) v.findViewById(R.id.dialog_liuyan_title);
-        final EditText medt = (EditText) v.findViewById(R.id.dialog_liuyan_edt);
-        TextView mtv_cancel = (TextView) v.findViewById(R.id.dialog_liuyan_cancel);
-        TextView mtv_sure = (TextView) v.findViewById(R.id.dialog_liuyan_commit);
-        ImageView mimgv = (ImageView) v.findViewById(R.id.dialog_liuyan_imgv);
-        mTh_dialog.setView(v);
-        mTh_dialog.setCanceledOnTouchOutside(false);
-        mtv_title.setText("退货");
-        medt.setHint("请填写退货理由...");
-
-        mimgv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTh_dialog.dismiss();
-            }
-        });
-        mtv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTh_dialog.dismiss();
-            }
-        });
-        mtv_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String reason = medt.getText().toString();
-                if (reason != null && reason.length() != 0) {
-                    mTh_dialog.dismiss();
-                    toTuiH(reason);
-                } else {
-                    ToastUtil.showToast(IsAppraiseFragment.this.getActivity(), "请填写退货理由");
-                }
-
-            }
-        });
-    }
-
-    /*进行退货*/
-    public void toTuiH(String reason) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("order_id", order_id);
-        map.put("user_id", mUserId);
-        map.put("quit_text", reason);
-        Call<HttpResponse> call = service.getQuitOrder(map);
-        call.enqueue(new Callback<HttpResponse>() {
-            @Override
-            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
-                HttpResponse httpResponse = response.body();
-                if (httpResponse.getCode() == 100) {
-                    onMessage();
-                }
-                ToastUtil.showToast(IsAppraiseFragment.this.getActivity(), httpResponse.getSuccess());
-            }
-
-            @Override
-            public void onFailure(Call<HttpResponse> call, Throwable t) {
-                ToastUtil.showToast(IsAppraiseFragment.this.getActivity(), "网络异常");
-            }
-        });
-    }
-
 
     public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "4");
+        map.put("pag", page);
 
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 DingDanResponse feng = response.body();
-                Log.e("yh", feng + "");
                 int code = feng.getCode();
                 String success = feng.getSuccess();
                 if (code == 100) {
-                    mListBean.clear();
-                    mListBean.addAll(feng.getInfo());
-                    mAdapter.notifyDataSetChanged();
+                    if (page == 0) {
+                        mListBean.clear();
+                        mListBean.addAll(feng.getInfo());
+                    } else {
+                        for (DingDanResponse.InfoBean infoBean : feng.getInfo()) {
+                            mListBean.add(infoBean);
+                        }
+                    }
                 } else {
-                    mListBean.clear();
-                    mAdapter.notifyDataSetChanged();
+                    if (page == 0) {
+                        mListBean.clear();
+                    }
                     Toast.makeText(IsAppraiseFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
+
                 }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 Toast.makeText(IsAppraiseFragment.this.getActivity(), "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
@@ -341,6 +294,11 @@ public class IsAppraiseFragment extends BaseFragment implements View.OnClickList
                 return false;
             }
         });
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
     }
 
 }

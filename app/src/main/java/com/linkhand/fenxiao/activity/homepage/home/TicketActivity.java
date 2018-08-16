@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.TuanGRcAdapter;
+import com.linkhand.fenxiao.dialog.EveryDialog;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
+import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.fragment.DividerGridItemDecoration;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.util.OnItemClickListener;
@@ -50,6 +53,8 @@ public class TicketActivity extends BaseActicity {
     RecyclerView mTicketRecy;
     @Bind(R.id.smartRefresh)
     SmartRefreshLayout mSmartRefresh;
+    @Bind(R.id.imgv_what)
+    ImageView mImgvWhat;
 
     private List<GroupListFeng.InfoBean> mInfoBeanList;
     private TuanGRcAdapter mTuanGRcAdapter;
@@ -62,6 +67,9 @@ public class TicketActivity extends BaseActicity {
         ininEver();
         initView();
         onMessage();
+        if(preferences.getBoolean("fanquan_show",true)) {
+            getMessage();
+        }
     }
 
     public void ininEver() {
@@ -89,13 +97,46 @@ public class TicketActivity extends BaseActicity {
         mUserId = preferences.getString("user_id", "");
     }
 
-    @OnClick({R.id.open_group_return_id})
+    @OnClick({R.id.open_group_return_id,R.id.imgv_what})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.open_group_return_id:
                 this.finish();
                 break;
+            case R.id.imgv_what:
+                getMessage();
+                break;
         }
+    }
+
+    /*获取说明内容*/
+    public void getMessage() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("get_type", "3");
+        Call<HttpResponse> call = service.getDescGet(map);
+        call.enqueue(new Callback<HttpResponse>() {
+            @Override
+            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
+                HttpResponse httpResponse = response.body();
+                if (httpResponse.getCode() == 100) {
+                    new EveryDialog().showRemind(TicketActivity.this, "（不在提示）", "确定", "说明", httpResponse.getInfo(), new EveryDialog.OnTvClickListener() {
+                        @Override
+                        public void OnSureClickListener() {
+                            editor.putBoolean("fanquan_show",false).commit();
+                        }
+                    });
+
+                } else {
+                    ToastUtil.showToast(TicketActivity.this, httpResponse.getSuccess());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HttpResponse> call, Throwable t) {
+                ToastUtil.showToast(TicketActivity.this, "网络异常");
+            }
+        });
     }
 
     public void onMessage() {

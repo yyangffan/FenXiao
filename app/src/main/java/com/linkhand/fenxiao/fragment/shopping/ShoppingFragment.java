@@ -32,6 +32,7 @@ import com.linkhand.fenxiao.utils.MyListView;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,13 +103,14 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
     ShoppingNewAdapter mCancelAdapter;//失效商品
     private List<ShoppingCartListNewFeng.InfoBean> mNotCartBeen;//失效商品列表集合
     private String mCancel_ids;//失效商品id集合
+    private DecimalFormat mDecimalFormat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
         ButterKnife.bind(this, view);
-
+        mDecimalFormat = new DecimalFormat("0.00");
         mInfoBeen = new ArrayList<>();
         mNotCartBeen = new ArrayList<>();
         list_cancel = new ArrayList<>();
@@ -147,10 +149,10 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.shopping_all_rbtn_id://全选
-                if (mInfoBeen != null &&mInfoBeen.size()!=0&& list1 != null&&list1.size()!=0) {
+                if (mInfoBeen != null && mInfoBeen.size() != 0 && list1 != null && list1.size() != 0) {
                     onAllChoose();
-                }else {
-                    ToastUtil.showToast(this.getActivity(),"没有商品可选择");
+                } else {
+                    ToastUtil.showToast(this.getActivity(), "没有商品可选择");
                 }
                 break;
             case R.id.shopping_settlement_id://去结算
@@ -216,8 +218,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     int code = pcfeng.getCode();
                     if (code == 100) {
                         /*初始化全选按钮*/
-                        if(mRbtn!=null) {
-                            if(mBoolean) {
+                        if (mRbtn != null) {
+                            if(isPass!=1) {
                                 mRbtn.setImageResource(R.drawable.ovaltwo);
                             }
                         }
@@ -247,7 +249,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                                 mShoppingTitle.setText("购物车");
                             }
                         }
-                        if (isPass == 0) {//0正常查   1更新数据
+                        if (isPass == 0) {
                              /*未失效商品*/
                             list1 = new ArrayList<Map<String, Object>>();
                             for (int i = 0; i < mInfoBeen.size(); i++) {
@@ -280,7 +282,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                                 ShoppingCartListNewFeng.NotCartBean mCart = not_cart.get(i);
                                 ShoppingCartListNewFeng.InfoBean infobean = new ShoppingCartListNewFeng.InfoBean(mCart.getCart_id(), mCart.getGood_id(),
                                         mCart.getUser_id(), mCart.getSpeci_ids(), mCart.getCart_mater(), mCart.getCart_son(), mCart.getCart_num(), mCart.getCart_add_time(),
-                                        mCart.getCart_state(), mCart.getGood_name(), mCart.getGood_is_top(), mCart.getImg_url(), 0,mCart.getSpeci());
+                                        mCart.getCart_state(), mCart.getGood_name(), mCart.getGood_is_top(), mCart.getImg_url(), 0, mCart.getSpeci());
                                 mNotCartBeen.add(infobean);
                             }
 
@@ -293,7 +295,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                             mNewAdapter.setData(mInfoBeen);
                             mNewAdapter.notifyDataSetChanged();
                         }
-                        if(mAllRmb!=null) {
+                        if (mAllRmb != null) {
                             mAllRmb.setText("0" + Mater_name + "\n0" + Son_name);
                         }
                         onrmb();
@@ -341,13 +343,13 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     String mu = mInfoBeen.get(i).getCart_mater() + "";//母币
                     String zi = mInfoBeen.get(i).getCart_son() + "";//子币
                     double ints = Double.parseDouble(mu);
-                    double intszi =Double.parseDouble(zi);
+                    double intszi = Double.parseDouble(zi);
                     mRmbs = mRmbs + ints;
                     mRmbszi = mRmbszi + intszi;
                 }
             }
             if (mAllRmb != null) {
-                mAllRmb.setText(mRmbs + Mater_name + "\n" + mRmbszi + Son_name);
+                mAllRmb.setText(mDecimalFormat.format(mRmbs) + Mater_name + "\n" + mDecimalFormat.format(mRmbszi) + Son_name);
             }
         }
     }
@@ -362,7 +364,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                 for (int i = 0; i < list1.size(); i++) {
                     list1.get(i).put("is_selected", "2");//1选中   2未选中
                 }
-                if(mNewAdapter!=null) {
+                if (mNewAdapter != null) {
                     mNewAdapter.notifyDataSetChanged();
                 }
                 mRmbs = 0;
@@ -391,12 +393,12 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
             }
-            if(mNewAdapter!=null) {
+            if (mNewAdapter != null) {
                 mNewAdapter.notifyDataSetChanged();
             }
         }
         if (mAllRmb != null) {
-            mAllRmb.setText(mRmbs + Mater_name + "\n" + mRmbszi + Son_name);
+            mAllRmb.setText(mDecimalFormat.format(mRmbs) + Mater_name + "\n" + mDecimalFormat.format(mRmbszi) + Son_name);
         }
     }
 
@@ -423,7 +425,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
             if (sum == 0) {
                 mRmbs = 0;
                 mRmbszi = 0;
-                mAllRmb.setText(mRmbs + Mater_name + "\n" + mRmbszi + Son_name);
+                mAllRmb.setText(mDecimalFormat.format(mRmbs) + Mater_name + "\n" + mDecimalFormat.format(mRmbszi) + Son_name);
             }
         } else {
             mRbtn.setImageResource(R.drawable.ovaltwo);
@@ -567,6 +569,8 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
                     }
                     intent.putExtra("danhao", danhao_str.substring(1, danhao_str.length()));
                     startActivity(intent);
+                } else if (code == 309) {
+                    new ShowRemindDialog().showRemind(ShoppingFragment.this.getActivity(), "确定", "", "", pcfeng.getSuccess(), R.drawable.prompt, null);
                 } else {
                     Toast.makeText(ShoppingFragment.this.getActivity(), pcfeng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
@@ -627,7 +631,7 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
 
 
     @Override
-    public void onItemClicks(LinearLayout mLinearLayout, final Button jian, Button jia, final TextView num, View mSelected, ImageView mImageView, final List<Map<String, Object>> list,View ll) {
+    public void onItemClicks(LinearLayout mLinearLayout, final Button jian, Button jia, final TextView num, View mSelected, ImageView mImageView, final List<Map<String, Object>> list, View ll) {
         ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -653,14 +657,14 @@ public class ShoppingFragment extends BaseFragment implements View.OnClickListen
 //                        String zi = beanLists.get(position).getCart_son() + "";//子币
                         String mu = mInfoBeen.get(position).getCart_mater() + "";//母币
                         String zi = mInfoBeen.get(position).getCart_son() + "";//子币
-                        double ints =  Double.parseDouble(mu);
-                        double intszi =Double.parseDouble(zi);
+                        double ints = Double.parseDouble(mu);
+                        double intszi = Double.parseDouble(zi);
                         mRmbs = mRmbs + ints;
                         mRmbszi = mRmbszi + intszi;
                     }
                     mNewAdapter.notifyDataSetChanged();
                     onCheckeds();//判断选中的是否是全部
-                    mAllRmb.setText(mRmbs + Mater_name + "\n" + mRmbszi + Son_name);
+                    mAllRmb.setText(mDecimalFormat.format(mRmbs) + Mater_name + "\n" + mDecimalFormat.format(mRmbszi) + Son_name);
                 }
 
             }

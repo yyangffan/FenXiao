@@ -167,7 +167,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/colorgraynessb"/>
+                            android:background="@color/colorgraynessd"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_two"
@@ -200,7 +200,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/colorgraynessb"/>
+                            android:background="@color/colorgraynessd"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_three"
@@ -233,7 +233,7 @@
                             android:layout_width="1dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_vertical"
-                            android:background="@color/colorgraynessb"/>
+                            android:background="@color/colorgraynessd"/>
 
                         <LinearLayout
                             android:id="@+id/mine_ll_four"
@@ -586,7 +586,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/mine_fram_six"
                             android:layout_centerHorizontal="true"
-                            android:text="退货/售后"
+                            android:text="售后"
                             android:textColor="@color/gray_translucent"
                             android:textSize="12sp"/>
                     </RelativeLayout>

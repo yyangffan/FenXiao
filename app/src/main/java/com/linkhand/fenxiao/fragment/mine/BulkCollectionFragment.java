@@ -25,6 +25,7 @@ import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.mine.CollectionFeng;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.CollectionInfo;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,11 +43,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BulkCollectionFragment extends BaseFragment  implements  CollectionInfo {
+public class BulkCollectionFragment extends BaseFragment implements CollectionInfo {
 
 
     @Bind(R.id.collection_listview)
     ListView mListView;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
+
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
@@ -70,6 +74,8 @@ public class BulkCollectionFragment extends BaseFragment  implements  Collection
     }
 
     public void initView() {
+        mSmartRefresh.setEnableRefresh(false);
+        mSmartRefresh.setEnableLoadmore(false);
         preferences = BulkCollectionFragment.this.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //获取个人id
@@ -77,7 +83,7 @@ public class BulkCollectionFragment extends BaseFragment  implements  Collection
         Log.e("yh", "mUserId--" + mUserId);
     }
 
-    public void onMessage(final int isPass){
+    public void onMessage(final int isPass) {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("type", "1");//1:团购 2：意向
@@ -93,7 +99,7 @@ public class BulkCollectionFragment extends BaseFragment  implements  Collection
                     List<CollectionFeng.InfoBean> beanList = pcfeng.getInfo();
                     if (isPass == 0) {//0正常查   1更新数据
                         mAdapter = new GroupCollectionAdapter(BulkCollectionFragment.this.getActivity(), beanList);
-                        if(mListView!=null){
+                        if (mListView != null) {
                             mListView.setAdapter(mAdapter);
                             mAdapter.setOnItemClicks(BulkCollectionFragment.this);
                         }
@@ -142,7 +148,7 @@ public class BulkCollectionFragment extends BaseFragment  implements  Collection
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("good_id", good_id);
-        map.put("type", 1);	//1:商品 2：意向
+        map.put("type", 1);    //1:商品 2：意向
         Call<ReturnFeng> call = service.getCancelCollection(map);
         call.enqueue(new Callback<ReturnFeng>() {
             @Override

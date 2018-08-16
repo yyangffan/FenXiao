@@ -23,13 +23,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toLeftOf="@+id/item_gongg_content"
-        app:layout_constraintTop_toBottomOf="@+id/item_gongg_content"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/text_gray"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/item_gongg_content"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/item_gongg_content"/>
 
     <TextView
         android:layout_width="0dp"

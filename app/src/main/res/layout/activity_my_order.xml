@@ -6,21 +6,22 @@
     android:id="@+id/activity_my_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorgraynessb"
+    android:orientation="vertical"
     tools:context="com.linkhand.fenxiao.activity.mine.MyOrderActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
         android:layout_marginBottom="1dp"
         android:background="@color/gray_c"
-        android:gravity="center">
+    >
 
         <ImageView
             android:id="@+id/mine_return_id"
             android:layout_width="@dimen/sum_20"
             android:layout_height="@dimen/sum_20"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/sum_3"
             android:layout_marginLeft="@dimen/sum_15"
             android:layout_marginTop="@dimen/sum_3"
@@ -29,10 +30,10 @@
 
         <TextView
             android:id="@+id/fenxiao_title_id"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/sum_35"
-            android:layout_weight="1"
             android:gravity="center"
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
@@ -40,7 +41,19 @@
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imgv_what"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/query"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/mine_tabLayout_id"

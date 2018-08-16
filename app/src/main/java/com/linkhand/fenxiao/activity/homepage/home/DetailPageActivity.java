@@ -31,6 +31,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.adapter.GoumaiXzAdapter;
 import com.linkhand.fenxiao.adapter.GradeRecyAdapter;
 import com.linkhand.fenxiao.adapter.home.DetailPageAdapter;
 import com.linkhand.fenxiao.adapter.home.GoodsDetailsAdapter;
@@ -42,6 +43,7 @@ import com.linkhand.fenxiao.dialog.DialogUpgradeVIP;
 import com.linkhand.fenxiao.dialog.MyDialogApprove;
 import com.linkhand.fenxiao.dialog.MyDialogVip;
 import com.linkhand.fenxiao.dialog.MyViewPagDialog;
+import com.linkhand.fenxiao.dialog.ShowRemindDialog;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.fenlei.Category;
 import com.linkhand.fenxiao.feng.home.GoodsDetailsFeng;
@@ -56,6 +58,7 @@ import com.linkhand.fenxiao.utils.MyRecycleView;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.youmeng.ShareUtils;
 import com.linkhand.fenxiao.views.MyWevClient;
+import com.luck.picture.lib.decoration.RecycleViewDivider;
 import com.luck.picture.lib.photoview.PhotoView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -100,6 +103,10 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     View vu;
     PopupWindow popupWindow;
     LinearLayout return_id1;//退出加入购物车的dialog
+    @Bind(R.id.jinpai)
+    LinearLayout mJinpai;
+    @Bind(R.id.goumaixianzhi_recy)
+    MyRecycleView mGoumaixianzhiRecy;
     private SmartRefreshLayout mSmartRefreshLayout;
     @Bind(R.id.wv)
     WebView mWv;
@@ -160,7 +167,6 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
     String mMoodId;//商品id
     List<Uri> list;
-    String[] titles = {"标题1", "标题2", "标题3", "标题4"};
     List<String> titleList;
 
     List<MyGoodsFeng> myList;
@@ -170,8 +176,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     String Mater_name = "母币";//母币名称
     String Son_name = "子币";//子币名称
     private String mShare_url = "";
-    private String share_title="";
-    private String share_content="";
+    private String share_title = "";
+    private String share_content = "";
     private int page = 0;
     private GradeRecyAdapter mGradeAdapter;
     private List<PinglunBean.InfoBean> mPingList;
@@ -179,6 +185,9 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     private String guige_imgv = "";
     String mUserIsVip; //是否vip  0否  1是
     private TextView mMtv_guigeXz;
+    private String mIsType = "";
+    private List<GoodsDetailsFeng.BuyRuleBean> mBuyRuleBeanList;
+    private GoumaiXzAdapter mGoumaiXzAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +202,16 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     }
 
     public void initView() {
+        mBuyRuleBeanList = new ArrayList<>();
+        mGoumaiXzAdapter = new GoumaiXzAdapter(this, mBuyRuleBeanList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mGoumaixianzhiRecy.setLayoutManager(linearLayoutManager);
+        mGoumaixianzhiRecy.addItemDecoration(new RecycleViewDivider(
+                this, LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.colorgraynessb)));
+
+        mGoumaixianzhiRecy.setAdapter(mGoumaiXzAdapter);
+
         mReturn = (LinearLayout) findViewById(R.id.home_return_id2);
         mShoppingCart = (TextView) findViewById(R.id.detail_shoppingcart_id);
         mPurchasing = (TextView) findViewById(R.id.detail_purchasing_id);
@@ -207,12 +226,17 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
-        mDetailsZibitext.setText(" "+Son_name);//子币
-        mDetailsMutext.setText(" "+Mater_name);//母币
+        mDetailsZibitext.setText(" " + Son_name);//子币
+        mDetailsMutext.setText(" " + Mater_name);//母币
         Intent intent = getIntent();
         if (intent != null) {
+            mIsType = intent.getStringExtra("is_type");//2为金牌专区  1为普通商品
             mMoodId = intent.getStringExtra("good_id"); //商品id
-            Log.e("yh", "mMoodId---" + mMoodId);
+            // TODO: 2018/8/11 等接口看啥样在展示出来
+            if (mIsType != null && mIsType.equals("2")) {
+                mJinpai.setVisibility(View.VISIBLE);
+            }
+
         }
         editor.remove("addressId").commit();
         mPingList = new ArrayList<>();
@@ -491,7 +515,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             public void onClick(View v) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
-                RequestOptions requestOptions=new RequestOptions();
+                RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 if (guige_imgv.equals("")) {
                     mdizhi.add(C.TU + bean.getImg().get(0).getImg_url());
@@ -577,7 +601,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 Log.e("yh", "specId--" + specId);
             }
         }
-        if(!guige.equals("")) {
+        if (!guige.equals("")) {
             mMtv_guigeXz.setText("已选择:" + guige);
         }
         onGoodsRMB(specId);//商品价格
@@ -612,7 +636,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
 
             @Override
             public void onFailure(Call<GoodsRMBFeng> call, Throwable t) {
-                ToastUtil.showToast(DetailPageActivity.this,"网络异常");
+                ToastUtil.showToast(DetailPageActivity.this, "网络异常");
             }
         });
     }
@@ -651,6 +675,15 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                         mUpgradeTvShoucang.setText("收藏");
                         mUpgradeTvShoucang.setTextColor(DetailPageActivity.this.getResources().getColor(R.color.text_gray));
                     }
+                    //g购买限制
+                    mBuyRuleBeanList.clear();
+                    mBuyRuleBeanList.addAll(pcfeng.getBuy_rule());
+                    mGoumaiXzAdapter.notifyDataSetChanged();
+                    String str = "";
+                    for (GoodsDetailsFeng.BuyRuleBean buybean : pcfeng.getBuy_rule()) {
+                        str = str + buybean.getRebate_name() + ",";
+
+                    }
                     mGoodsTitle.setText(good_name);
                     mGoodsZiRMB.setText(money_son);
                     mGoodsMuRMB.setText(money_mater);
@@ -661,8 +694,6 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     //产品参数
                     mParameterAdapter = new ParameterAdapter(DetailPageActivity.this, attrBeen);
                     mListview.setAdapter(mParameterAdapter);
-                    //图文详情
-                    Log.e("yh", "图文详情--" + good_content);
                     if (good_content != null) {
                         mWv.setWebViewClient(new MyWevClient());
                         mWv.getSettings().setJavaScriptEnabled(true);
@@ -699,8 +730,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                 ShareBean httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
                     mShare_url = httpResponse.getInfo().getLink();
-                    share_title=httpResponse.getInfo().getTitle();
-                    share_content=httpResponse.getInfo().getDesc();
+                    share_title = httpResponse.getInfo().getTitle();
+                    share_content = httpResponse.getInfo().getDesc();
                 }
             }
 
@@ -803,6 +834,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     intent.putExtra("danhao", danhao_str.substring(0, danhao_str.length() - 1));
                     startActivity(intent);
                     popupWindow.dismiss();
+                } else if (code == 309) {
+                    new ShowRemindDialog().showRemind(DetailPageActivity.this, "确定", "", "", pcfeng.getSuccess(), R.drawable.prompt, null);
                 } else {
                     ToastUtil.showToast(DetailPageActivity.this, pcfeng.getSuccess());
                 }
@@ -842,6 +875,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                     number = 1;
                     popupWindow.dismiss();
+                } else if (code == 309) {
+                    new ShowRemindDialog().showRemind(DetailPageActivity.this, "确定", "", "", success, R.drawable.prompt, null);
                 } else {
                     Toast.makeText(DetailPageActivity.this, success, Toast.LENGTH_SHORT).show();
                 }
@@ -972,7 +1007,7 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
             public void OnBannerClick(int position) {
                 List<View> mlist = new ArrayList<>();
                 List<String> mdizhi = new ArrayList<>();
-                RequestOptions requestOptions=new RequestOptions();
+                RequestOptions requestOptions = new RequestOptions();
                 requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
                 for (Map<String, Object> map : mMapList) {
                     PhotoView photoView = new PhotoView(DetailPageActivity.this);
@@ -1013,6 +1048,8 @@ public class DetailPageActivity extends BaseActicity implements View.OnClickList
     @Override
     protected void onRestart() {
         super.onRestart();
+        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        mUserIsVip = preferences.getString("userIsVip", "0");
         editor.remove("addressId").commit();
         number = 1;
     }

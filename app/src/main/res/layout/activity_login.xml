@@ -78,7 +78,7 @@
                 android:drawablePadding="10dp"
                 android:hint="请输入密码"
                 android:inputType="textPassword"
-                android:maxLength="16"
+                android:maxLength="20"
                 android:padding="@dimen/sum_10"
                 android:textColorHint="@color/colorgraynessd"
                 android:textSize="14sp"

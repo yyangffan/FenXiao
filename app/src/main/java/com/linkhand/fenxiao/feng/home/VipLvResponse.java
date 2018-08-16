@@ -221,6 +221,15 @@ public class VipLvResponse {
         private String num_state;
         private String city_str;
 
+        public UsedataBean(String uc_id, String use_name, String use_money, String num_state, String city_str,String use_img) {
+            this.uc_id = uc_id;
+            this.use_name = use_name;
+            this.use_money = use_money;
+            this.num_state = num_state;
+            this.city_str = city_str;
+            this.use_img = use_img;
+        }
+
         public String getUc_id() {
             return uc_id;
         }

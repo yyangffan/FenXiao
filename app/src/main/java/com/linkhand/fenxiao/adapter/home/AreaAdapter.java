@@ -11,7 +11,6 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.MyVipActivity;
 import com.linkhand.fenxiao.activity.homepage.home.ShippingAddressActivity;
 import com.linkhand.fenxiao.activity.homepage.home.UpdateAddressActivity;
-import com.linkhand.fenxiao.activity.homepage.home.VipSearchActivity;
 import com.linkhand.fenxiao.feng.home.CityFeng;
 import com.linkhand.fenxiao.info.callback.AreaInfo;
 
@@ -28,7 +27,6 @@ public class AreaAdapter extends BaseAdapter {
     Context context;
     List<CityFeng.InfoBean> mBeanList;
     AreaInfo mAreaInfo;
-    private VipSearchActivity mOnAreaClicks;
 
     public AreaAdapter(Context context, List<CityFeng.InfoBean> mBeanList) {
         this.context = context;
@@ -92,9 +90,6 @@ public class AreaAdapter extends BaseAdapter {
         this.mAreaInfo = mAreaInfo;
     }
 
-    public void setOnAreaClicks(VipSearchActivity onAreaClicks) {
-        mAreaInfo = onAreaClicks;
-    }
 
 
     private class ViewHolder {

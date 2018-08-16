@@ -55,10 +55,10 @@ public class ShowRemindDialog {
                 dialog.dismiss();
             }
         });
-        if (rightContent.equals("")) {
+        if (leftContent.equals("")) {
             mtv_cancle.setVisibility(View.GONE);
         }
-        if (leftContent.equals("")) {
+        if (rightContent.equals("")) {
             mtv_sure.setVisibility(View.GONE);
         }
         mtv_note.setText(content);

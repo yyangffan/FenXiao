@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,10 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +37,13 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.BuildConfig;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.activity.homepage.home.ApproveActivity;
 import com.linkhand.fenxiao.dialog.MyDialogPerfect;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.mine.PersonalMessageFeng;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.utils.ClipImageActivity;
+import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.utils.util.FileUtil;
 import com.linkhand.fenxiao.utils.view.CircleImageView;
 
@@ -101,26 +106,21 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
     ImageView mMingTvBot;
     @Bind(R.id.mine_imgv_bot)
     ImageView mMineImgvBot;
+    @Bind(R.id.mine_rel_over)
+    RelativeLayout mMineRelOver;
+    @Bind(R.id.mine_rel_bot)
+    RelativeLayout mMineRelBot;
 
     InfoData service;
     OkHttpClient mOkHttpClient;
-    //上传图片
-    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("multipart/form-data");
-    //请求相机
-    private static final int REQUEST_CAPTURE = 100;
-    //请求相册
-    private static final int REQUEST_PICK = 101;
-    //请求截图
-    private static final int REQUEST_CROP_PHOTO = 102;
-    //请求访问外部存储
-    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 103;
-    //请求写入外部存储
-    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 104;
-
-    //调用照相机返回图片文件
-    private File tempFile;
-    // 1: qq（圆形CircleImageView）, 2: weixin（矩形ImageView）
-    private int type;
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("multipart/form-data"); //上传图片
+    private static final int REQUEST_CAPTURE = 100;//请求相机
+    private static final int REQUEST_PICK = 101;    //请求相册
+    private static final int REQUEST_CROP_PHOTO = 102; //请求截图
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 103; //请求访问外部存储
+    private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 104; //请求写入外部存储
+    private File tempFile;//调用照相机返回图片文件
+    private int type;// 1: qq（圆形CircleImageView）, 2: weixin（矩形ImageView）
     String myLogo = "";//返回的logo
     String myLQYTu = "";//返回的企业图片
     String mYuPathQQ = "";
@@ -153,6 +153,8 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
         mReturn.setOnClickListener(this);//返回
         mWxLlayout.setOnClickListener(this);//微信绑定
         mRealLlayout.setOnClickListener(this);//真实姓名
+        mMineRelOver.setOnClickListener(this);//
+        mMineRelBot.setOnClickListener(this);//
     }
 
     @Override
@@ -167,19 +169,25 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
                 requestPower();
                 break;
             case R.id.mine_llayout_name_id://昵称
-                onUpdateName(1,mTvName.getText().toString());//1 修改昵称    2修改手机号  3修改身份证号码
-                break;
-            case R.id.mine_llayout_realname_id://修改真实姓名
-//                onUpdateName(4);//1 修改昵称    2修改手机号  3修改身份证号码  4修改真实姓名
+                onUpdateName(1, mTvName.getText().toString());//1 修改昵称    2修改手机号  3修改身份证号码
                 break;
             case R.id.mine_llayout_phone_id://手机号  不可修改
 //                onUpdateName(2);//1 修改昵称    2修改手机号  3修改身份证号码
                 break;
-            case R.id.mine_llayout_number_id://身份证号码
-//                onUpdateName(3);//1 修改昵称    2修改手机号  3修改身份证号码
-                break;
             case R.id.mine_llayout_wx_id://微信绑定
 //                Toast.makeText(this, "微信绑定", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mine_llayout_number_id:/*进行身份认证*/
+            case R.id.mine_llayout_realname_id:
+            case R.id.mine_rel_over:
+            case R.id.mine_rel_bot:
+                if (mUserReal.equals("0")) {//是否认证  0否  1是
+                    Intent intent = new Intent(this, ApproveActivity.class);
+                    startActivity(intent);
+                    return;
+                } else {
+                    ToastUtil.showToast(this, "您已通过认证");
+                }
                 break;
 
         }
@@ -198,7 +206,7 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
     }
 
 
-    public void onUpdateName(final int i,String user_name) {//1 修改名称    2修改手机号  3修改身份证号码  4修改真实姓名
+    public void onUpdateName(final int i, String user_name) {//1 修改名称    2修改手机号  3修改身份证号码  4修改真实姓名
         final MyDialogPerfect dialog = new MyDialogPerfect(PersonalDataActivity.this, i);
 //        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
         dialog.show();
@@ -207,6 +215,13 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
         final EditText minput = (EditText) dialog.findViewById(R.id.dialog_input);
         minput.setText(user_name);
         final EditText minputTwo = (EditText) dialog.findViewById(R.id.dialog_input_identity);//身份证号码
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showKeyboard(minput);
+            }
+        },300);
+
         mDialogLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +243,22 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
             }
         });
     }
-
+    //弹出软键盘
+    public void showKeyboard(EditText editText) {
+        //其中editText为dialog中的输入框的 EditText
+        if(editText!=null){
+            //设置可获得焦点
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            //请求获得焦点
+            editText.requestFocus();
+            editText.setCursorVisible(true);
+            editText.setSelection(editText.getText().toString().length());
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager) PersonalDataActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(editText, 0);
+        }
+    }
 
 //头像获取----------------------
 
@@ -496,8 +526,8 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
         });
     }
 
-
-    public void onMessage() {//获取信息
+    /*获取信息*/
+    public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);//会员id
         Call<PersonalMessageFeng> call = service.getInformation(map);
@@ -529,7 +559,7 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
                     if (mRealname != null) {
                         mRealname.setText(real_name);
                     }
-                    if(mWxText!=null){
+                    if (mWxText != null) {
                         mWxText.setText(mBean.getWx_name());
                     }
                     if (user_before_card != null && !user_before_card.equals("")) {
@@ -548,7 +578,7 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
                     } else {
                         thumb = C.TU + thumb;
                         if (PersonalDataActivity.this != null) {
-                            RequestOptions requestOptions=new RequestOptions();
+                            RequestOptions requestOptions = new RequestOptions();
                             requestOptions.placeholder(R.drawable.default_portrait).error(R.drawable.default_portrait);
                             Glide.with(PersonalDataActivity.this).load(thumb).apply(requestOptions).into(mCiv);
                         }
@@ -562,9 +592,15 @@ public class PersonalDataActivity extends BaseActicity implements View.OnClickLi
 
             @Override
             public void onFailure(Call<PersonalMessageFeng> call, Throwable t) {
-
+                ToastUtil.showToast(PersonalDataActivity.this, "网络异常");
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onMessage();
     }
 
     public void onUpdateMessage(int i, String content) {//完善信息

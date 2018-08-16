@@ -67,11 +67,13 @@
         <activity
             android:name=".activity.homepage.HomePageActivity"
             android:launchMode="singleTask">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
         <!-- 登陆页 -->
         <activity android:name=".activity.login.LoginActivity">
@@ -407,7 +409,8 @@
         </activity>
         <activity android:name=".activity.homepage.home.KaQuanDetailActivity">
         </activity>
-
+        <activity android:name=".activity.VipDetailActivity">
+        </activity>
     </application>
 
 </manifest>

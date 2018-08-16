@@ -141,30 +141,31 @@ public class All0rderFragmentAdapter extends BaseAdapter {
             holder.mNumber.setText("x" + good_num);//数量
 
             if (good_state.equals("1")) {//0.未付款 1.拼团中 2.待发货 3.待收货 4.待评价 5.团购取消
-                holder.mIsOrder.setText("拼团中");
+//                holder.mIsOrder.setText("拼团中");
                 holder.mButton.setText("取消");
                 holder.mButton.setVisibility(View.VISIBLE);
                 holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("2")) {
-                holder.mIsOrder.setText("待发货");
+//                holder.mIsOrder.setText("待发货");
                 holder.mButton.setVisibility(View.GONE);
-                holder.mtv_tuihuo.setVisibility(View.GONE);
+                holder.mtv_tuihuo.setVisibility(View.VISIBLE);
             } else if (good_state.equals("3")) {
-                holder.mIsOrder.setText("卖家已发货");
+//                holder.mIsOrder.setText("卖家已发货");
                 holder.mButton.setText("确认收货");
                 holder.mButton.setVisibility(View.VISIBLE);
                 holder.mtv_tuihuo.setVisibility(View.VISIBLE);
             } else if (good_state.equals("4")) {
-                holder.mIsOrder.setText("交易成功");
+//                holder.mIsOrder.setText("交易成功");
                 holder.mButton.setText("评价");
                 holder.mButton.setVisibility(View.VISIBLE);
-                holder.mtv_tuihuo.setVisibility(View.VISIBLE);
+                holder.mtv_tuihuo.setVisibility(View.GONE);
             } else if (good_state.equals("0")) {
-                holder.mIsOrder.setText("待付款");
+//                holder.mIsOrder.setText("待付款");
                 holder.mButton.setText("取消");
                 holder.mButton.setVisibility(View.VISIBLE);
                 holder.mtv_tuihuo.setVisibility(View.GONE);
             }
+            holder.mIsOrder.setText(child.getState_str());
             if (thumb.equals("") | thumb.equals("null")) {
 
             } else {

@@ -35,9 +35,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_marginTop="@dimen/sum_3"
-                android:text="@string/HomePage_name89"/>
+                android:text="@string/HomePage_name89"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -59,9 +59,9 @@
                 android:id="@+id/upgrade_tv_shoucang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_marginTop="@dimen/sum_3"
-                android:text="@string/HomePage_name90"/>
+                android:text="@string/HomePage_name90"
+                android:textSize="12sp"/>
         </LinearLayout>
 
 
@@ -73,9 +73,9 @@
             android:background="@color/coloryellows2"
             android:gravity="center"
             android:padding="@dimen/sum_12"
-            android:textSize="16sp"
             android:text="@string/HomePage_name23"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/colorwhites"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/detail_purchasing_id"
@@ -83,18 +83,18 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/colorred"
-            android:textSize="16sp"
             android:gravity="center"
             android:text="@string/HomePage_name24"
-            android:textColor="@color/colorwhites"/>
+            android:textColor="@color/colorwhites"
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/upgrade_top_ll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/gray_c"
         android:layout_marginBottom="1dp"
+        android:background="@color/gray_c"
         android:gravity="center">
 
         <LinearLayout
@@ -136,6 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/detail_llayout_id"
         android:layout_below="@+id/upgrade_top_ll"
+        android:background="@color/colorgraynessb"
         >
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
@@ -156,7 +157,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/details_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/sum_360"
+                    android:layout_height="@dimen/y720"
                     app:indicator_drawable_selected="@drawable/indicator_select"
                     app:indicator_drawable_unselected="@drawable/indicator_unselect"
                     app:indicator_height="8dp"
@@ -168,22 +169,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sum_1"
                     android:background="@color/colorwhites"
-                    android:paddingTop="@dimen/sum_5"
                     android:paddingBottom="@dimen/sum_5"
-                    android:paddingRight="@dimen/sum_10"
                     android:paddingLeft="@dimen/sum_10"
+                    android:paddingRight="@dimen/sum_10"
+                    android:paddingTop="@dimen/sum_5"
                     >
 
                     <TextView
                         android:id="@+id/Details_title_id"
                         android:layout_width="wrap_content"
-                        android:paddingBottom="5dp"
                         android:layout_height="wrap_content"
-                        android:lines="1"
-                        android:textSize="16sp"
                         android:ellipsize="end"
+                        android:lines="1"
+                        android:paddingBottom="5dp"
                         android:text="xxxxxxx"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/Details_fuhao_id"
@@ -192,8 +193,8 @@
                         android:layout_below="@+id/Details_murmb_id"
                         android:layout_marginTop="@dimen/sum_3"
                         android:text="@string/HomePage_name5"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorred"/>
+                        android:textColor="@color/colorred"
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/Details_zirmb_id"
@@ -224,8 +225,8 @@
                         android:layout_below="@+id/Details_title_id"
                         android:layout_marginTop="@dimen/sum_3"
                         android:text="@string/HomePage_name5"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorred"/>
+                        android:textColor="@color/colorred"
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/Details_murmb_id"
@@ -243,9 +244,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/Details_murmb_id"
+                        android:layout_marginBottom="2dp"
                         android:layout_toRightOf="@+id/Details_murmb_id"
                         android:text="@string/home_item_name3"
-                        android:layout_marginBottom="2dp"
                         android:textColor="@color/gray_translucent"
                         android:textSize="14sp"/>
 
@@ -295,6 +296,43 @@
                     android:background="@color/colorgraynessb"/>
 
                 <LinearLayout
+                    android:id="@+id/jinpai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="购买限制"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorgraynessb"/>
+
+                    <com.linkhand.fenxiao.utils.MyRecycleView
+                        android:id="@+id/goumaixianzhi_recy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sum_10"
+                        android:background="@color/colorgraynessb"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorwhites"
@@ -306,8 +344,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"
                         android:text="@string/HomePage_name87"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/sum_16"/>
 
                     <View

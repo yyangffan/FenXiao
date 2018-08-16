@@ -27,6 +27,7 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="@string/mialog_name23"/>
 
@@ -41,6 +42,7 @@
         <TextView
             android:id="@+id/zi_text_id"
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="@string/mialog_name24"/>
     </LinearLayout>

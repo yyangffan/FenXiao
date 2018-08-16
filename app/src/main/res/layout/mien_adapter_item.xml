@@ -38,16 +38,17 @@
         android:layout_marginLeft="@dimen/sum_5"
         android:text="x人"
         android:textColor="@color/gray_text"
+        android:textSize="14sp"
         android:layout_alignBottom="@+id/mien_item_tu"
         android:layout_toEndOf="@+id/mien_item_tu"/>
 
 
     <ImageView
         android:id="@+id/mien_item_tuid"
-        android:layout_width="@dimen/sum_70"
-        android:layout_height="@dimen/sum_70"
+        android:layout_width="@dimen/sum_80"
+        android:layout_height="@dimen/sum_80"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/position_img"/>
 </RelativeLayout>

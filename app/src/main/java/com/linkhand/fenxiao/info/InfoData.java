@@ -16,6 +16,7 @@ import com.linkhand.fenxiao.feng.home.CityFeng;
 import com.linkhand.fenxiao.feng.home.CurrTrade;
 import com.linkhand.fenxiao.feng.home.DefaultAddressFeng;
 import com.linkhand.fenxiao.feng.home.DingDanResponse;
+import com.linkhand.fenxiao.feng.home.FenCaiFlBean;
 import com.linkhand.fenxiao.feng.home.GoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.GoodsRMBFeng;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
@@ -39,6 +40,7 @@ import com.linkhand.fenxiao.feng.home.RecommendedGoods;
 import com.linkhand.fenxiao.feng.home.RecommendedVipGoods;
 import com.linkhand.fenxiao.feng.home.SlideshowFeng;
 import com.linkhand.fenxiao.feng.home.TuiHBean;
+import com.linkhand.fenxiao.feng.home.UsedKqBean;
 import com.linkhand.fenxiao.feng.home.VipDetailResponse;
 import com.linkhand.fenxiao.feng.home.VipGoodsDetailsFeng;
 import com.linkhand.fenxiao.feng.home.VipLvResponse;
@@ -568,6 +570,21 @@ public interface InfoData {
     @FormUrlEncoded
     @POST("order/get_vip_money")
     Call<VipMoneyBean> getVipMoney(@FieldMap Map<String, Object> map);
+
+    //文章分类
+    @FormUrlEncoded
+    @POST("article/article_cate_get")
+    Call<FenCaiFlBean> getCateGet(@FieldMap Map<String, Object> map);
+
+    //各个说明
+    @FormUrlEncoded
+    @POST("config/web_desc_get")
+    Call<HttpResponse> getDescGet(@FieldMap Map<String, Object> map);
+
+    //已使用卡券列表
+    @FormUrlEncoded
+    @POST("order/use_over_get")
+    Call<UsedKqBean> getUseOver(@FieldMap Map<String, Object> map);
 
 
 }

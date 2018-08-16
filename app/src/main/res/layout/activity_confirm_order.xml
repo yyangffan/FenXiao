@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/line"/>
 
-        <com.linkhand.fenxiao.utils.MyListView
+        <ListView
             android:id="@+id/order_listview_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -272,6 +272,7 @@
     <LinearLayout
         android:id="@+id/order_llayout_id"
         android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
         android:layout_height="@dimen/sum_40"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"

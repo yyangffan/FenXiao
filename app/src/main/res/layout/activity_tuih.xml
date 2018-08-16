@@ -35,13 +35,14 @@
             android:gravity="center"
             android:paddingLeft="@dimen/sum_10"
             android:paddingRight="@dimen/sum_10"
-            android:text="退货/售后"
+            android:text="售后"
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
+        android:background="@color/colorgraynessb"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

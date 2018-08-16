@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.linkhand.fenxiao.BaseFragment;
@@ -135,20 +136,20 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
         beanList = new ArrayList<>();
         mHomeRecyAdapter = new HomeRecyAdapter(this.getActivity(), beanList);
         StaggeredGridLayoutManager recyclerViewLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;
                     }
                 };/*这个是瀑布流 ，没有用到*/
-        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 2){
+        GridLayoutManager manager = new GridLayoutManager(this.getActivity(), 2) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
         mHomeRecyTuijian.setLayoutManager(manager);
-        mHomeRecyTuijian.addItemDecoration(new DividerGridItemDecoration(this.getActivity(),R.drawable.gray_juxing));
+        mHomeRecyTuijian.addItemDecoration(new DividerGridItemDecoration(this.getActivity(), R.drawable.gray_juxing));
         mHomeRecyTuijian.setAdapter(mHomeRecyAdapter);
         mHomeRecyAdapter.setOnItemClickListener(new HomeRecyAdapter.OnItemClickListener() {
             @Override
@@ -362,7 +363,7 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
             @Override
             public void onFailure(Call<RecommendedGoods> call, Throwable t) {
-                ToastUtil.showToast(HomePageFragment.this.getActivity(),"网络异常");
+                ToastUtil.showToast(HomePageFragment.this.getActivity(), "网络异常");
             }
         });
     }
@@ -413,13 +414,13 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
 
     public void onAnnouncement() {//平台须知
+        mUserId = preferences.getString("user_id", "");
         Map<String, Object> map = new HashMap<>();
         Call<AllConfigFeng> call = service.getAllConfig(map);
         call.enqueue(new Callback<AllConfigFeng>() {
             @Override
             public void onResponse(Call<AllConfigFeng> call, Response<AllConfigFeng> response) {
                 AllConfigFeng pcfeng = response.body();
-                Log.e("yh", "pcfeng--" + pcfeng);
                 int code = pcfeng.getCode();
                 if (code == 100) {
                     AllConfigFeng.InfoBean bean = pcfeng.getInfo();
@@ -427,7 +428,6 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                     String Son_name = bean.getSon_name();//子币名称
                     //存入子母币名称
                     editor.putString("Mater_name", Mater_name);
-                    editor.commit();
                     editor.putString("Son_name", Son_name);
                     editor.commit();
                     if (!mUserId.equals("")) {
@@ -437,6 +437,12 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
                             dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
                             dialog.show();
                             TextView notice = (TextView) dialog.findViewById(R.id.config_notice_id);//公告须知内容
+                            ScrollView scrol = (ScrollView) dialog.findViewById(R.id.dilog_scroll);
+                            ViewGroup.LayoutParams layoutParams = scrol.getLayoutParams();
+                            if (notices.length() > 240) {
+                                layoutParams.height=600;
+                                scrol.setLayoutParams(layoutParams);
+                            }
                             notice.setText(notices);
                             mIsOne = 1;
                             //存入instructions须知  1是提示完了
@@ -623,10 +629,8 @@ public class HomePageFragment extends BaseFragment implements View.OnClickListen
 
     public void OnRefresh() {
         mUserId = preferences.getString("user_id", "");
-        //是否vip  0否  1是
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
-        //获取是否第一次进首页instructions须知  1是提示完了
-        mIsOne = preferences.getInt("instructions", 0);
+        mIsOne = preferences.getInt("instructions", 0);        //获取是否第一次进首页instructions须知  1是提示完了
 //        onVipMessage();//vip购买
         onMessage();
         getHaveMsg();

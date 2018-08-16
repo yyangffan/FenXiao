@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:visibility="gone"
         android:paddingRight="@dimen/sum_10"
         android:paddingTop="@dimen/sum_10"
         android:src="@drawable/close"/>
@@ -35,7 +36,7 @@
         android:paddingBottom="@dimen/sum_3"
         android:paddingTop="@dimen/sum_10"
         android:text="@string/mialog_name8"
-        android:textColor="@color/gray_text"/>
+        android:textColor="@color/black"/>
 
 
     <TextView
@@ -45,7 +46,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/sum_10"
         android:text="@string/mialog_name9"
-        android:textColor="@color/gray_text"/>
+        android:textColor="@color/black"/>
 
 
     <View

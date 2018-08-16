@@ -36,9 +36,12 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_5"
             android:text="我的订单"
@@ -52,25 +55,26 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingRight="@dimen/sum_10"
-            android:text="搜索"
+            android:text="已使用卡券"
             android:textColor="@color/title_tv_color"/>
     </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:visibility="gone"
         android:id="@+id/myvip_cons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="10dp">
+        android:layout_marginBottom="1dp"
+        android:padding="5dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/myvip_imgv"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -106,6 +110,7 @@
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="0dp"
             android:textColor="@color/gray_text"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/myvip_money"
             app:layout_constraintLeft_toLeftOf="@+id/myvip_title"/>
 
@@ -120,12 +125,12 @@
 
     </android.support.constraint.ConstraintLayout>
 
+
     <LinearLayout
         android:id="@+id/my_vip_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:layout_marginTop="1dp"
         android:orientation="horizontal">
 
         <TextView
@@ -162,13 +167,53 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:layout_marginBottom="1dp"
+        android:background="@color/gray_c"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sum_15"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bg_three"
+            android:ellipsize="end"
+            android:hint="请输入要搜索的内容"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/sum_5"
+            android:paddingLeft="10dp"
+            android:paddingTop="@dimen/sum_5"
+            android:textColor="@color/colorblack"
+            android:textColorHint="@color/colorgraynessd"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/sum_10"
+            android:paddingRight="@dimen/sum_10"
+            android:text="@string/HomePage_name95"
+            android:textColor="@color/title_tv_color"/>
+    </LinearLayout>
+
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlAccentColor="@android:color/white"
+        android:background="@color/colorgraynessb"
         app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="#444444">
+        >
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -183,8 +228,8 @@
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
-            android:background="@color/colorgraynessb"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:background="@color/colorgraynessb"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 

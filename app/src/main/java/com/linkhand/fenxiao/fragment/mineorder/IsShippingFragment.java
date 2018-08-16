@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,6 +29,9 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +61,10 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
     LinearLayout mll_one;
     InfoData service;
     private List<DingDanResponse.InfoBean> mListBean;
+    private String order_id = "";//进行退货时的id
+    private AlertDialog mTh_dialog;
     SmartRefreshLayout mSmartRefreshLayout;
+    private int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,12 +74,13 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
         onClicks();
         initRetrofit();
         onMessage();
+        configReasonDialog();
         return v;
     }
 
 
     public void initView(View v) {
-        mListBean=new ArrayList<>();
+        mListBean = new ArrayList<>();
         mListView = (ListView) v.findViewById(R.id.isShipping_listview_id);
         mReturn = (ImageView) v.findViewById(R.id.mine_return_id3);
         mLinearLayout = (LinearLayout) v.findViewById(R.id.mine_llayout_gone_id2);
@@ -119,8 +128,96 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
 //                return Menu.ITEM_NOTHING;
 //            }
 //        });
-        mSmartRefreshLayout.setEnableLoadmore(false);
-        mSmartRefreshLayout.setEnableRefresh(false);
+        mAdapter = new All0rderFragmentAdapter(IsShippingFragment.this.getActivity(), mListBean);
+        mListView.setAdapter(mAdapter);
+        mAdapter.setOnDeliveryItemClicks(IsShippingFragment.this);
+        mAdapter.setOnTuiHListener(new All0rderFragmentAdapter.OnTuiHListener() {
+            @Override
+            public void OnTuiHListener(int position) {
+                mTh_dialog.show();
+                order_id = mListBean.get(position).getOrder_id();
+            }
+        });
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
+    }
+
+    public void configReasonDialog() {
+        mTh_dialog = new AlertDialog.Builder(this.getActivity()).create();
+        View v = LayoutInflater.from(this.getActivity()).inflate(R.layout.dialog_liuyan, null);
+
+        TextView mtv_title = (TextView) v.findViewById(R.id.dialog_liuyan_title);
+        final EditText medt = (EditText) v.findViewById(R.id.dialog_liuyan_edt);
+        TextView mtv_cancel = (TextView) v.findViewById(R.id.dialog_liuyan_cancel);
+        TextView mtv_sure = (TextView) v.findViewById(R.id.dialog_liuyan_commit);
+        ImageView mimgv = (ImageView) v.findViewById(R.id.dialog_liuyan_imgv);
+        mTh_dialog.setView(v);
+        mTh_dialog.setCanceledOnTouchOutside(false);
+        mtv_title.setText("退货");
+        medt.setHint("请填写退货理由...");
+
+        mimgv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTh_dialog.dismiss();
+            }
+        });
+        mtv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTh_dialog.dismiss();
+            }
+        });
+        mtv_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String reason = medt.getText().toString();
+                if (reason != null && reason.length() != 0) {
+                    mTh_dialog.dismiss();
+                    toTuiH(reason);
+                } else {
+                    ToastUtil.showToast(IsShippingFragment.this.getActivity(), "请填写退货理由");
+                }
+
+            }
+        });
+    }
+
+    /*进行退货*/
+    public void toTuiH(String reason) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("order_id", order_id);
+        map.put("user_id", mUserId);
+        map.put("quit_text", reason);
+        Call<HttpResponse> call = service.getQuitOrder(map);
+        call.enqueue(new Callback<HttpResponse>() {
+            @Override
+            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
+                HttpResponse httpResponse = response.body();
+                if (httpResponse.getCode() == 100) {
+                    page=0;
+                    onMessage();
+                }
+                ToastUtil.showToast(IsShippingFragment.this.getActivity(), httpResponse.getSuccess());
+            }
+
+            @Override
+            public void onFailure(Call<HttpResponse> call, Throwable t) {
+                ToastUtil.showToast(IsShippingFragment.this.getActivity(), "网络异常");
+            }
+        });
     }
 
     public void onClicks() {
@@ -135,6 +232,7 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
                 break;
         }
     }
+
     /*删除订单*/
     public void userDelete(String or_id) {
         Map<String, Object> map = new HashMap<>();
@@ -145,6 +243,7 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
+                    page=0;
                     onMessage();
                 }
                 ToastUtil.showToast(IsShippingFragment.this.getActivity(), httpResponse.getSuccess());
@@ -156,33 +255,44 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
             }
         });
     }
+
     public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "2");
+        map.put("pag",page);
 
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 DingDanResponse feng = response.body();
                 int code = feng.getCode();
                 if (code == 100) {
-                    mListBean = feng.getInfo();
-                    mAdapter = new All0rderFragmentAdapter(IsShippingFragment.this.getActivity(), mListBean);
-                    if(mListView!=null) {
-                        mListView.setAdapter(mAdapter);
+                    if(page==0) {
+                        mListBean.clear();
+                        mListBean.addAll(feng.getInfo());
+                    }else {
+                        for(DingDanResponse.InfoBean infoBean:feng.getInfo()){
+                            mListBean.add(infoBean);
+                        }
                     }
-                    mAdapter.setOnDeliveryItemClicks(IsShippingFragment.this);
-
                 } else {
+                    if(page==0) {
+                        mListBean.clear();
+                    }
                     Toast.makeText(IsShippingFragment.this.getActivity(), feng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
-
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
+                ToastUtil.showToast(IsShippingFragment.this.getActivity(), "网络异常");
             }
         });
     }
@@ -221,7 +331,11 @@ public class IsShippingFragment extends BaseFragment implements View.OnClickList
             }
         });
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
+    }
     @Override
     public void onResume() {
         super.onResume();

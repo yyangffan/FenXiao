@@ -21,7 +21,9 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.TuanGRcAdapter;
+import com.linkhand.fenxiao.dialog.EveryDialog;
 import com.linkhand.fenxiao.feng.home.GroupListFeng;
+import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.fragment.DividerGridItemDecoration;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.utils.ToastUtil;
@@ -56,6 +58,8 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
     RecyclerView mOpenGroupRecy;
     @Bind(R.id.smartRefresh)
     SmartRefreshLayout mSmartRefresh;
+    @Bind(R.id.imgv_what)
+    ImageView mImgvWhat;
 
     InfoData service;
     String mClassify = "";//分类id
@@ -72,9 +76,9 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_group);
         ButterKnife.bind(this);
+        initRetrofit();
         initEver();
         initView();
-        initRetrofit();
         onGuangBiao();//隐藏光标
         onMessage();
     }
@@ -94,6 +98,7 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
             public void OnItemClickListener(int position) {
                 String id = mInfoBeanList.get(position).getGood_id();//(商品id)
                 Intent intent = new Intent(OpenGroupActivity.this, DetailPageActivity.class);
+                intent.putExtra("is_type", mIs_type);
                 intent.putExtra("good_id", id);
                 startActivity(intent);
             }
@@ -119,6 +124,7 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
     public void initView() {
         mReturn.setOnClickListener(this);
         mSearch.setOnClickListener(this);
+        mImgvWhat.setOnClickListener(this);
         Intent intent = getIntent();
         if (intent != null) {
             mClassify = intent.getStringExtra("mClassify_id"); //分类id
@@ -137,12 +143,17 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
             mCheck.setText(mKeyword);
             mIs_type = intent.getStringExtra("is_type");
         }
-        if (mIs_type != null && mIs_type.equals("2")) {
+        if (mIs_type != null && mIs_type.equals("2")) {/*金牌专区*/
             mOpenTitle.setText("金牌专区");
-        } else {
+            if(preferences.getBoolean("jinpai_show",true)) {
+                getMessage(mIs_type);
+            }
+        } else {/*金牌专区*/
             mOpenTitle.setText("开团专区");
+            if(preferences.getBoolean("kaituan_show",true)) {
+                getMessage(mIs_type);
+            }
         }
-
         mCheck.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,7 +184,48 @@ public class OpenGroupActivity extends BaseActicity implements View.OnClickListe
             case R.id.search_class_id2://关键字搜索
                 onMessage();
                 break;
+            case R.id.imgv_what:
+                getMessage(mIs_type);
+                break;
         }
+    }
+
+    /*获取说明内容*/
+    public void getMessage(final String isWhat) {
+        final Map<String, Object> map = new HashMap<>();
+        if(isWhat!=null&&isWhat.equals("2")) {/*金牌专区*/
+            map.put("get_type", "4");
+        }else {
+            map.put("get_type", "2");
+        }
+        Call<HttpResponse> call = service.getDescGet(map);
+        call.enqueue(new Callback<HttpResponse>() {
+            @Override
+            public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
+                HttpResponse httpResponse = response.body();
+                if (httpResponse.getCode() == 100) {
+                    new EveryDialog().showRemind(OpenGroupActivity.this, "（不在提示）", "确定", "说明", httpResponse.getInfo(), new EveryDialog.OnTvClickListener() {
+                        @Override
+                        public void OnSureClickListener() {
+                            if(isWhat!=null&&isWhat.equals("2")) {/*金牌专区*/
+                                editor.putBoolean("jinpai_show",false).commit();
+                            }else {
+                                editor.putBoolean("kaituan_show",false).commit();
+                            }
+                        }
+                    });
+
+                } else {
+                    ToastUtil.showToast(OpenGroupActivity.this, httpResponse.getSuccess());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HttpResponse> call, Throwable t) {
+                ToastUtil.showToast(OpenGroupActivity.this, "网络异常");
+            }
+        });
     }
 
     public void onMessage() {

@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -90,6 +95,12 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.myvip_search)
     TextView mMyvipSearch;
+    @Bind(R.id.edt_search)
+    EditText mEdtSearch;
+    @Bind(R.id.tv_search)
+    TextView mTvSearch;
+    @Bind(R.id.title)
+    TextView mTitle;
 
     private String danhao = "";
     private int mStatus;
@@ -114,12 +125,13 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
         setContentView(R.layout.activity_my_vip);
         ButterKnife.bind(this);
         initEver();
-        getData();
+        getData("");
         EventBus.getDefault().register(this);
     }
 
     /*各种初始化*/
     public void initEver() {
+        mTitle.requestFocus();
         LinearLayoutManager linearManager = new LinearLayoutManager(this);
         linearManager.setOrientation(LinearLayoutManager.VERTICAL);
         mMyVipRecy.setLayoutManager(linearManager);
@@ -132,14 +144,48 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 page = 0;
-                getData();
+                getData(mEdtSearch.getText().toString());
             }
         });
         mRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 ++page;
-                getData();
+                getData(mEdtSearch.getText().toString());
+
+            }
+        });
+        mEdtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0) {
+                    mRefreshLayout.autoRefresh();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mEdtSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    //先隐藏键盘
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    mRefreshLayout.autoRefresh();
+                }
+                return false;
             }
         });
         mKaQuanRecyAdapter.setItemClickListener(new KaQuanRecyAdapter.OnItemClickListener() {
@@ -154,13 +200,14 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
     }
 
     /*获取vip商品数据*/
-    public void getData() {
+    public void getData(String search_str) {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("city1", provinceId);
         map.put("city2", cityId);
         map.put("city3", areaId);
         map.put("pag", page);
+        map.put("search", search_str);
         Call<VipLvResponse> call = service.getVipLv(map);
         call.enqueue(new Callback<VipLvResponse>() {
             @Override
@@ -197,11 +244,11 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
             VipLvResponse.InfoBean info = bean.getInfo();
             danhao = info.getVip_order_id() + "";
             mStatus = info.getVip_order_status();// 1.待付款   2.待发货    3.待收货    4.完成（已升级vip）
-            RequestOptions requestOptions=new RequestOptions();
+            RequestOptions requestOptions = new RequestOptions();
             requestOptions.placeholder(R.drawable.position_img).error(R.drawable.position_img);
             Glide.with(this).load(C.TU + info.getVimg_url()).apply(requestOptions).into(mMyvipImgv);
             mMyvipTitle.setText(info.getVip_good_name());
-            mMyvipMoney.setText("¥" +info.getVip_order_money());
+            mMyvipMoney.setText("¥" + info.getVip_order_money());
             mMyvipState.setText(info.getStatus_str());
             String guige = "";
             for (VipLvResponse.InfoBean.SpeciBean be : info.getSpeci()) {
@@ -239,7 +286,7 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
     }
 
 
-    @OnClick({R.id.myvip_back, R.id.myvip_cons, R.id.my_vip_sheng, R.id.my_vip_shi, R.id.my_vip_qu, R.id.myvip_search})
+    @OnClick({R.id.myvip_back, R.id.myvip_cons, R.id.my_vip_sheng, R.id.my_vip_shi, R.id.my_vip_qu, R.id.myvip_search, R.id.tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.myvip_back:
@@ -272,6 +319,14 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
                 break;
             case R.id.myvip_search://搜索跳转
                 startActivity(new Intent(this, VipSearchActivity.class));
+                break;
+            case R.id.tv_search:
+                String search_str = mEdtSearch.getText().toString();
+                if (search_str != null && search_str.length() == 0) {
+                    ToastUtil.showToast(this, "请输入要搜索的内容");
+                    return;
+                }
+                mRefreshLayout.autoRefresh();
                 break;
         }
     }
@@ -452,7 +507,7 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
         Bundle bundle = new Bundle();
         switch (msg.getMessage()) {
             case "finish":
-                getData();
+                getData("");
                 break;
         }
     }
@@ -466,7 +521,8 @@ public class MyVipActivity extends BaseActicity implements ProvinceInfo, CityInf
         provinceId = "";
         cityId = "";
         areaId = "";
+        mEdtSearch.setText("");
         page = 0;
-        getData();
+        getData("");
     }
 }

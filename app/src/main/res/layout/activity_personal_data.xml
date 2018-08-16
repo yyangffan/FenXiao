@@ -200,7 +200,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_15"
             android:textColor="@color/black"/>
 
         <ImageView
@@ -212,7 +211,7 @@
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_10"
             android:src="@drawable/return_right_two"
-            android:visibility="gone"/>
+        />
     </LinearLayout>
 
 
@@ -239,7 +238,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sum_15"
             android:textColor="@color/black"/>
 
         <ImageView
@@ -251,7 +249,7 @@
             android:paddingLeft="@dimen/sum_5"
             android:paddingRight="@dimen/sum_10"
             android:src="@drawable/return_right_two"
-            android:visibility="gone"/>
+            />
 
     </LinearLayout>
 

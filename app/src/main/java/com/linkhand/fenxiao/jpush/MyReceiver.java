@@ -7,8 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.linkhand.fenxiao.MainActivity;
 import com.linkhand.fenxiao.MyApplication;
+import com.linkhand.fenxiao.activity.homepage.HomePageActivity;
 import com.linkhand.fenxiao.activity.login.LoginActivity;
 
 import org.json.JSONException;
@@ -44,7 +44,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 Log.d(TAG, "接受到推送下来的通知");
-                receivingNotification(context,bundle);
+                receivingNotification(context, bundle);
 
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 Log.d(TAG, "[用户点击打开了通知");
@@ -79,16 +79,19 @@ public class MyReceiver extends BroadcastReceiver {
         try {
             JSONObject jsonObject = new JSONObject(extras);
             String type = jsonObject.optString("type");
-            switch (type){
+            switch (type) {
                 case "login":
                     editor.remove("user_id").commit();
                     editor.remove("userIsVip").commit();
                     editor.remove("userReal").commit();
 
                     new SetJPushAlias("", MyApplication.getInstance()).cancleAlias();
-                    Intent intent=new Intent(context,LoginActivity.class);
+                    Intent intent = new Intent(context, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                    break;
+                case "real":
+                    editor.remove("userReal").commit();
                     break;
 
             }
@@ -103,10 +106,32 @@ public class MyReceiver extends BroadcastReceiver {
     private void openNotification(Context context, Bundle bundle) {
         String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         if (extra != null) {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("message",bundle.getString(JPushInterface.EXTRA_ALERT));
-            context.startActivity(intent);
+            try {
+                JSONObject jsonObject = new JSONObject(extra);
+                String type = jsonObject.optString("type");
+                switch (type) {
+                    case "real":
+//                        Intent intent_sm = new Intent(context, ApproveActivity.class);
+                        Intent intent_sm = new Intent(context, HomePageActivity.class);
+                        intent_sm.putExtra("type","real");
+                        intent_sm.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent_sm);
+                        break;
+                    default:
+                        Intent intent = new Intent(context, HomePageActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("message", bundle.getString(JPushInterface.EXTRA_ALERT));
+                        context.startActivity(intent);
+                        break;
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 }

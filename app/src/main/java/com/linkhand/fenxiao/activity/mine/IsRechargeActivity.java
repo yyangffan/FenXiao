@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +15,8 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.feng.mine.PersonalMessageFeng;
 import com.linkhand.fenxiao.fragment.MineJlActivity;
 import com.linkhand.fenxiao.fragment.mine.RechargeFragment;
-import com.linkhand.fenxiao.fragment.mine.RegistrationFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -38,8 +34,8 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
     TextView mRechargeJilu;
 
 
-    List<Fragment> mList;
-    TabLayout mTabLayout;
+//    List<Fragment> mList;
+//    TabLayout mTabLayout;
     LinearLayout mReturn;//返回
     int mClick;//点击数
     SharedPreferences preferences;
@@ -68,17 +64,17 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
         }
         mSonNumberId.setText(mZi);
         mMotherNumberId.setText(mMother);
-        mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id4);
+//        mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id4);
         mReturn = (LinearLayout) findViewById(R.id.allmembers_return_id2);
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
-        mList = new ArrayList<>();
-        mList.add(new RechargeFragment());//充值
-        mList.add(new RegistrationFragment());//提现
-        mTabLayout.addTab(mTabLayout.newTab().setText("充值"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("提现"));
+//        mList = new ArrayList<>();
+//        mList.add(new RechargeFragment());//充值
+//        mList.add(new RegistrationFragment());//提现
+//        mTabLayout.addTab(mTabLayout.newTab().setText("充值"));
+//        mTabLayout.addTab(mTabLayout.newTab().setText("提现"));
     }
 
     public void onClicks() {
@@ -90,42 +86,42 @@ public class IsRechargeActivity extends BaseActicity implements View.OnClickList
         //获取点击那个
         mClick = preferences.getInt("isRechargeClick", 0);
         Log.e("yh", "mClick--" + mClick);
-        if (mClick == 0) {//充值
+//        if (mClick == 0) {//充值
             Fragment fragment = new RechargeFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id4, fragment).commit();
 
-            mTabLayout.getTabAt(0).select();
-        } else if (mClick == 1) {//提现
-            Fragment fragment = new RegistrationFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id4, fragment).commit();
+//            mTabLayout.getTabAt(0).select();
+//        } else if (mClick == 1) {//提现
+//            Fragment fragment = new RegistrationFragment();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id4, fragment).commit();
+//
+//            mTabLayout.getTabAt(1).select();
+//        }
 
-            mTabLayout.getTabAt(1).select();
-        }
 
-
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                Fragment fragment = mList.get(position);
-
-                //存入mAllPartTime判断点击哪个
-                editor.putInt("isRechargeClick", position);
-                editor.commit();
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id4, fragment).commit();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                int position = tab.getPosition();
+//                Fragment fragment = mList.get(position);
+//
+//                //存入mAllPartTime判断点击哪个
+//                editor.putInt("isRechargeClick", position);
+//                editor.commit();
+//
+//                getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id4, fragment).commit();
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     /*充值成功后调用--更新数据*/

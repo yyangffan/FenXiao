@@ -84,10 +84,8 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_c"
-        app:srlAccentColor="@color/gray_c"
-        app:srlEnablePreviewInEditMode="true"
-        app:srlPrimaryColor="#444444">
+        android:background="@color/colorgraynessb"
+        >
         <!--android:background="#444444"-->
         <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
         <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->

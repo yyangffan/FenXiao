@@ -28,6 +28,7 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AreaInfo;
 import com.linkhand.fenxiao.info.callback.CityInfo;
 import com.linkhand.fenxiao.info.callback.ProvinceInfo;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -206,6 +207,8 @@ public class UpdateAddressActivity extends BaseActicity implements View.OnClickL
         String address = mDetailAddress.getText() + "";
         if (areaId.equals("") | name.equals("") | phone.equals("") | address.equals("")) {
             Toast.makeText(this, "请填全信息", Toast.LENGTH_SHORT).show();
+        } else if (phone.length()!=11) {
+            ToastUtil.showToast(this,"请输入11位有效手机号");
         } else {
             onMessage(name, phone, address);//修改收货地址
         }

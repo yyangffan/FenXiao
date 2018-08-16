@@ -60,9 +60,10 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/sum_360"
+                android:layout_height="@dimen/y720"
                 app:indicator_drawable_selected="@drawable/indicator_select"
                 app:indicator_drawable_unselected="@drawable/indicator_unselect"
+                android:layout_marginBottom="1dp"
                 app:indicator_height="8dp"
                 app:indicator_margin="5dp"
                 app:indicator_width="8dp"/>
@@ -84,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/sum_10"
                 android:background="@color/white"
-                android:paddingBottom="@dimen/sum_10"
+                android:paddingBottom="@dimen/sum_5"
                 android:paddingLeft="@dimen/sum_10"
                 android:textColor="@color/colorred"
                 android:textSize="16sp"/>

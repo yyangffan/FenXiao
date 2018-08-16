@@ -99,7 +99,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     LinearLayout mPerfectData;//完善资料
     @Bind(R.id.perfect_vip_id)
     LinearLayout mPerfectVip;//完善vip
-    String userIsVip = "0";//是否vip   0否  1是
     @Bind(R.id.team_level_ids)
     TextView mTeamLevel;//团队级别
     @Bind(R.id.zi_text_id2)
@@ -143,6 +142,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Bind(R.id.smartRefresh)
     SmartRefreshLayout mSmartRefresh;
 
+    String userIsVip = "0";//是否vip   0否  1是
     String Mater_name = "母币";//母币名称
     String Son_name = "子币";//子币名称
     private String imgv_url = "";
@@ -702,6 +702,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     String fh_cou = mBean.getFh_cou();//待发货数量
                     String sh_cou = mBean.getSh_cou();//待收货数量
                     String pj_cou = mBean.getPj_cou();//待评价数量
+                    String souhou_cou = mBean.getSt_cou();//售后数量
                     if (fk_cou != null && !fk_cou.equals("0") && mMineTvOne != null) {
                         mMineTvOne.setText(fk_cou);
                         mMineTvOne.setVisibility(View.VISIBLE);
@@ -734,12 +735,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                             mMineTvFour.setVisibility(View.GONE);
                         }
                     }
-                    if (pj_cou != null && !pj_cou.equals("0") && mMineTvFive != null) {
-                        mMineTvFive.setText(pj_cou);
+                    if (sh_cou != null && !sh_cou.equals("0") && mMineTvFive != null) {
+                        mMineTvFive.setText(sh_cou);
                         mMineTvFive.setVisibility(View.VISIBLE);
                     } else {
                         if (mMineTvFive != null) {
                             mMineTvFive.setVisibility(View.GONE);
+                        }
+                    }
+                    if (souhou_cou != null && !souhou_cou.equals("0") && mMineTvSix != null) {
+                        mMineTvSix.setText(souhou_cou);
+                        mMineTvSix.setVisibility(View.VISIBLE);
+                    } else {
+                        if (mMineTvSix != null) {
+                            mMineTvSix.setVisibility(View.GONE);
                         }
                     }
                     String sign_in = pcfeng.getInfo().getSign_in();
@@ -801,9 +810,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     public void refresh() {
         mUserId = preferences.getString("user_id", "");
+        userIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
         if (fragment != null && fragment.isVisible()) {
             if (fragment instanceof IsWaitFragment) {
-                ((IsWaitFragment) fragment).onMessage(0);
+                ((IsWaitFragment) fragment).onMessage();
             }
         }
         onMessage();

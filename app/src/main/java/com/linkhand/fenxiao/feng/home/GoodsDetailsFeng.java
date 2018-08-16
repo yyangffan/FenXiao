@@ -16,6 +16,15 @@ public class GoodsDetailsFeng {
 
     private int code;
     private InfoBean info;
+    private List<BuyRuleBean> buy_rule;
+
+    public List<BuyRuleBean> getBuy_rule() {
+        return buy_rule;
+    }
+
+    public void setBuy_rule(List<BuyRuleBean> buy_rule) {
+        this.buy_rule = buy_rule;
+    }
 
     public int getCode() {
         return code;
@@ -482,6 +491,42 @@ public class GoodsDetailsFeng {
             public void setAttr_val(String attr_val) {
                 this.attr_val = attr_val;
             }
+        }
+    }
+
+    public static class BuyRuleBean {
+        /**
+         * rebate_name : 金的
+         * day_type : 每年
+         * buy_num : 3件
+         */
+
+        private String rebate_name;
+        private String day_type;
+        private String buy_num;
+
+        public String getRebate_name() {
+            return rebate_name;
+        }
+
+        public void setRebate_name(String rebate_name) {
+            this.rebate_name = rebate_name;
+        }
+
+        public String getDay_type() {
+            return day_type;
+        }
+
+        public void setDay_type(String day_type) {
+            this.day_type = day_type;
+        }
+
+        public String getBuy_num() {
+            return buy_num;
+        }
+
+        public void setBuy_num(String buy_num) {
+            this.buy_num = buy_num;
         }
     }
 }

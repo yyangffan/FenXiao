@@ -24,6 +24,7 @@ import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.mine.InCollectionFeng;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.CollectionInfo;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,10 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
 
     @Bind(R.id.collection_listview)
     ListView mListView;
+    @Bind(R.id.smartRefresh)
+    SmartRefreshLayout mSmartRefresh;
+
+
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String mUserId;//个人id
@@ -70,6 +75,8 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
 
 
     public void initView() {
+        mSmartRefresh.setEnableLoadmore(false);
+        mSmartRefresh.setEnableRefresh(false);
         preferences = IntentionCollectionFragment.this.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         //获取个人id
@@ -77,7 +84,7 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
         Log.e("yh", "mUserId--" + mUserId);
     }
 
-    public void onMessage(final int isPass){
+    public void onMessage(final int isPass) {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("type", "2");//1:商品 2：意向
@@ -144,7 +151,7 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("good_id", good_id);
-        map.put("type", 2);	//1:商品 2：意向
+        map.put("type", 2);    //1:商品 2：意向
         Call<ReturnFeng> call = service.getCancelCollection(map);
         call.enqueue(new Callback<ReturnFeng>() {
             @Override
@@ -177,7 +184,7 @@ public class IntentionCollectionFragment extends BaseFragment implements Collect
             public void onClick(View v) {
                 String good_id = (String) list.get(0).get("good_id");//意向id
                 Intent intent = new Intent(IntentionCollectionFragment.this.getActivity(), InDetailsActivity.class);
-                intent.putExtra("idea_id",good_id);
+                intent.putExtra("idea_id", good_id);
                 startActivity(intent);
             }
         });

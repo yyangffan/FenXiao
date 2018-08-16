@@ -12,8 +12,8 @@
         android:id="@+id/mine_llayout_gone_id1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/gray_c"
         android:layout_marginBottom="1dp"
+        android:background="@color/gray_c"
         android:gravity="center">
 
         <ImageView
@@ -40,21 +40,25 @@
             android:textSize="@dimen/sum_20"/>
 
     </LinearLayout>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <com.scwang.smartrefresh.layout.header.ClassicsHeader
-        android:layout_width="match_parent"
-        android:layout_height="60dp"/>
-    <ListView
-        android:id="@+id/isPay_listview_id"
-        android:dividerHeight="@dimen/sum_10"
-        android:layout_marginTop="@dimen/sum_10"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"/>
+        android:background="@color/colorgraynessb">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <com.yydcdut.sdlv.SlideAndDragListView
+            android:id="@+id/isPay_listview_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/sum_10"
+            android:divider="@null"
+            android:dividerHeight="@dimen/sum_10"/>
+
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="60dp"/>

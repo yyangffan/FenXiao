@@ -33,6 +33,9 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AllOrderInfo;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -65,6 +68,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
     private AlertDialog mTh_dialog;
     private String order_id = "";//进行退货时的id
     SmartRefreshLayout mSmartRefreshLayout;
+    public int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,11 +116,11 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 switch (direction) {
                     case MenuItem.DIRECTION_RIGHT:
                         String order_state = mListBean.get(itemPosition).getOrder_state();
-                        if (order_state.equals("4")) {
+//                        if (order_state.equals("4")) {
                             userDelete(mListBean.get(itemPosition).getOrder_id());
-                        } else {
-                            ToastUtil.showToast(All0rderFragment.this.getActivity(), "只可删除交易完成的订单");
-                        }
+//                        } else {
+//                            ToastUtil.showToast(All0rderFragment.this.getActivity(), "只可删除交易完成的订单");
+//                        }
                         break;
                     default:
                         return Menu.ITEM_NOTHING;
@@ -132,8 +136,22 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 mTh_dialog.show();
             }
         });
-        mSmartRefreshLayout.setEnableLoadmore(false);
-        mSmartRefreshLayout.setEnableRefresh(false);
+//        mSmartRefreshLayout.setEnableLoadmore(false);
+//        mSmartRefreshLayout.setEnableRefresh(false);
+        mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
     }
 
     /*删除订单*/
@@ -146,6 +164,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
+                    page=0;
                     onMessage();
                 }
                 ToastUtil.showToast(All0rderFragment.this.getActivity(), httpResponse.getSuccess());
@@ -211,6 +230,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
+                    page=0;
                     onMessage();
                 }
                 ToastUtil.showToast(All0rderFragment.this.getActivity(), httpResponse.getSuccess());
@@ -229,17 +249,28 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
         map.put("order_state", "-1");
+        map.put("pag", page);
         Call<DingDanResponse> call = service.getDingdanList(map);
         call.enqueue(new Callback<DingDanResponse>() {
             @Override
             public void onResponse(Call<DingDanResponse> call, Response<DingDanResponse> response) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 DingDanResponse feng = response.body();
                 int code = feng.getCode();
                 if (code == 100) {
-                    mListBean.clear();
-                    mListBean.addAll(feng.getInfo());
+                    if (page == 0) {
+                        mListBean.clear();
+                        mListBean.addAll(feng.getInfo());
+                    } else {
+                        for (DingDanResponse.InfoBean infoBean : feng.getInfo()) {
+                            mListBean.add(infoBean);
+                        }
+                    }
                 } else {
-                    mListBean.clear();
+                    if (page == 0) {
+                        mListBean.clear();
+                    }
                     Toast.makeText(All0rderFragment.this.getActivity(), feng.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
                 mAdapter.notifyDataSetChanged();
@@ -247,6 +278,8 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
 
             @Override
             public void onFailure(Call<DingDanResponse> call, Throwable t) {
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadmore();
                 Toast.makeText(All0rderFragment.this.getActivity(), "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
@@ -288,7 +321,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 if (good_state.equals("0")) {
                     showWhatDialog(order_id, "确认取消该订单?", good_state);
                 } else if (good_state.equals("1")) {
-                    showWhatDialog(order_id, "确认取消该拼团?", good_state);
+                    showWhatDialog(order_id, "确认取消该拼团?\n退货:不退购物券", good_state);
                 } else if (good_state.equals("4")) {
                     Intent intent = new Intent(All0rderFragment.this.getActivity(), EvaluationActivity.class);
                     intent.putExtra("good_id", good_id);
@@ -330,6 +363,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 int code = feng.getCode();
                 String success = feng.getSuccess();
                 if (code == 100) {
+                    page=0;
                     onMessage();
                     Toast.makeText(All0rderFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
                 } else {
@@ -358,6 +392,7 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
                 String success = feng.getSuccess();
                 if (code == 100) {
                     Toast.makeText(All0rderFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
+                    page=0;
                     onMessage();
                 } else {
                     Toast.makeText(All0rderFragment.this.getActivity(), success, Toast.LENGTH_SHORT).show();
@@ -370,6 +405,10 @@ public class All0rderFragment extends BaseFragment implements AllOrderInfo {
             }
         });
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        page=0;
+    }
 
 }

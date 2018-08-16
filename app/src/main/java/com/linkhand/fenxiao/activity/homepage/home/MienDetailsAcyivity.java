@@ -187,4 +187,9 @@ public class MienDetailsAcyivity extends BaseActicity {
         dialog.show();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
+    }
 }

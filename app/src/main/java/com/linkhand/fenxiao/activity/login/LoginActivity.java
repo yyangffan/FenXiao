@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActicity implements View.OnClickListener 
     }
 
     public void init() {
-        mLoadingPop=new LoadingPop(this);
+        mLoadingPop = new LoadingPop(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.colorwhites);//状态栏
         mRegistration = (TextView) findViewById(R.id.fenxiao_registration);
         mtv_diushi = (TextView) findViewById(R.id.fenxiao_diushi);
@@ -134,6 +134,8 @@ public class LoginActivity extends BaseActicity implements View.OnClickListener 
         mPswStr = mPsw.getText().toString() + "";
         if (mNameStr.equals("") | mPswStr.equals("")) {
             Toast.makeText(LoginActivity.this, "请输入账号密码", Toast.LENGTH_SHORT).show();
+        } else if (mNameStr.length()!=11) {
+            ToastUtil.showToast(this,"请输入11位有效手机号");
         } else {
             onMessage();
         }
@@ -199,24 +201,23 @@ public class LoginActivity extends BaseActicity implements View.OnClickListener 
                     String User_is_vip = pcfeng.getUser().getUser_is_vip();
                     String Is_real = pcfeng.getUser().getIs_real();
                     String phone = pcfeng.getUser().getUser_tel();
-                    //存入user_id个人id
-                    editor.putString("user_id", user_id);
-                    editor.commit();
-                    //是否vip  0否  1是
-//                    editor.putString("userIsVip", "0");//-------------------测试-------------------------
-                    editor.putString("userIsVip", User_is_vip);
-                    editor.commit();
-                    //是否认证  0否  1是
-//                    editor.putString("userReal", "0");//-------------------测试-------------------------
-                    editor.putString("userReal", Is_real);
-                    /*存入手机号*/
-                    editor.putString("phone", phone);
+                    String pay_pwd = pcfeng.getUser().getUser_pay_pwd();
+                    editor.putString("user_id", user_id);//存入user_id个人id
+                    editor.putString("userIsVip", User_is_vip); //是否vip  0否  1是
+                    editor.putString("userReal", Is_real);//是否认证  0否  1是
+                    editor.putString("phone", phone); /*存入手机号*/
+                    if(pay_pwd==null||pay_pwd.equals("")) {
+                        editor.putString("pay_pwd", "0"); /*是否设置支付密码(“”或者null为未设置)*/
+                    }else {
+                        editor.putString("pay_pwd", "1"); /*是否设置支付密码(“”或者null为未设置)*/
+                    }
                     editor.commit();
                     Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);//首页
                     startActivity(intent);
                     LoginActivity.this.finish();
 //                    new SetJPushAlias(user_id, LoginActivity.this).setAlias();
-                    new SetJPushAlias(pcfeng.getUser().getNew_token(),LoginActivity.this).setAlias();
+                    new SetJPushAlias(pcfeng.getUser().getNew_token(), LoginActivity.this).setAlias();
+                    Log.e("别名","新别名:"+pcfeng.getUser().getNew_token()+" 旧别名:"+pcfeng.getUser().getOld_token());
                     loginOut(pcfeng.getUser().getOld_token());
                 } else {
                     Toast.makeText(LoginActivity.this, success, Toast.LENGTH_SHORT).show();

@@ -152,13 +152,16 @@ public class SetUpTheActivity extends BaseActicity implements View.OnClickListen
         new ShowRemindDialog().showRemind(this, "确定", "取消", "提示", "退出登录？", R.drawable.logout, new ShowRemindDialog.OnTvClickListener() {
             @Override
             public void OnSureClickListener() {
-                editor.remove("user_id").commit();
-                editor.remove("userIsVip").commit();
-                editor.remove("userReal").commit();
+                editor.remove("user_id");
+                editor.remove("userReal");
+                editor.remove("pay_pwd");
+                editor.remove("userIsVip");
+                editor.remove("instructions");
+                editor.commit();
+                new SetJPushAlias("", SetUpTheActivity.this).cancleAlias();
                 intent = new Intent(SetUpTheActivity.this, LoginActivity.class);//登录
                 startActivity(intent);
                 SetUpTheActivity.this.finish();
-                new SetJPushAlias("", SetUpTheActivity.this).cancleAlias();
 //                this.finish();
             }
         });

@@ -68,6 +68,8 @@ public class KaQuanDetailActivity extends BaseActicity {
     TextView mVipSearchUse;
     List<Uri> list;
     private String mUc_id;
+    private AlertDialog mAlertDialog;
+    private PasswordInputView mPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,26 +98,30 @@ public class KaQuanDetailActivity extends BaseActicity {
                     onApprove();
                     return;
                 }
-                showPassDialog();
+                if(mVipSearchUse.getText().equals("已使用")){
+                    ToastUtil.showToast(this,"已无使用次数");
+                }else {
+                    showPassDialog();
+                }
                 break;
         }
     }
     /*显示输入二级密码的弹窗*/
     public void showPassDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        mAlertDialog = new AlertDialog.Builder(this).create();
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_pass, null);
-        final PasswordInputView pass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
+        mPass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
         TextView mtv_title= (TextView) v.findViewById(R.id.agin_title);
         mtv_title.setText("请向商家索取密码");
-        alertDialog.setView(v);
-        alertDialog.show();
+        mAlertDialog.setView(v);
+        mAlertDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showKeyboard(pass);
+                showKeyboard(mPass);
             }
         },300);
-        pass.addTextChangedListener(new TextWatcher() {
+        mPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -124,8 +130,8 @@ public class KaQuanDetailActivity extends BaseActicity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 6) {
-                    useKaquan(pass.getText().toString());
-                    alertDialog.dismiss();
+                    useKaquan(mPass.getText().toString());
+//                    mAlertDialog.dismiss();
                 }
             }
 
@@ -162,6 +168,9 @@ public class KaQuanDetailActivity extends BaseActicity {
                 HttpResponse httpre = response.body();
                 if (httpre.getCode() == 100) {
                     onMesage();
+                    mAlertDialog.dismiss();
+                }else {
+                    mPass.setText("");
                 }
                 ToastUtil.showToast(KaQuanDetailActivity.this, httpre.getSuccess());
             }
@@ -187,6 +196,10 @@ public class KaQuanDetailActivity extends BaseActicity {
                     mVipDetailTitle.setText(bean.getInfo().getUse_name());
                     mVipDeatailMoney.setText("¥"+bean.getInfo().getUse_money());
                     mVipDetailPosition.setText(bean.getInfo().getCity_str() + "\n" + bean.getInfo().getUc_detail());
+                    if(bean.getInfo().getNum_state().equals("已使用")){
+                        mVipSearchUse.setEnabled(false);
+                        mVipSearchUse.setBackgroundColor(KaQuanDetailActivity.this.getResources().getColor(R.color.colorgraynessd));
+                    }
                     mVipSearchUse.setText(bean.getInfo().getNum_state());
                     mVipDetailWb.setWebViewClient(new MyWevClient());
                     mVipDetailWb.getSettings().setJavaScriptEnabled(true);

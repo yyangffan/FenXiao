@@ -122,6 +122,15 @@ public class PersonalMessageFeng {
         private String sh_cou;
         private String pj_cou;
         private String sign_in;
+        private String st_cou;
+
+        public String getSt_cou() {
+            return st_cou;
+        }
+
+        public void setSt_cou(String st_cou) {
+            this.st_cou = st_cou;
+        }
 
         public String getWx_name() {
             return wx_name;

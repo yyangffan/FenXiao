@@ -18,8 +18,8 @@ public class OrderInterfaceNewFeng {
      */
 
     private int code;
-    private int allsMoney;
-    private int allsson;
+    private String allsMoney;
+    private String allsson;
     private String success;
     private List<InfoBean> info;
 
@@ -31,19 +31,19 @@ public class OrderInterfaceNewFeng {
         this.code = code;
     }
 
-    public int getAllsMoney() {
+    public String getAllsMoney() {
         return allsMoney;
     }
 
-    public void setAllsMoney(int allsMoney) {
+    public void setAllsMoney(String allsMoney) {
         this.allsMoney = allsMoney;
     }
 
-    public int getAllsson() {
+    public String getAllsson() {
         return allsson;
     }
 
-    public void setAllsson(int allsson) {
+    public void setAllsson(String allsson) {
         this.allsson = allsson;
     }
 

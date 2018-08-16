@@ -27,6 +27,7 @@ import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.AreaInfo;
 import com.linkhand.fenxiao.info.callback.CityInfo;
 import com.linkhand.fenxiao.info.callback.ProvinceInfo;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -138,7 +139,6 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
                 } else {
                     onProvincePopupWindow(v, 3);
                 }
-
                 break;
             case R.id.shipping_insert_address_id://确定
                 determine();
@@ -156,6 +156,8 @@ public class ShippingAddressActivity extends BaseActicity implements View.OnClic
         String address = mDetailAddress.getText() + "";
         if (areaId.equals("") | name.equals("") | phone.equals("") | address.equals("")) {
             Toast.makeText(this, "请填全信息", Toast.LENGTH_SHORT).show();
+        } else if (phone.length()!=11) {
+            ToastUtil.showToast(this,"请输入11位有效手机号");
         } else {
             onMessage(name, phone, address);//添加收货地址
         }

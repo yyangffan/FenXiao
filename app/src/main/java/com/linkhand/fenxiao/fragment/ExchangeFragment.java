@@ -59,8 +59,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * 子母币兑换
  * A simple {@link Fragment} subclass.
@@ -85,6 +83,10 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
     String Son_name = "子币";//子币名称
     private String isWhat = "2";
     public String mUserReal;
+    private String pay_pwd;
+    private PasswordInputView mPass;
+    private AlertDialog mAlertDialog;/*二级密码弹窗*/
+    private boolean canBuy;
 
 
     @Override
@@ -110,6 +112,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         editor = preferences.edit();
         editor.remove("keyDown").commit();  //存入返回判断  1不提示
         mUserId = preferences.getString("user_id", "");
+        pay_pwd = preferences.getString("pay_pwd", "0");//是否设置支付密码 0否 1是
         Mater_name = preferences.getString("Mater_name", "母币");//母币名称
         Son_name = preferences.getString("Son_name", "子币");//子币名称
         mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
@@ -244,15 +247,16 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
     }
 
 
-    public void onDialogSum(final String currId, final String str, final String user_id) {//兑换（子母币id，子币单价,剩余数量,发布者id0为官方）
+    public void onDialogSum(final String currId, final String str, final String user_id, final String mater_num) {//兑换（子母币id，子币单价,剩余数量,发布者id0为官方）
         final MyDialogLashSum dialog = new MyDialogLashSum(ExchangeFragment.this.getActivity());
 //        dialog.setCanceledOnTouchOutside(false);//点击空白处是否消失
+
         dialog.show();
         ImageView returns = (ImageView) dialog.findViewById(R.id.swop_retuen_id);//关闭
         editText = (EditText) dialog.findViewById(R.id.swop_et_id);//兑换母币数量
         final TextView sum = (TextView) dialog.findViewById(R.id.swop_sum_id);//需支付xx子币
-        TextView confirm = (TextView) dialog.findViewById(R.id.swop_confirm_id);//确定
-        sum.setText("需支付0.0"+Son_name);
+        final TextView confirm = (TextView) dialog.findViewById(R.id.swop_confirm_id);//确定
+        sum.setText("需支付0.0" + Son_name);
         editText.setHint("请输入兑换" + Mater_name + "数量");
         onGuangBiao();
         returns.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +273,16 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!(s.toString() + "").equals("")) {
-                    int content = parseInt(s.toString());
+                    double content = Double.parseDouble(s.toString());
+                    if (Double.parseDouble(s.toString()) > Double.parseDouble(mater_num.toString())) {
+                        ToastUtil.showToast(ExchangeFragment.this.getActivity(), "超出可兑换" + Mater_name + "数量");
+                        content = Double.parseDouble(mater_num.toString());
+                        canBuy=false;
+//                        editText.setText(new DecimalFormat("0").format(content));
+//                        editText.setSelection(editText.getText().toString().length());
+                    }else {
+                        canBuy=true;
+                    }
                     mdouble = content * Double.parseDouble(str);
                     sum.setText("需支付" + new DecimalFormat("0.00").format(mdouble) + Son_name);
                 } else {
@@ -287,6 +300,8 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
                 String content = editText.getText() + "";
                 if (content.equals("")) {
                     Toast.makeText(ExchangeFragment.this.getActivity(), "请输入兑换数量", Toast.LENGTH_SHORT).show();
+                } else if (!canBuy) {
+                    ToastUtil.showToast(ExchangeFragment.this.getActivity(), "超出可兑换" + Mater_name + "数量");
                 } else {
 //                    ExchangeFragment.this.onDialogPay();//兑换(购买支付)
                     dialog.dismiss();
@@ -323,37 +338,56 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                showPassDialog(new OnWhatsTheResult() {
-                    @Override
-                    public void OnWhatsTheResult(boolean go) {
-                        if (go) {
-                            if (user_id.equals("0")) {//发布者id    0为官方
-                                onOfficialExchange(currId, content);//官方兑换 (子母币id,兑换数量)
+                if (pay_pwd.equals("0")) {
+                    new ShowRemindDialog().showRemind(ExchangeFragment.this.getActivity(), "确定", "取消", "提示", "您还未设置支付密码,前去设置?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                        @Override
+                        public void OnSureClickListener() {
+                            Intent intent = new Intent(ExchangeFragment.this.getActivity(), SetPwdActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    showPassDialog(new OnWhatsTheResult() {
+                        @Override
+                        public void OnWhatsTheResult(boolean go) {
+                            if (go) {
+                                mAlertDialog.dismiss();
+                                if (user_id.equals("0")) {//发布者id    0为官方
+                                    onOfficialExchange(currId, content);//官方兑换 (子母币id,兑换数量)
+                                } else {
+                                    onExchange(currId, content);//兑换 (子母币id,兑换数量)
+                                }
                             } else {
-                                onExchange(currId, content);//兑换 (子母币id,兑换数量)
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        showKeyboard(mPass);
+//                                    }
+//                                }, 300);
+                                mPass.setText("");
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }
 
     /*显示输入二级密码的弹窗*/
     public void showPassDialog(final OnWhatsTheResult listener) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(ExchangeFragment.this.getActivity()).create();
+        mAlertDialog = new AlertDialog.Builder(ExchangeFragment.this.getActivity()).create();
         View v = LayoutInflater.from(ExchangeFragment.this.getActivity()).inflate(R.layout.dialog_pass, null);
-        final PasswordInputView pass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
-        alertDialog.setView(v);
-        alertDialog.show();
+        mPass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
+        mAlertDialog.setView(v);
+        mAlertDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showKeyboard(pass);
+                showKeyboard(mPass);
             }
-        },300);
+        }, 300);
 //        alertDialog.setContentView(v);
-        pass.addTextChangedListener(new TextWatcher() {
+        mPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -362,8 +396,8 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 6) {
-                    commitPass(pass.getText().toString(), listener);
-                    alertDialog.dismiss();
+                    commitPass(mPass.getText().toString(), listener);
+//                    mAlertDialog.dismiss();
                 }
             }
 
@@ -373,10 +407,11 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             }
         });
     }
+
     //弹出软键盘
     public void showKeyboard(EditText editText) {
         //其中editText为dialog中的输入框的 EditText
-        if(editText!=null){
+        if (editText != null) {
             //设置可获得焦点
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
@@ -387,6 +422,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
             inputManager.showSoftInput(editText, 0);
         }
     }
+
     /*验证二级密码是否正确*/
     public void commitPass(String pay_pwd, final OnWhatsTheResult listener) {
         Map<String, Object> map = new HashMap<>();
@@ -518,6 +554,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
         dialog.show();
 //        Toast.makeText(ExchangeFragment.this.getActivity(), "请先购买vip!", Toast.LENGTH_SHORT).show();
     }
+
     public void onApprove() {//实名认证
         MyDialogApprove dialog = new MyDialogApprove(this.getActivity());
         dialog.show();
@@ -552,7 +589,7 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
                             });
 
                         } else {//进行兑换
-                            onDialogSum(curr_id, curr_son_money, user_id);//兑换（子母币id，子币单价,剩余数量,发布者id0为官方）
+                            onDialogSum(curr_id, curr_son_money, user_id, curr_mater_num);//兑换（子母币id，子币单价,剩余数量,发布者id0为官方）
                         }
                     }
                 }
@@ -586,6 +623,11 @@ public class ExchangeFragment extends BaseFragment implements View.OnClickListen
     }
 
     public void onRefresh() {
+        if (getActivity() != null) {
+            preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+            pay_pwd = preferences.getString("pay_pwd", "0");//是否设置支付密码 0否 1是
+            mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
+        }
         onMessage(isWhat);
     }
 

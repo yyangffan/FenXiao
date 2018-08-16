@@ -21,10 +21,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BaseActicity extends AppCompatActivity {
     public InfoData service;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
+    public SharedPreferences preferences;
+    public SharedPreferences.Editor editor;
     public String mUserId;//个人id
     public String mUserReal;
+    public String pay_pwd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class BaseActicity extends AppCompatActivity {
         //获取个人id
         mUserId = preferences.getString("user_id", "");
         mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
+        pay_pwd = preferences.getString("pay_pwd", "0");//是否设置支付密码 0否 1是
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -80,5 +82,7 @@ public class BaseActicity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         mUserReal = preferences.getString("userReal", "0");//是否认证  0否  1是
+        pay_pwd = preferences.getString("pay_pwd", "0");//是否设置支付密码 0否 1是
+
     }
 }

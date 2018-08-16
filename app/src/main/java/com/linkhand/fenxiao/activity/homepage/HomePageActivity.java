@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.linkhand.fenxiao.AppManager;
 import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.R;
+import com.linkhand.fenxiao.activity.homepage.home.ApproveActivity;
 import com.linkhand.fenxiao.activity.login.LoginActivity;
 import com.linkhand.fenxiao.fragment.ClassificationFragment;
 import com.linkhand.fenxiao.fragment.ExchangeFragment;
@@ -58,6 +59,14 @@ public class HomePageActivity extends BaseActicity {
     }
 
     public void init() {
+        if (this.getIntent() != null) {
+            String type = this.getIntent().getStringExtra("type");
+            if (type != null && type.equals("real")) {
+                Intent intent_sm = new Intent(this, ApproveActivity.class);
+                startActivity(intent_sm);
+            }
+        }
+
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mList = new ArrayList<>();
@@ -107,7 +116,7 @@ public class HomePageActivity extends BaseActicity {
                     switch (checkedId) {
                         case R.id.homepage_rbtwo:
                             toChangeWghat(1);
-                            if(mClassificationFragment.mCheckClass!=null) {
+                            if (mClassificationFragment.mCheckClass != null) {
                                 mClassificationFragment.mCheckClass.setText("");
                             }
                             break;
@@ -169,6 +178,7 @@ public class HomePageActivity extends BaseActicity {
         }
         if (mHomePageFragment != null && mHomePageFragment.isVisible()) {
             mHomePageFragment.OnRefresh();
+            mHomePageFragment.onAnnouncement();
         }
         if (mShoppingFragment != null && mShoppingFragment.isVisible()) {
             mShoppingFragment.onMessage(0);

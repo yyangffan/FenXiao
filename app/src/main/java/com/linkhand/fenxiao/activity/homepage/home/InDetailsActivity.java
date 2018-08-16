@@ -697,6 +697,7 @@ public class InDetailsActivity extends BaseActicity implements View.OnClickListe
     protected void onRestart() {
         super.onRestart();
         editor.remove("addressId").commit();
+        mUserIsVip = preferences.getString("userIsVip", "0");//是否vip  0否  1是
     }
 
 

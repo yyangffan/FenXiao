@@ -11,7 +11,6 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.activity.homepage.home.MyVipActivity;
 import com.linkhand.fenxiao.activity.homepage.home.ShippingAddressActivity;
 import com.linkhand.fenxiao.activity.homepage.home.UpdateAddressActivity;
-import com.linkhand.fenxiao.activity.homepage.home.VipSearchActivity;
 import com.linkhand.fenxiao.feng.home.CityFeng;
 import com.linkhand.fenxiao.info.callback.CityInfo;
 
@@ -28,7 +27,6 @@ public class CityAdapter  extends BaseAdapter {
     Context context;
     List<CityFeng.InfoBean> mBeanList;
     CityInfo mCityInfo;
-    private VipSearchActivity mOnCityClicks;
 
     public CityAdapter(Context context, List<CityFeng.InfoBean> mBeanList) {
         this.context = context;
@@ -90,10 +88,6 @@ public class CityAdapter  extends BaseAdapter {
 
     public void setOnCityClicks(MyVipActivity mCityInfo) {
         this.mCityInfo = mCityInfo;
-    }
-
-    public void setOnCityClicks(VipSearchActivity onCityClicks) {
-        mCityInfo = onCityClicks;
     }
 
 

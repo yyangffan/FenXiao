@@ -20,6 +20,7 @@ import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.feng.ReturnFeng;
 import com.linkhand.fenxiao.feng.login.Register;
 import com.linkhand.fenxiao.info.InfoData;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +52,8 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
     TextView mSend;//发送验证码
     @Bind(R.id.fenxiao_title_id2)
     TextView mFenxiaoTitleId2;
+    @Bind(R.id.phone_number_other)
+    EditText mPhoneNumberOther;
 
     private boolean mRunning;
     InfoData service;
@@ -71,6 +74,8 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
     }
 
     public void init() {
+        mPhoneNumberOther.setVisibility(View.VISIBLE);
+        mPhoneNumber.setVisibility(View.GONE);
         preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         editor = preferences.edit();
         mPhone = preferences.getString("phone", "");
@@ -81,6 +86,8 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
         if (mIsWhat != null && mIsWhat.equals("change")) {
             mFenxiaoTitleId2.setText("修改登录密码");
             mPhoneNumber.setText(mPhone);
+            mPhoneNumberOther.setVisibility(View.GONE);
+            mPhoneNumber.setVisibility(View.VISIBLE);
         }
 
         mConfirm = (TextView) findViewById(R.id.fenxiao_psw_confirm_id);
@@ -119,7 +126,7 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 Register pcfeng = response.body();
-                if(pcfeng.getCode()==100) {
+                if (pcfeng.getCode() == 100) {
                     if (mRunning) {
                     } else {
                         downTimer.start();
@@ -137,30 +144,51 @@ public class RetrievePswActivity extends BaseActicity implements View.OnClickLis
     }
 
     public void onSend() {
-        String phone = mPhoneNumber.getText() + "";
+        String phone = "";
+        if (mIsWhat != null && mIsWhat.equals("change")) {
+            mFenxiaoTitleId2.setText("修改登录密码");
+            mPhoneNumber.setText(mPhone);
+            mPhoneNumberOther.setVisibility(View.GONE);
+            mPhoneNumber.setVisibility(View.VISIBLE);
+            phone = mPhoneNumber.getText().toString();
+        } else {
+            phone = mPhoneNumberOther.getText().toString();
+        }
         if (phone == null || phone.equals("")) {
             Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
         } else if (phone.length() != 11) {
-            Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入11位有效手机号", Toast.LENGTH_SHORT).show();
             return;
         }
         getCode(phone);
     }
 
     public void onConfirm() {
-        String phone = mPhoneNumber.getText() + "";
+        String phone = "";
+        if (mIsWhat != null && mIsWhat.equals("change")) {
+            mFenxiaoTitleId2.setText("修改登录密码");
+            mPhoneNumber.setText(mPhone);
+            mPhoneNumberOther.setVisibility(View.GONE);
+            mPhoneNumber.setVisibility(View.VISIBLE);
+            phone = mPhoneNumber.getText().toString();
+        } else {
+            phone = mPhoneNumberOther.getText().toString();
+        }
         String pawOne = mPaw.getText() + "";
         String pawTwo = mNewPsw.getText() + "";
         String code = mAuthCode.getText() + "";
         if (phone.equals("")) {
             Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
             return;
-        } else if (pawOne.equals("") | pawTwo.equals("")) {
+        } else  if (phone.length()!=11) {
+            ToastUtil.showToast(this, "请输入11位有效手机号");
+            return;
+        }else if (pawOne.equals("") | pawTwo.equals("")) {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         } else if (pawOne.toString().length() < 6) {
-            Toast.makeText(this, "密码长度最少6位", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入至少6位密码", Toast.LENGTH_SHORT).show();
             return;
         } else if (!pawOne.equals(pawTwo)) {
             Toast.makeText(this, "密码不一致,请重新输入!", Toast.LENGTH_SHORT).show();

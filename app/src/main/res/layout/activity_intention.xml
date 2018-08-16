@@ -9,12 +9,12 @@
     android:orientation="vertical"
     tools:context="com.linkhand.fenxiao.activity.homepage.home.IntentionActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height"
-        android:background="@color/gray_c"
         android:layout_marginBottom="1dp"
-        android:gravity="center">
+        android:background="@color/gray_c"
+        >
 
         <LinearLayout
             android:id="@+id/intention_return_id"
@@ -42,28 +42,44 @@
 
         <TextView
             android:id="@+id/intention_title_id"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/sum_60"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/HomePage_name1"
             android:textColor="@color/title_tv_color"
             android:textSize="@dimen/sum_20"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/intention_tv_what"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/query"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorgraynessb">
+
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
         <ListView
             android:id="@+id/intention_lv_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"/>
+
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="60dp"/>

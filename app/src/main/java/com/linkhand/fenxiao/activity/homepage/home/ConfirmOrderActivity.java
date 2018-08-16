@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,6 @@ import com.linkhand.fenxiao.feng.home.VipDetailResponse;
 import com.linkhand.fenxiao.feng.home.VipPayResponse;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.utils.Logger;
-import com.linkhand.fenxiao.utils.MyListView;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.linkhand.fenxiao.views.PasswordInputView;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -100,7 +100,7 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
     int oneMater;//单价母币
     int oneSon;//单价子币
     @Bind(R.id.order_listview_id)
-    MyListView mListview;
+    ListView mListview;
     PlaceOrderAdapter mAdapter;
 
     List<OrderInterfaceNewFeng.InfoBean> infoBeanList;//总数据
@@ -130,9 +130,10 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(ConfirmOrderActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        EventBus.getDefault().post(new MessageEvent("finish"));
                         if (isVip) {
                             onYesDialogs();//支付成功dialog
-                        }else {
+                        } else {
                             finish();
                         }
                         Logger.i("pay", "支付结果成功--->" + resultInfo);
@@ -146,6 +147,8 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             }
         }
     };
+    private AlertDialog mAlertDialog;
+    private PasswordInputView mPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,10 +250,10 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             case R.id.order_address_id://地址
                 Intent intent = new Intent(ConfirmOrderActivity.this, AddressActivity.class);
                 String addressId = preferences.getString("addressId", "");
-                if(addressId.equals("")){
-                    addressId=sited_id;
+                if (addressId.equals("")) {
+                    addressId = sited_id;
                 }
-                intent.putExtra("addressId",addressId);
+                intent.putExtra("addressId", addressId);
                 startActivity(intent);
                 break;
             case R.id.order_return_id://返回
@@ -363,17 +366,27 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 final HttpResponse httpResponseo = response.body();
                 if (httpResponseo.getCode() == 100) {//子母币都够， 提示话费价格是否支付，验证支付密码
-                    new ShowRemindDialog().showRemind(ConfirmOrderActivity.this, "确定", "取消", "提示", httpResponseo.getSuccess(), R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
-                        @Override
-                        public void OnSureClickListener() {
-                            showPassDialog();
-                        }
-                    }).setCancelListener(new ShowRemindDialog.OnTvCancelListener() {
-                        @Override
-                        public void OnTvCancelListener() {
-                            ConfirmOrderActivity.this.finish();
-                        }
-                    });
+                    if (pay_pwd.equals("0")) {/*未设置支付密码*/
+                        new ShowRemindDialog().showRemind(ConfirmOrderActivity.this, "确定", "取消", "提示", "您还未设置支付密码,前去设置?", R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                            @Override
+                            public void OnSureClickListener() {
+                                Intent intent = new Intent(ConfirmOrderActivity.this, SetPwdActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        new ShowRemindDialog().showRemind(ConfirmOrderActivity.this, "确定", "取消", "提示", httpResponseo.getSuccess(), R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
+                            @Override
+                            public void OnSureClickListener() {
+                                showPassDialog();
+                            }
+                        }).setCancelListener(new ShowRemindDialog.OnTvCancelListener() {
+                            @Override
+                            public void OnTvCancelListener() {
+                                ConfirmOrderActivity.this.finish();
+                            }
+                        });
+                    }
 
                 } else if (httpResponseo.getCode() == 201) {//母币不足，提示是否去兑换，跳转z子母币兑换
                     new ShowRemindDialog().showRemind(ConfirmOrderActivity.this, "确定", "取消", "提示", httpResponseo.getSuccess(), R.drawable.prompt, new ShowRemindDialog.OnTvClickListener() {
@@ -426,19 +439,19 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
 
     /*显示输入二级密码的弹窗*/
     public void showPassDialog() {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        mAlertDialog = new AlertDialog.Builder(this).create();
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_pass, null);
-        final PasswordInputView pass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
-        alertDialog.setView(v);
-        alertDialog.show();
+        mPass = (PasswordInputView) v.findViewById(R.id.again_paypswd_pet);
+        mAlertDialog.setView(v);
+        mAlertDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showKeyboard(pass);
+                showKeyboard(mPass);
             }
-        },300);
+        }, 300);
 //        alertDialog.setContentView(v);
-        pass.addTextChangedListener(new TextWatcher() {
+        mPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -447,8 +460,8 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 6) {
-                    commitPass(pass.getText().toString());
-                    alertDialog.dismiss();
+                    commitPass(mPass.getText().toString());
+//                    mAlertDialog.dismiss();
                 }
             }
 
@@ -458,20 +471,22 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
             }
         });
     }
+
     //弹出软键盘
     public void showKeyboard(EditText editText) {
         //其中editText为dialog中的输入框的 EditText
-        if(editText!=null){
+        if (editText != null) {
             //设置可获得焦点
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
             //请求获得焦点
             editText.requestFocus();
             //调用系统输入法
-            InputMethodManager inputManager = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.showSoftInput(editText, 0);
         }
     }
+
     /*验证二级密码是否正确*/
     public void commitPass(String pay_pwd) {
         Map<String, Object> map = new HashMap<>();
@@ -484,11 +499,13 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
                     getOrderDingdan(0);
+                    mAlertDialog.dismiss();
                 } else if (httpResponse.getCode() == 201) {//未设置
                     Toast.makeText(ConfirmOrderActivity.this, httpResponse.getSuccess(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ConfirmOrderActivity.this, SetPwdActivity.class);
                     startActivity(intent);
                 } else {
+                    mPass.setText("");
                     Toast.makeText(ConfirmOrderActivity.this, httpResponse.getSuccess(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -731,15 +748,15 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
 
                     mName.setText(site_name);//默认收货人名称
                     mPhone.setText(site_tel);//默认收货人电话
-                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3+site_detail);//默认收货人地址
+                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3 + site_detail);//默认收货人地址
                 } else {
 //                    Toast.makeText(ConfirmOrderActivity.this, success, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(ConfirmOrderActivity.this, "清选择收货地址", Toast.LENGTH_SHORT).show();
                     mInAddress.setVisibility(View.VISIBLE);
-                    mPhone.setVisibility(View.GONE);
-                    mName.setVisibility(View.GONE);
-                    morderZi.setVisibility(View.GONE);
-                    mDefaultAddress.setVisibility(View.GONE);
+                    mPhone.setVisibility(View.INVISIBLE);
+                    mName.setVisibility(View.INVISIBLE);
+                    morderZi.setVisibility(View.INVISIBLE);
+                    mDefaultAddress.setVisibility(View.INVISIBLE);
 //                    Intent intent = new Intent(ConfirmOrderActivity.this, AddressActivity.class);
 //                    intent.putExtra("judgeAddress", "1");//1  没有地址
 //                    startActivity(intent);
@@ -783,7 +800,7 @@ public class ConfirmOrderActivity extends BaseActicity implements View.OnClickLi
 
                     mName.setText(site_name);//选中收货人名称
                     mPhone.setText(site_tel);//选中收货人电话
-                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3+site_detail);//选中收货人地址
+                    mDefaultAddress.setText(site_city1 + " " + site_city2 + site_city3 + site_detail);//选中收货人地址
                 } else {
                     Toast.makeText(ConfirmOrderActivity.this, success, Toast.LENGTH_SHORT).show();
                 }

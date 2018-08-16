@@ -1,11 +1,8 @@
 package com.linkhand.fenxiao.activity.mine;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -21,31 +18,16 @@ public class AllCollectionActivity extends BaseActicity implements View.OnClickL
     List<Fragment> mList;
     TabLayout mTabLayout;
     LinearLayout mReturn;//返回
-    int mClick;//点击数
+//    int mClick;//点击数
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
+    //    SharedPreferences preferences;
+//    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_collection);
         init();
         onClicks();
-        onTabLayout();
-    }
-
-    public void init() {
-        mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id);
-        mReturn = (LinearLayout) findViewById(R.id.home_return_id2);
-        preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-        editor = preferences.edit();
-        mList = new ArrayList<>();
-        mList.add(new BulkCollectionFragment());//团购商品
-        mList.add(new IntentionCollectionFragment());//意向商品
-        mTabLayout.addTab(mTabLayout.newTab().setText("商品"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("意向"));
-
-
     }
 
     public void onClicks() {
@@ -61,34 +43,20 @@ public class AllCollectionActivity extends BaseActicity implements View.OnClickL
         }
     }
 
-    public void onTabLayout() {
-
-        //获取点击那个
-        mClick = preferences.getInt("isCollClick", 0);
-        Log.e("yh", "mClick--" + mClick);
-        if (mClick == 0) {//团购商品
-            Fragment fragment = new BulkCollectionFragment();
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, fragment).commit();
-
-            mTabLayout.getTabAt(0).select();
-        } else if (mClick == 1) {//意向商品
-            Fragment fragment = new IntentionCollectionFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, fragment).commit();
-
-            mTabLayout.getTabAt(1).select();
-        }
-
-
+    public void init() {
+        mTabLayout = (TabLayout) findViewById(R.id.mine_tabLayout_id);
+        mReturn = (LinearLayout) findViewById(R.id.home_return_id2);
+        mList = new ArrayList<>();
+        mList.add(new BulkCollectionFragment());//团购商品
+        mList.add(new IntentionCollectionFragment());//意向商品
+        mTabLayout.addTab(mTabLayout.newTab().setText("商品"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("意向"));
+        getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, mList.get(0)).commit();
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 Fragment fragment = mList.get(position);
-
-                //存入mAllPartTime判断点击哪个
-                editor.putInt("isCollClick", position);
-                editor.commit();
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.mine_fragment_id, fragment).commit();
             }
@@ -104,6 +72,5 @@ public class AllCollectionActivity extends BaseActicity implements View.OnClickL
             }
         });
     }
-
 
 }

@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/intention_item_tu"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sum_180"
+            android:layout_height="@dimen/y360"
             android:scaleType="fitXY"
 
             />

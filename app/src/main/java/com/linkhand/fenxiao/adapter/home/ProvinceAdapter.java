@@ -92,11 +92,6 @@ public class ProvinceAdapter extends BaseAdapter {
         this.mProvinceInfo = mProvinceInfo;
     }
 
-    public void setOnProvinceClicks(VipSearchActivity onProvinceClicks) {
-        mProvinceInfo = onProvinceClicks;
-    }
-
-
     private class ViewHolder {
         TextView mContent;
     }

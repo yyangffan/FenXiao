@@ -14,6 +14,9 @@ import com.linkhand.fenxiao.feng.home.HttpResponse;
 import com.linkhand.fenxiao.feng.home.TuiHBean;
 import com.linkhand.fenxiao.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yydcdut.sdlv.Menu;
 import com.yydcdut.sdlv.MenuItem;
 import com.yydcdut.sdlv.SlideAndDragListView;
@@ -42,6 +45,7 @@ public class TuihActivity extends BaseActicity {
     SmartRefreshLayout mSmartRefresh;
     private List<TuiHBean.InfoBean> mInfoBeanList;
     private TuiHAdapter mTuiHAdapter;
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +66,6 @@ public class TuihActivity extends BaseActicity {
     }
 
     public void initEver() {
-        mSmartRefresh.setEnableLoadmore(false);
-        mSmartRefresh.setEnableRefresh(false);
         mInfoBeanList = new ArrayList<>();
         mTuiHAdapter = new TuiHAdapter(this, mInfoBeanList);
         Menu menu = new Menu(false, 0);//第1个参数表示滑动 item 是否能滑的过头 true 表示过头，false 表示不过头
@@ -81,11 +83,11 @@ public class TuihActivity extends BaseActicity {
                 switch (direction) {
                     case MenuItem.DIRECTION_RIGHT:
                         TuiHBean.InfoBean infoBean = mInfoBeanList.get(itemPosition);
-                        if (infoBean.getOrder_quit() == 1) {
+//                        if (infoBean.getOrder_quit() == 1) {
                             userDelete(infoBean.getOrder_id() + "");
-                        } else {
-                            ToastUtil.showToast(TuihActivity.this, "只可删除退货完成的订单");
-                        }
+//                        } else {
+//                            ToastUtil.showToast(TuihActivity.this, "只可删除退货完成的订单");
+//                        }
                         break;
                     default:
                         return Menu.ITEM_NOTHING;
@@ -94,6 +96,20 @@ public class TuihActivity extends BaseActicity {
             }
         });
         mTuihuoLv.setAdapter(mTuiHAdapter);
+        mSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 0;
+                onMessage();
+            }
+        });
+        mSmartRefresh.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                ++page;
+                onMessage();
+            }
+        });
     }
 
     /*删除订单*/
@@ -106,6 +122,7 @@ public class TuihActivity extends BaseActicity {
             public void onResponse(Call<HttpResponse> call, Response<HttpResponse> response) {
                 HttpResponse httpResponse = response.body();
                 if (httpResponse.getCode() == 100) {
+                    page=0;
                     onMessage();
                 }
                 ToastUtil.showToast(TuihActivity.this, httpResponse.getSuccess());
@@ -123,15 +140,27 @@ public class TuihActivity extends BaseActicity {
     public void onMessage() {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", mUserId);
+        map.put("pag", page);
         Call<TuiHBean> call = service.getQuitList(map);
         call.enqueue(new Callback<TuiHBean>() {
             @Override
             public void onResponse(Call<TuiHBean> call, Response<TuiHBean> response) {
+                mSmartRefresh.finishRefresh();
+                mSmartRefresh.finishLoadmore();
                 TuiHBean tuiHBean = response.body();
-                mInfoBeanList.clear();
                 if (tuiHBean.getCode() == 100) {
-                    mInfoBeanList.addAll(tuiHBean.getInfo());
+                    if (page == 0) {
+                        mInfoBeanList.clear();
+                        mInfoBeanList.addAll(tuiHBean.getInfo());
+                    } else {
+                        for (TuiHBean.InfoBean infoBean : tuiHBean.getInfo()) {
+                            mInfoBeanList.add(infoBean);
+                        }
+                    }
                 } else {
+                    if (page == 0) {
+                        mInfoBeanList.clear();
+                    }
                     ToastUtil.showToast(TuihActivity.this, tuiHBean.getSuccess());
                 }
                 mTuiHAdapter.notifyDataSetChanged();
@@ -139,6 +168,8 @@ public class TuihActivity extends BaseActicity {
 
             @Override
             public void onFailure(Call<TuiHBean> call, Throwable t) {
+                mSmartRefresh.finishRefresh();
+                mSmartRefresh.finishLoadmore();
                 ToastUtil.showToast(TuihActivity.this, "网络异常");
             }
         });

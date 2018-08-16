@@ -51,6 +51,7 @@
         android:layout_marginBottom="@dimen/sum_3"
         android:paddingLeft="@dimen/sum_10"
         android:paddingRight="@dimen/sum_10"
+        android:textSize="12sp"
         android:text="1999-12-12 10.11.11"/>
 
     <View

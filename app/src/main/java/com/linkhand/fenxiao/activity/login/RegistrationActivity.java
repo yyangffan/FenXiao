@@ -22,6 +22,7 @@ import com.linkhand.fenxiao.feng.AllConfigFeng;
 import com.linkhand.fenxiao.feng.login.Register;
 import com.linkhand.fenxiao.feng.login.Registered;
 import com.linkhand.fenxiao.info.InfoData;
+import com.linkhand.fenxiao.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,7 +119,7 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
                     Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (s.length() != 11) {
-                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "请输入11位有效手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 getCode(s);
@@ -168,6 +169,10 @@ public class RegistrationActivity extends BaseActicity implements View.OnClickLi
             Log.e("yh", "mPsw1Str--" + mPsw1Str + "mPsw2Str--" + mPsw2Str);
             if (mPhoneStr.equals("") | mPsw1Str.equals("") | mPsw2Str.equals("") | mVerificationCodeStr.equals("") | mInviteCodeStr.equals("")) {
                 Toast.makeText(RegistrationActivity.this, "请填全注册信息", Toast.LENGTH_SHORT).show();
+            } else if (mPhoneStr.length() != 11) {
+                ToastUtil.showToast(this, "请输入11位有效手机号");
+            } else if (mPsw1Str.length() < 6) {
+                ToastUtil.showToast(this, "请输入至少6位的密码");
             } else {
                 if (mPsw1Str.equals(mPsw2Str)) {
                     onRegistered();//注册

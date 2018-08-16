@@ -15,9 +15,14 @@ import com.linkhand.fenxiao.BaseActicity;
 import com.linkhand.fenxiao.C;
 import com.linkhand.fenxiao.R;
 import com.linkhand.fenxiao.adapter.HomePageVipGoodsAdapter;
+import com.linkhand.fenxiao.bean.MessageEvent;
 import com.linkhand.fenxiao.feng.home.NewRecommendedVipGoods;
 import com.linkhand.fenxiao.info.InfoData;
 import com.linkhand.fenxiao.info.callback.HomeVipInfo;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +59,7 @@ public class AllVipGoodsActivity extends BaseActicity implements View.OnClickLis
         initView();
         initRetrofit();
         onVipMessage();
+        EventBus.getDefault().register(this);
     }
 
     public void initView() {
@@ -139,5 +145,21 @@ public class AllVipGoodsActivity extends BaseActicity implements View.OnClickLis
                 startActivity(intent);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHandleMessage(MessageEvent msg) {
+        Bundle bundle = new Bundle();
+        switch (msg.getMessage()) {
+            case "finish":
+                AllVipGoodsActivity.this.finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

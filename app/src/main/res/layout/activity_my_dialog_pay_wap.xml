@@ -8,32 +8,29 @@
     android:padding="@dimen/sum_10"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+       >
 
         <TextView
             android:id="@+id/mydialog_pay_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/sum_60"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="@dimen/sum_10"
-            android:text="请选择付款方式"/>
+            android:padding="5dp"
+            android:layout_centerInParent="true"
+            android:text="请选择付款方式"
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/return_id2"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_gravity="right"
-            android:layout_marginRight="@dimen/sum_10"
-            android:layout_marginTop="@dimen/sum_10"
-            android:paddingLeft="@dimen/sum_20"
-            android:paddingRight="@dimen/sum_10"
-            android:paddingTop="@dimen/sum_10"
             android:src="@drawable/close"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -52,17 +49,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
-            android:text="微信支付"/>
+            android:text="微信支付"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
     <View
-        android:layout_width="@dimen/sum_dialog_300"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/sum_1"
         android:layout_marginBottom="@dimen/sum_5"
-        android:layout_marginLeft="@dimen/sum_40"
-        android:layout_marginRight="@dimen/sum_40"
         android:layout_marginTop="@dimen/sum_5"
-        android:background="@color/colorgraynessd"></View>
+        android:background="@color/colorgraynessd"/>
 
     <LinearLayout
         android:id="@+id/weixin_id"
@@ -79,29 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/sum_10"
-            android:text="支付宝支付"/>
+            android:text="支付宝支付"
+            android:textColor="@color/black"/>
     </LinearLayout>
-
-    <!--<View-->
-    <!--android:layout_width="@dimen/sum_dialog_300"-->
-    <!--android:layout_height="@dimen/sum_1"-->
-    <!--android:layout_marginBottom="@dimen/sum_5"-->
-    <!--android:layout_marginLeft="@dimen/sum_40"-->
-    <!--android:layout_marginRight="@dimen/sum_40"-->
-    <!--android:layout_marginTop="@dimen/sum_5"-->
-    <!--android:background="@color/colorgraynessd"></View>-->
-    <!--<LinearLayout-->
-    <!--android:id="@+id/yue_id"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center"-->
-    <!--android:padding="@dimen/sum_5">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/sum_10"-->
-    <!--android:text="余额支付"/>-->
-    <!--</LinearLayout>-->
 
 </LinearLayout>

@@ -139,16 +139,17 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
                 String success = pcfeng.getSuccess();
                 if (code == 100) {
                     beanList = pcfeng.getInfo();
-
-
                     mLists = new ArrayList<SortModel>();
                     for (int i = 0; i < beanList.size(); i++) {
                         SortModel sortModels = new SortModel();
                         //1 选中  2不选中
-                        if(!addressId.equals("")&&beanList.get(i).getSite_id().equals(addressId)){
+                        if(addressId!=null&&beanList.get(i).getSite_id().equals(addressId)){
                             sortModels.setSelects("1");
                         }else {
                             sortModels.setSelects("2");
+                        }
+                        if(beanList.size()==1){
+                            sortModels.setSelects("1");
                         }
                         sortModels.setSite_city1(beanList.get(i).getSite_city1());//省
                         sortModels.setSite_city2(beanList.get(i).getSite_city2());//市
@@ -163,11 +164,19 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
                     }
                     namesList = getData(mLists);
                     if(isPass==0) {//0正常查   1更新数据
+                        if(beanList.size()==1&&beanList.get(0).getSite_is_first().equals("0")){/*如果只有一个地址那么设为默认,且未设置默认*/
+                            onDefaultAddress(beanList.get(0).getSite_id());
+                            editor.putString("addressId",addressId).commit();
+                        }
                         mAdapter = new AddressAdapter(AddressActivity.this, namesList);
                         mListView.setAdapter(mAdapter);
                         mAdapter.setOnItemClicks(AddressActivity.this);
 
                     }else if(isPass==1){
+                        if(beanList.size()==1&&beanList.get(0).getSite_is_first().equals("0")){/*如果只有一个地址那么设为默认,且未设置默认*/
+                            onDefaultAddress(beanList.get(0).getSite_id());
+                            editor.putString("addressId",addressId).commit();
+                        }
                         mAdapter.setData(namesList);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -295,6 +304,8 @@ public class AddressActivity extends BaseActicity implements View.OnClickListene
     @Override
     protected void onRestart() {
         super.onRestart();
+        //取得从上一个Activity当中传递过来的Intent对象
+        addressId = preferences.getString("addressId", "");
         onMessage(0);//0正常查   1更新数据
     }
 
